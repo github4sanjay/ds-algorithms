@@ -23,15 +23,15 @@ public class BuySellStocksInfiniteTxnAllowedWithFees {
     }
 
     private static int findAlt(int[] stockPrices, int fee) {
-        int bs = -stockPrices[0];
-        int ss = 0;
+        int bsp = -stockPrices[0]; // buy state profit
+        int ssp = 0; // sell state profit
 
         for (int i=1; i< stockPrices.length; i++){
-            int temp = bs;
-            bs = Math.max(bs, ss - stockPrices[i]);
-            ss = Math.max(ss, stockPrices[i] + temp - fee);
+            int temp = bsp;
+            bsp = Math.max(bsp, ssp - stockPrices[i]);
+            ssp = Math.max(ssp, stockPrices[i] + temp - fee);
         }
 
-        return ss;
+        return ssp;
     }
 }
