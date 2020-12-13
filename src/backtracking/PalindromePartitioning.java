@@ -1,5 +1,7 @@
 package backtracking;
 
+import general.Palindrome;
+
 public class PalindromePartitioning {
 
     public static void main(String[] args) {
@@ -25,19 +27,9 @@ public class PalindromePartitioning {
         }
         for (int i =0; i< question.length(); i++){
             String prefix = question.substring(0,i+1);
-            if (isPalindrome(prefix)){
+            if (Palindrome.isPalindrome(prefix)){
                 execute(question.substring(i+1), answer+"{"+prefix+"}");
             }
         }
-    }
-
-    private static boolean isPalindrome(String str) {
-        int mid = str.length()/2;
-        for (int i=0; i <=mid; i++){
-            if (str.charAt(i) != str.charAt(str.length()-1-i)){
-                return false;
-            }
-        }
-        return true;
     }
 }

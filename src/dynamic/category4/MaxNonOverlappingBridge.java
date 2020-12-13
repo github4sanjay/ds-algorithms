@@ -46,13 +46,22 @@ public class MaxNonOverlappingBridge {
         System.out.println(MaxNonOverlappingBridge.find(new int[]{8, 1, 4, 3, 5, 2, 6, 7},  new int[]{1, 2, 3, 4, 5, 6, 7, 8}));
     }
 
-    private static class Bridge {
+    private static class Bridge implements Comparable<Bridge>{
         Integer north;
         Integer south;
 
         public Bridge(int north, int south) {
             this.north = north;
             this.south = south;
+        }
+
+        @Override
+        public int compareTo(Bridge o) {
+            if (!this.north.equals(o.north)){ // if north not equal sort on basis of north
+                return this.north.compareTo(o.north);
+            } else { // else sort on basis of south
+                return this.south.compareTo(o.south);
+            }
         }
     }
 
@@ -67,7 +76,7 @@ public class MaxNonOverlappingBridge {
         for (int i=0; i< north.length; i++){
             bridges.add(new Bridge(north[i], south[i]));
         }
-        bridges.sort(Comparator.comparing(o -> o.north));
+        Collections.sort(bridges);
 
         int[] dp = new int[bridges.size()];
         dp[0] = 1;

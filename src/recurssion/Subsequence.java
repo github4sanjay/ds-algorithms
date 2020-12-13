@@ -1,12 +1,13 @@
 package recurssion;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class Subsequence {
 
     public static void main(String[] args) {
         //[, a, b, ab, c, ac, bc, abc]
-        System.out.println(Subsequence.create("abc"));
+        System.out.println(Subsequence.get("abc"));
     }
 
     private static ArrayList<String> create(String s) {
@@ -36,5 +37,24 @@ public class Subsequence {
             }
         }
         return temp;
+    }
+
+    public static List<String> get(String str){
+        var list = new ArrayList<String>();
+        get(str, "", 0, list);
+        return list;
+    }
+
+    private static void get(String str, String answer, int index, ArrayList<String> list) {
+        if (index == str.length()){
+            if (!answer.equals("")){
+                list.add(answer);
+            }
+            return;
+        }
+
+        char ch = str.charAt(index);
+        get(str, answer, index+1, list);
+        get(str, answer+ch, index+1, list);
     }
 }
