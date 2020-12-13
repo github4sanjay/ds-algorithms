@@ -38,7 +38,13 @@ public class LongestIncreasingSubsequence {
                     localMax = Math.max(localMax, dp[j]);
                 }
             }
-            dp[i] = localMax + 1;
+
+            if (localMax == Integer.MIN_VALUE){ // handle element if it is the smallest till now
+                dp[i] = 1;
+            } else {
+                dp[i] = localMax + 1;
+            }
+
             max = Math.max(max, dp[i]);
         }
 
