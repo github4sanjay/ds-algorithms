@@ -55,14 +55,38 @@ public class LongestCommonSubsequence {
 
 
     /**
+     *
+     * LCS (s1, s2) = LCS (c1r1, c2r2) = subsequence in c1r1 * subsequence in c2r2
+     *                                 =  _ subsequence in r1   |  _ subsequence in r2
+     *                                   c1 subsequence in r1   | c2 subsequence in r2
+     *
+     *                                 =   _ subsequence in r1  *  _ subsequence in r2 -----> 1
+     *                                     _ subsequence in r1  *  c2 subsequence in r2 ----> 2
+     *                                     c1 subsequence in r1 *  _ subsequence in r2 -----> 3
+     *                                     c1 subsequence in r1 *  c2 subsequence in r2 ----> 4
+     *
+     *  if c1 and c2 equal then longest would be available in 4 only
+     *  else longest would be available in 1/2/3
      *                 _______________________________________________
      *  LCS (s1, s2) = |  1 + LCS (r1, r2) if c1 = c2                 |
-     *                |  max ( LCS(s1, r2), LCS(r2, s1) if c1 != c2  |
+     *                |  max ( LCS(s1, r2), LCS(r1, s2) if c1 != c2  |
      *                ------------------------------------------------
+     *
+     *                LCS(r1, s2) = sequence of r1 * sequence of s2
+     *                            = sequence of r1 * | sequence of _ s(r2)  ---->  1 and 2
+     *                                               | sequence of c2 s(r2)
+     *
+     *               LCS(s1, r2)  = sequence of s1 * sequence of r2
+     *                            = sequence of _ s(r1)   |  sequence of r2 *  ---->  1 and 3
+     *                              sequence of c1 s(r1)  |
+     *
+     *
      *  where
      *  s1 = first string, s2 = second string
      *  r1 = s1.substring(1), r2 = s2.substring(1)
      *  c1= s1.charAt(0), c2= s2.charAt(0)
+     *
+     *  Below solution is keeping in mind LCS (s1, s2) = LCS (r1c1, r2c2)
      *
      * @param str1 string 1
      * @param str2 string 2

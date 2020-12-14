@@ -50,13 +50,14 @@ public class CountPalindromicSubsequences {
      * count(str) -> count(c1mc2)
      * where c1 = prefix, m = middle part, c2= suffix
      *
-     * count(c1mc2) = count in subsequence(m)     +
-     *                count in subsequence(c1m)   +
-     *                count in subsequence(mc2)   +
-     *                count in subsequence(c1mc2)
+     * count(c1mc2) = count in subsequence(m)      +
+     *                count in c1+subsequence(m)   +
+     *                count in subsequence(m)+c2   +
+     *                count in c1+subsequence(m)+c2
      * when c1 == c2
-     * count(c1mc2) = 1 + c(m) +  c(c1m) + c(mc2) + c(m)
-     *              = 1 + c(c1m) + c(mc2)
+     * count(c1mc2) = 1 + count(subsequence(m)) +  count(c1+subsequence(m)) + count(subsequence(m)+c2) + count(subsequence(m))
+     *                    _________________________________________________   _______________________________________________
+     *              = 1 +  count(subsequence(c1m))                          +     count(subsequence(mc2))
      *
      * when c1 != c2
      * count(c1mc2) = c(m) +  c(c1m) + c(mc2)
