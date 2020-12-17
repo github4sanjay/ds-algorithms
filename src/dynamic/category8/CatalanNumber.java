@@ -1,4 +1,4 @@
-package dynamic;
+package dynamic.category8;
 
 /**
  * Program for nth Catalan Number
