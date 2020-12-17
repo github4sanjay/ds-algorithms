@@ -1,6 +1,4 @@
-package dynamic;
-
-import util.AlgoUtil;
+package dynamic.category7;
 
 /**
  * Wildcard Pattern Matching
