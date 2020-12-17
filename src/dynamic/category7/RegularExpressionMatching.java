@@ -141,6 +141,7 @@ public class RegularExpressionMatching {
                 }
             }
         }
+
         return dp[pattern.length()][str.length()];
     }
 }
