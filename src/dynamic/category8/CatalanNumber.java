@@ -21,7 +21,7 @@ package dynamic.category8;
 public class CatalanNumber {
 
     public static void main(String[] args) {
-        System.out.println(CatalanNumber.findTabular(4));
+        System.out.println(CatalanNumber.find(4));
     }
 
     /**
@@ -43,7 +43,7 @@ public class CatalanNumber {
         return sum;
     }
 
-    private static int findTabular(int n) {
+    public static int find(int n) {
 
         int[] dp = new int[n+1];
         dp[0] = 1; dp[1] = 1;
