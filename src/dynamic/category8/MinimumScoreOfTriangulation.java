@@ -64,11 +64,10 @@ public class MinimumScoreOfTriangulation {
                 } else {
                     int min = Integer.MAX_VALUE;
                     for (int k=i+1; k<=j-1;k++){
-                        min = Math.min(min,
-                                verticesValues[i]*verticesValues[k]*verticesValues[j]
-                                + dp[i][k] + dp[k][j]
-                                // i to k and  k to j
-                        );
+                        int triangleConsidered = verticesValues[i]*verticesValues[k]*verticesValues[j];
+                        int oneSideOfTriangle = dp[i][k];
+                        int otherSideOfTriangle = dp[k][j];
+                        min = Math.min(min, triangleConsidered + oneSideOfTriangle + otherSideOfTriangle);
                     }
                     dp[i][j] = min;
                 }
