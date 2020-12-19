@@ -1,4 +1,4 @@
-package stack;
+package stack.structure;
 
 public class FixedSizeArrayStack {
     private static final int DEFAUT_CAPACITY = 10;

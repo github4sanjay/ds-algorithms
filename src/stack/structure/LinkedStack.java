@@ -1,4 +1,4 @@
-package stack;
+package stack.structure;
 
 import linkedlist.structure.LinkNode;
 
