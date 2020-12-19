@@ -30,7 +30,8 @@ public class AddTwoLinkedLists {
         list2.addLast(4);
         list2.addLast(2);
 
-        AddTwoLinkedLists.add(list1, list2).print();
+        // AddTwoLinkedLists.add(list1, list2).print();
+        AddTwoLinkedLists.addReversing(list1, list2).print();
     }
 
     /**
@@ -49,7 +50,9 @@ public class AddTwoLinkedLists {
      *  |________________|
      *
      */
-    private static LinkedList<Integer> add(LinkedList<Integer> list1, LinkedList<Integer> list2) {
+    public static LinkedList<Integer> add(LinkedList<Integer> list1, LinkedList<Integer> list2) {
+        if (list1 == null) return list2;
+        if (list2 == null) return list1;
         var result = new LinkedList<Integer>();
         var lastCarry = add(list1.getHead(), list1.getSize(), list2.getHead(), list2.getSize(), result);
         if (lastCarry > 0){
@@ -82,5 +85,45 @@ public class AddTwoLinkedLists {
             return newCarry;
         }
 
+    }
+
+
+    public static LinkedList<Integer> addReversing(LinkedList<Integer> list1, LinkedList<Integer> list2) {
+        if (list1 == null) return list2;
+        if (list2 == null) return list1;
+        list1.reverse(); list2.reverse();
+        var newList = new LinkedList<Integer>();
+        var curr1 = list1.getHead();
+        var curr2 = list2.getHead();
+        int carry = 0;
+        while (curr1 != null && curr2!= null){
+            int sum = curr1.getData() + curr2.getData() + carry;
+            newList.addFirst(sum%10);
+            carry = sum/10;
+            curr1 = curr1.getNext();
+            curr2 = curr2.getNext();
+        }
+
+        if (curr1 != null){
+            while (curr1 != null){
+                int sum = curr1.getData() + carry;
+                newList.addFirst(sum%10);
+                carry = sum/10;
+                curr1 = curr1.getNext();
+            }
+        }
+
+        if (curr2 != null){
+            while (curr2 != null){
+                int sum = curr2.getData() + carry;
+                newList.addFirst(sum%10);
+                carry = sum/10;
+                curr2 = curr2.getNext();
+            }
+        }
+        if (carry > 0){
+            newList.addFirst(carry);
+        }
+        return newList;
     }
 }
