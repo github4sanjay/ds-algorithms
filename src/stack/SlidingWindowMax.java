@@ -1,6 +1,8 @@
 package stack;
 
 import java.util.Arrays;
+import java.util.Deque;
+import java.util.LinkedList;
 import java.util.Stack;
 
 /**
@@ -28,8 +30,47 @@ import java.util.Stack;
 public class SlidingWindowMax {
 
     public static void main(String[] args) {
-        System.out.println(Arrays.toString(SlidingWindowMax.find(new int[]{1, 2, 3, 1, 4, 5, 2, 3, 6}, 3))); // [3, 3, 4, 5, 5, 5, 6]
+        System.out.println(Arrays.toString(SlidingWindowMax.findWithHelpOfDequeue(new int[]{1, 2, 3, 1, 4, 5, 2, 3, 6}, 3))); // [3, 3, 4, 5, 5, 5, 6]
         System.out.println(Arrays.toString(SlidingWindowMax.find(new int[]{8, 5, 10, 7, 9, 4, 15, 12, 90, 13}, 4))); // [10, 10, 10, 15, 15, 90, 90]
+    }
+
+    /**
+     * 1. Create a deque to store k elements.
+     * 2. Run a loop and insert first k elements in the deque.
+     *    Before inserting the element, check if the element at the back of the queue is smaller than the current element ,
+     *    if it is so remove the element from the back of the deque, until all elements left in the deque are greater than the current element.
+     *    Then insert the current element, at the back of the deque.
+     *
+     * 3. Now, run a loop from k to end of the array.
+     * 4. Add the front element of the deque.
+     * 5. Check if the element at the back of the queue is smaller than the current element ,
+     *    if it is so remove the element from the back of the deque,
+     *    until all elements left in the deque are greater than the current element.
+     * 6. Remove the element from the front of the queue if they are out of the current window.
+     * 7. Then insert the current element, at the back of the deque.
+     * 8. Add the maximum element of the last window.
+     */
+    private static int[] findWithHelpOfDequeue(int[] array, int window) {
+        int[] sliding = new int[array.length-window+1];
+        var dequeue = new LinkedList<Integer>();
+        for (int i=0; i<window; i++){
+           while (!dequeue.isEmpty() && array[i] > array[dequeue.getLast()]){
+               dequeue.pollLast();
+           }
+           dequeue.addLast(i);
+        }
+        for (int i=window; i < array.length; i++){
+            sliding[i-window] = array[dequeue.getFirst()];
+            while (!dequeue.isEmpty() && array[i] >= array[dequeue.getLast()] ){
+                dequeue.pollLast();
+            }
+            while (!dequeue.isEmpty() && dequeue.getFirst() <= i-window){
+                dequeue.pollFirst();
+            }
+            dequeue.addLast(i);
+        }
+        sliding[array.length-window] = array[dequeue.getFirst()];
+        return sliding;
     }
 
     /**
