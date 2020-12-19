@@ -1,4 +1,4 @@
-package linkedlist;
+package linkedlist.structure;
 
 public class LinkNode<T> {
     private T data;

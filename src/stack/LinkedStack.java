@@ -1,6 +1,6 @@
 package stack;
 
-import linkedlist.LinkNode;
+import linkedlist.structure.LinkNode;
 
 public class LinkedStack<T> {
     private LinkNode<T> top;
