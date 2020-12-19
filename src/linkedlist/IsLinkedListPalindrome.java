@@ -1,6 +1,5 @@
 package linkedlist;
 
-import linkedlist.structure.LinkNode;
 import linkedlist.structure.LinkedList;
 
 /**
