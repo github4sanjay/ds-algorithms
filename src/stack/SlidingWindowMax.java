@@ -29,6 +29,7 @@ public class SlidingWindowMax {
 
     public static void main(String[] args) {
         System.out.println(Arrays.toString(SlidingWindowMax.find(new int[]{1, 2, 3, 1, 4, 5, 2, 3, 6}, 3))); // [3, 3, 4, 5, 5, 5, 6]
+        System.out.println(Arrays.toString(SlidingWindowMax.find(new int[]{8, 5, 10, 7, 9, 4, 15, 12, 90, 13}, 4))); // [10, 10, 10, 15, 15, 90, 90]
     }
 
     /**
