@@ -41,6 +41,8 @@ public class NextGreaterElementOnRight {
      * if stack is empty then no element greater than current element so put -1
      * else peek element is greater that current element so put nge as peek element of stack
      * push current element into stack
+     *
+     * Time complexity : 2n
      */
     public static int[] find(int[] array){
        int[] nge = new int[array.length];
