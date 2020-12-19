@@ -1,6 +1,5 @@
 package stack;
 
-import java.util.Arrays;
 import java.util.Stack;
 
 /**
@@ -77,7 +76,7 @@ public class LargestAreaHistogram {
             }
 
             if (stack.isEmpty()){
-                nse[i] = -1;
+                nse[i] = -1; // for better calculation
             } else {
                 nse[i] = stack.peek();
             }
@@ -98,7 +97,7 @@ public class LargestAreaHistogram {
             }
 
             if (stack.isEmpty()){
-                nse[i] = nse.length;
+                nse[i] = nse.length; // for better calculation
             } else {
                 nse[i] = stack.peek();
             }
