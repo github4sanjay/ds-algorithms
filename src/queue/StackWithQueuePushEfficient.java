@@ -8,42 +8,47 @@ import java.util.Queue;
  */
 public class StackWithQueuePushEfficient {
 
-    private final Queue<Integer> queue1;
-    private final Queue<Integer> queue2;
+    private final Queue<Integer> mainQueue;
+    private final Queue<Integer> helperQueue;
 
     public StackWithQueuePushEfficient() {
-        this.queue1 = new LinkedList<>();
-        this.queue2 = new LinkedList<>();
+        this.mainQueue = new LinkedList<>();
+        this.helperQueue = new LinkedList<>();
     }
 
     public boolean isEmpty(){
-        return queue1.isEmpty() && queue2.isEmpty();
+        return mainQueue.isEmpty();
     }
 
     public int size(){
-        return queue1.size()+ queue2.size();
+        return mainQueue.size();
     }
 
     public int pop() {
-        if (queue1.isEmpty()){
-            while (queue2.size() != 1){
-                queue1.add(queue2.remove());
-            }
-            return queue2.remove();
-        } else {
-            while (queue1.size() != 1){
-                queue2.add(queue1.remove());
-            }
-            return queue1.remove();
+        while (mainQueue.size() > 1){
+            helperQueue.add(mainQueue.remove());
         }
+        int data = mainQueue.remove();
+        while (helperQueue.size() > 0){
+            mainQueue.add(helperQueue.remove());
+        }
+        return data;
+    }
+
+    public int top() {
+        while (mainQueue.size() > 1){
+            helperQueue.add(mainQueue.remove());
+        }
+        int data = mainQueue.remove();
+        helperQueue.add(data);
+        while (helperQueue.size() > 0){
+            mainQueue.add(helperQueue.remove());
+        }
+        return data;
     }
 
     public void push(int data) {
-        if (queue1.isEmpty()){
-            queue2.add(data);
-        } else {
-            queue1.add(data);
-        }
+        mainQueue.add(data);
     }
 
     public static void main(String[] args) {
@@ -55,5 +60,6 @@ public class StackWithQueuePushEfficient {
         stack.push(3);
         System.out.println(stack.pop()); // 3
         System.out.println(stack.pop()); // 4
+        System.out.println(stack.top()); // 1
     }
 }

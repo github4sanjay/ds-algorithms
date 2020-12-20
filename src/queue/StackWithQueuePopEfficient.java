@@ -8,28 +8,28 @@ import java.util.Queue;
  */
 public class StackWithQueuePopEfficient {
 
-    private final Queue<Integer> queue1;
-    private final Queue<Integer> queue2;
+    private final Queue<Integer> mainQueue;
+    private final Queue<Integer> helperQueue;
 
     public StackWithQueuePopEfficient() {
-        this.queue1 = new LinkedList<>();
-        this.queue2 = new LinkedList<>();
+        this.mainQueue = new LinkedList<>();
+        this.helperQueue = new LinkedList<>();
     }
 
     public boolean isEmpty(){
-        return queue1.isEmpty() && queue2.isEmpty();
+        return mainQueue.isEmpty();
     }
 
     public int size(){
-        return queue1.size()+ queue2.size();
+        return mainQueue.size();
     }
 
     public int peek(){
-        return queue1.peek();
+        return mainQueue.peek();
     }
 
     public int pop() {
-        return queue1.remove();
+        return mainQueue.remove();
     }
 
     /**
@@ -38,16 +38,12 @@ public class StackWithQueuePopEfficient {
      * add data in q1 and then add back all the elements from q2 to q1
      */
     public void push(int data) {
-        if (queue1.isEmpty()){
-            queue1.add(data);
-        } else {
-            while (!queue1.isEmpty()){
-                queue2.add(queue1.remove());
-            }
-            queue1.add(data);
-            while (!queue2.isEmpty()){
-                queue1.add(queue2.remove());
-            }
+        while (!mainQueue.isEmpty()){
+            helperQueue.add(mainQueue.remove());
+        }
+        mainQueue.add(data);
+        while (!helperQueue.isEmpty()){
+            mainQueue.add(helperQueue.remove());
         }
     }
 
