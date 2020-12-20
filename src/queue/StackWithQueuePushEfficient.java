@@ -3,12 +3,15 @@ package queue;
 import java.util.LinkedList;
 import java.util.Queue;
 
-public class StackWithQueue {
+/**
+ * Push efficient
+ */
+public class StackWithQueuePushEfficient {
 
     private final Queue<Integer> queue1;
     private final Queue<Integer> queue2;
 
-    public StackWithQueue() {
+    public StackWithQueuePushEfficient() {
         this.queue1 = new LinkedList<>();
         this.queue2 = new LinkedList<>();
     }
@@ -44,7 +47,7 @@ public class StackWithQueue {
     }
 
     public static void main(String[] args) {
-        var stack = new StackWithQueue();
+        var stack = new StackWithQueuePushEfficient();
         stack.push(1);
         stack.push(2);
         System.out.println(stack.pop()); // 2
