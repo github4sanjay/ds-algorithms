@@ -1,7 +1,5 @@
 package stack;
 
-import linkedlist.structure.LinkedList;
-
 import java.util.Stack;
 
 /**
