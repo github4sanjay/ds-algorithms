@@ -19,7 +19,7 @@ public class HeightGenericTree {
         queue.offer(null);
         int height = -1; // for edge height (keep 0 if want node height)
         while (!queue.isEmpty()) {
-            var node = queue.pop();
+            var node = queue.poll();
             if (node != null) {
                 for (var child : node.getChildren()){
                     queue.offer(child);
