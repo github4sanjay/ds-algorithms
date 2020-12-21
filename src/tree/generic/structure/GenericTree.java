@@ -4,18 +4,50 @@ import java.util.*;
 
 public class GenericTree {
 
-    public static HashMap<Integer, List<Integer>> display(Node root) {
-        var queue = new LinkedList<Node>();
-        queue.offer(root);
-        var map = new HashMap<Integer, List<Integer>>();
-        while (!queue.isEmpty()){
-            var node = queue.poll();
+    public static class NodeAndChildren {
+        int data;
+        List<Integer> children;
+
+        public NodeAndChildren(int data, List<Integer> children) {
+            this.data = data;
+            this.children = children;
+        }
+
+        @Override
+        public String toString() {
+            return "NodeAndChildren{" +
+                    "data=" + data +
+                    ", children=" + children +
+                    '}';
+        }
+    }
+
+    public static List<NodeAndChildren> display(Node root) {
+        ArrayList<NodeAndChildren> map = getNodeAndChildren(root);
+
+        for (var nodeAndChildren : map){
+            System.out.println(nodeAndChildren.data + "--->" + nodeAndChildren.children);
+        }
+        return map;
+    }
+
+    private static ArrayList<NodeAndChildren> getNodeAndChildren(Node root) {
+        var stack = new Stack<Node>();
+        stack.push(root);
+        var map = new ArrayList<NodeAndChildren>();
+        while (!stack.isEmpty()){
+            var node = stack.pop();
             var list = new ArrayList<Integer>();
-            for (var child : node.getChildren()){
-                queue.offer(child);
+            var children = node.getChildren();
+            for (int i=children.size()-1; i>=0; i--){ // add last (or rightmost) children first
+                var child = children.get(i);
+                stack.push(child);
+            }
+            for (var child : children) {
                 list.add(child.getData());
             }
-            map.put(node.getData(), list);
+
+            map.add(new NodeAndChildren(node.getData(), list));
         }
         return map;
     }

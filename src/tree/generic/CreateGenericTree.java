@@ -12,6 +12,6 @@ public class CreateGenericTree {
         // {80=[110, 120], 50=[], 100=[], 20=[50, 60], 70=[], 40=[100], 120=[], 10=[20, 30, 40], 90=[], 60=[], 30=[70, 80, 90], 110=[]}
         System.out.println(GenericTree.displayRecursion(root));
 
-        System.out.println(GenericTree.display(root));
+        GenericTree.display(root);
     }
 }
