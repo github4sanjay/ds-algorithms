@@ -15,13 +15,13 @@ public class MaxGenericTree {
 
     private static int find(Node root) {
         var queue = new LinkedList<Node>();
-        queue.push(root);
+        queue.offer(root);
         int max = Integer.MIN_VALUE;
         while (!queue.isEmpty()) {
-            var node = queue.pop();
+            var node = queue.poll();
             max = Math.max(max, node.getData());
             for (var child : node.getChildren()){
-                queue.push(child);
+                queue.offer(child);
             }
         }
         return max;

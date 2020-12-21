@@ -6,13 +6,13 @@ public class GenericTree {
 
     public static HashMap<Integer, List<Integer>> display(Node root) {
         var queue = new LinkedList<Node>();
-        queue.push(root);
+        queue.offer(root);
         var map = new HashMap<Integer, List<Integer>>();
         while (!queue.isEmpty()){
-            var node = queue.pop();
+            var node = queue.poll();
             var list = new ArrayList<Integer>();
             for (var child : node.getChildren()){
-                queue.push(child);
+                queue.offer(child);
                 list.add(child.getData());
             }
             map.put(node.getData(), list);

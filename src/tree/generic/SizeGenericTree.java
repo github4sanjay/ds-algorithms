@@ -15,13 +15,13 @@ public class SizeGenericTree {
 
     private static int find(Node root) {
         var queue = new LinkedList<Node>();
-        queue.push(root);
+        queue.offer(root);
         int count = 0;
         while (!queue.isEmpty()) {
-            var node = queue.pop();
+            var node = queue.poll();
             count++;
             for (var child : node.getChildren()){
-                queue.push(child);
+                queue.offer(child);
             }
         }
         return count;
