@@ -17,7 +17,7 @@ public class NodeToRootPathGenericTree {
 
     }
 
-    private static List<Integer> recursion(Node root, int find) {
+    public static List<Integer> recursion(Node root, int find) {
         if (root.getData() == find){
             var path = new ArrayList<Integer>();
             path.add(root.getData());
