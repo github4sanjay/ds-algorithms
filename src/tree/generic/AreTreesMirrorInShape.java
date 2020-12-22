@@ -26,7 +26,7 @@ public class AreTreesMirrorInShape {
      * Number of children of root1 first child and number of children of root2 last child should be equal
      * and same for other children at different positions
      */
-    private static boolean check(Node root1, Node root2) {
+    public static boolean check(Node root1, Node root2) {
 
         var children1 = root1.getChildren();
         var children2 = root2.getChildren();
