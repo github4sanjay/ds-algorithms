@@ -23,7 +23,7 @@ public class CeilAndFloor {
         System.out.println(CeilAndFloor.recursive(root, -80)); // Answer{ceil=-50, floor=-100}
     }
 
-    private static Answer iterative(Node root, int data) {
+    public static Answer iterative(Node root, int data) {
         var stack = new Stack<Node>();
         stack.push(root);
         int floor = Integer.MIN_VALUE;
