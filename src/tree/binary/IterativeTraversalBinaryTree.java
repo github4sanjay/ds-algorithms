@@ -4,33 +4,52 @@ import tree.binary.structure.BinaryNode;
 import tree.binary.structure.BinaryTreeUtil;
 
 import java.util.ArrayList;
-import java.util.LinkedList;
 import java.util.List;
+import java.util.Stack;
 
-public class TraversalBinaryTree {
+public class IterativeTraversalBinaryTree {
 
     public static void main(String[] args) {
         var root = BinaryTreeUtil.create(new int[]{50, 25, 12, -1, -1, 37, 30, -1, -1, -1, 75, 62, -1, 70, -1, -1, 87, -1, -1});
+        System.out.println(IterativeTraversalBinaryTree.recursive(root));
         System.out.println(TraversalBinaryTree.recursive(root));
     }
 
-    public static Answer recursive(BinaryNode root) {
+    private static Answer recursive(BinaryNode root) {
         var answer = new Answer();
-        recursive(root, answer);
+        var stack = new Stack<Pair>();
+        stack.push(new Pair(root, 0));
+        while (!stack.isEmpty()){
+            var pair = stack.peek();
+            var node = pair.node;
+            if (pair.state == 0){
+                answer.addPreorder(pair.node.getData());
+                if (node.getLeft() != null){
+                    stack.push(new Pair(node.getLeft(), 0));
+                }
+                pair.state++;
+            } else if (pair.state == 1){
+                answer.addInorder(pair.node.getData());
+                if (node.getRight() != null){
+                    stack.push(new Pair(node.getRight(), 0));
+                }
+                pair.state++;
+            } else {
+                answer.addPostorder(pair.node.getData());
+                stack.pop();
+            }
+        }
         return answer;
     }
 
-    private static void recursive(BinaryNode root, Answer answer) {
-        if (root == null) return ;
-        answer.addPreorder(root.getData()); // pre
+    private static class Pair {
+        BinaryNode node;
+        int state;
 
-        recursive(root.getLeft(), answer);
-
-        answer.addInorder(root.getData()); // in
-
-        recursive(root.getRight(), answer);
-
-        answer.addPostorder(root.getData()); // post
+        public Pair(BinaryNode node, int state) {
+            this.node = node;
+            this.state = state;
+        }
     }
 
     private static class Answer {
