@@ -16,7 +16,7 @@ public class PreorderAndPostorderWithState {
 
     /**
      * if state = -1, put in preorder
-     * if state > size - 1 put in postorder and pop
+     * if state == children.size put in postorder and pop
      * else keep on pushing children from position pair.state
      *
      *
@@ -31,14 +31,12 @@ public class PreorderAndPostorderWithState {
             if (node.state == -1) {
                 answer.addPreorder(node.node.getData());
                 node.state = 0;
+            } else if (node.state == children.size()){
+                stack.pop();
+                answer.addPostorder(node.node.getData());
             } else {
-                if (node.state > children.size()-1){
-                    stack.pop();
-                    answer.addPostorder(node.node.getData());
-                } else {
-                    stack.push(new Pair(children.get(node.state), -1));
-                    node.state = node.state + 1;
-                }
+                stack.push(new Pair(children.get(node.state), -1));
+                node.state = node.state + 1;
             }
         }
         return answer;
