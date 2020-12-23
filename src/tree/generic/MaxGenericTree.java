@@ -1,6 +1,6 @@
 package tree.generic;
 
-import tree.generic.structure.GenericTree;
+import tree.generic.structure.GenericTreeUtil;
 import tree.generic.structure.Node;
 
 import java.util.LinkedList;
@@ -8,7 +8,7 @@ import java.util.LinkedList;
 public class MaxGenericTree {
 
     public static void main(String[] args) {
-        var root = GenericTree.createTree(new int[] {10, 20, -1, 30, 50, -1, 60, -1, -1, 40, -1, -1});
+        var root = GenericTreeUtil.createTree(new int[] {10, 20, -1, 30, 50, -1, 60, -1, -1, 40, -1, -1});
         System.out.println(MaxGenericTree.find(root));
         System.out.println(MaxGenericTree.findRecursion(root));
     }

@@ -1,95 +1,47 @@
 package tree.generic.structure;
 
-import java.util.*;
+import java.util.Iterator;
+import java.util.Stack;
 
-public class GenericTree {
+public class GenericTree implements Iterable<Integer>{
 
-    public static class NodeAndChildren {
-        int data;
-        List<Integer> children;
+    private final Node root;
 
-        public NodeAndChildren(int data, List<Integer> children) {
-            this.data = data;
-            this.children = children;
+    public GenericTree(Node root) {
+        this.root = root;
+    }
+
+    public GenericTree(int[] arr){
+        this.root = GenericTreeUtil.createTree(arr);
+    }
+
+    @Override
+    public Iterator<Integer> iterator() {
+        return new GenericTreeIterator(root);
+    }
+
+    public static class GenericTreeIterator implements Iterator<Integer> {
+
+        private final Stack<Node> stack;
+        public GenericTreeIterator(Node root) {
+            stack = new Stack<>();
+            stack.push(root);
         }
 
         @Override
-        public String toString() {
-            return "NodeAndChildren{" +
-                    "data=" + data +
-                    ", children=" + children +
-                    '}';
+        public boolean hasNext() {
+            return !stack.isEmpty();
         }
-    }
 
-    public static List<NodeAndChildren> display(Node root) {
-        ArrayList<NodeAndChildren> map = getNodeAndChildren(root);
-
-        for (var nodeAndChildren : map){
-            System.out.println(nodeAndChildren.data + "--->" + nodeAndChildren.children);
-        }
-        return map;
-    }
-
-    private static ArrayList<NodeAndChildren> getNodeAndChildren(Node root) {
-        var stack = new Stack<Node>();
-        stack.push(root);
-        var map = new ArrayList<NodeAndChildren>();
-        while (!stack.isEmpty()){
-            var node = stack.pop();
-            var list = new ArrayList<Integer>();
-            var children = node.getChildren();
-            for (int i=children.size()-1; i>=0; i--){ // add last (or rightmost) children first
-                var child = children.get(i);
-                stack.push(child);
+        @Override
+        public Integer next() {
+            var next = stack.peek();
+            var nextVal = stack.pop();
+            var children = nextVal.getChildren();
+            for (int i=children.size()-1; i>=0; i--){
+                stack.push(children.get(i));
             }
-            for (var child : children) {
-                list.add(child.getData());
-            }
-
-            map.add(new NodeAndChildren(node.getData(), list));
+            return next.getData();
         }
-        return map;
-    }
-
-    public static HashMap<Integer, List<Integer>> displayRecursion(Node root) {
-        var map = new HashMap<Integer, List<Integer>>();
-        displayRecursion(root, map);
-        return map;
-    }
-
-    private static void displayRecursion(Node root, HashMap<Integer, List<Integer>> map) {
-        var list = new ArrayList<Integer>();
-        for (var child : root.getChildren()){
-            list.add(child.getData());
-        }
-        map.put(root.getData(), list);
-
-        for (var child : root.getChildren()){
-            displayRecursion(child, map);
-        }
-    }
-
-    public static Node createTree(int[] arr) {
-        var stack = new Stack<Node>();
-        Node root = null;
-        for (int j : arr) {
-            if (j == -1) {
-                stack.pop();
-            } else {
-                var node = new Node();
-                node.setData(j);
-
-                if (stack.isEmpty()) {
-                    root = node;
-                } else {
-                    var peekNode = stack.peek();
-                    peekNode.addChildren(node);
-                }
-                stack.push(node);
-            }
-        }
-
-        return root;
     }
 }

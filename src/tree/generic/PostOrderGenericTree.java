@@ -1,17 +1,16 @@
 package tree.generic;
 
-import tree.generic.structure.GenericTree;
+import tree.generic.structure.GenericTreeUtil;
 import tree.generic.structure.Node;
 
 import java.util.ArrayList;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Stack;
 
 public class PostOrderGenericTree {
 
     public static void main(String[] args) {
-        var root = GenericTree.createTree(new int[] {10, 20, -1, 30, 50, -1, 60, -1, -1, 40, -1, -1});
+        var root = GenericTreeUtil.createTree(new int[] {10, 20, -1, 30, 50, -1, 60, -1, -1, 40, -1, -1});
         System.out.println(PostOrderGenericTree.traverse(root));
         System.out.println(PostOrderGenericTree.traverseRecursion(root));
     }

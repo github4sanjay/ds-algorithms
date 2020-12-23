@@ -1,11 +1,8 @@
 package tree.generic;
 
-import tree.generic.structure.GenericTree;
+import tree.generic.structure.GenericTreeUtil;
 import tree.generic.structure.Node;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.LinkedList;
 import java.util.Stack;
 
 /**
@@ -14,11 +11,11 @@ import java.util.Stack;
 public class LinearizeAGenericTree {
 
     public static void main(String[] args) {
-        var root = GenericTree.createTree(new int[] {10, 20, 50, -1, 60, -1, -1, 30, 70, -1, 80, 110, -1, 120, -1, -1, 90, -1, -1, 40, 100, -1, -1, -1});
-        GenericTree.display(root);
+        var root = GenericTreeUtil.createTree(new int[] {10, 20, 50, -1, 60, -1, -1, 30, 70, -1, 80, 110, -1, 120, -1, -1, 90, -1, -1, 40, 100, -1, -1, -1});
+        GenericTreeUtil.display(root);
         System.out.println();
         LinearizeAGenericTree.recursion(root);
-        GenericTree.display(root);
+        GenericTreeUtil.display(root);
     }
 
     /**
