@@ -13,7 +13,7 @@ public class HeightGenericTree {
         System.out.println(HeightGenericTree.findRecursion(root));
     }
 
-    private static int find(Node root) {
+    public static int find(Node root) {
         var queue = new LinkedList<Node>();
         queue.offer(root);
         queue.offer(null);
