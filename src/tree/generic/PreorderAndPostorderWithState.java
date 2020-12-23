@@ -30,13 +30,13 @@ public class PreorderAndPostorderWithState {
             var children = node.node.getChildren();
             if (node.state == -1) {
                 answer.addPreorder(node.node.getData());
-                node.state = 0;
+                node.state = 0; // set to push for first child
             } else if (node.state == children.size()){
                 stack.pop();
                 answer.addPostorder(node.node.getData());
             } else {
                 stack.push(new Pair(children.get(node.state), -1));
-                node.state = node.state + 1;
+                node.state = node.state + 1; // increase for next child
             }
         }
         return answer;
