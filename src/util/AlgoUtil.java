@@ -1,5 +1,7 @@
 package util;
 
+import tree.binary.structure.BinaryTreeUtil;
+
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
@@ -8,12 +10,6 @@ public class AlgoUtil {
     public static void print(char[][] chars){
         for (int i=0; i< chars.length; i++) {
             System.out.println(Arrays.toString(chars[i]));
-        }
-    }
-
-    public static <T> void print(List<List<T>> lists){
-        for (List<T> list : lists) {
-            System.out.println(list);
         }
     }
 
@@ -43,4 +39,9 @@ public class AlgoUtil {
         }
     }
 
+    public static <T> void print(List<T> list) {
+        for (T item : list) {
+            System.out.println(item);
+        }
+    }
 }
