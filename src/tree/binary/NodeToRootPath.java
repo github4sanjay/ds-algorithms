@@ -14,7 +14,7 @@ public class NodeToRootPath {
         System.out.println(NodeToRootPath.recursive(root, 30));
     }
 
-    private static List<Integer> recursive(BinaryNode root, int data) {
+    public static List<Integer> recursive(BinaryNode root, int data) {
         if (root.getData() == data) {
             var path = new ArrayList<Integer>();
             path.add(root.getData());
@@ -33,6 +33,32 @@ public class NodeToRootPath {
             var path = recursive(root.getRight(), data);
             if (!path.isEmpty()){
                 path.add(root.getData());
+                return path;
+            }
+        }
+
+        return new ArrayList<>();
+    }
+
+    public static List<BinaryNode> recursiveForNode(BinaryNode root, int data) {
+        if (root.getData() == data) {
+            var path = new ArrayList<BinaryNode>();
+            path.add(root);
+            return path;
+        }
+
+        if (root.getLeft() != null){
+            var path = recursiveForNode(root.getLeft(), data);
+            if (!path.isEmpty()){
+                path.add(root);
+                return path;
+            }
+        }
+
+        if (root.getRight() != null){
+            var path = recursiveForNode(root.getRight(), data);
+            if (!path.isEmpty()){
+                path.add(root);
                 return path;
             }
         }
