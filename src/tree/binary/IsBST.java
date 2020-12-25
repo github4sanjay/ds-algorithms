@@ -1,0 +1,48 @@
+package tree.binary;
+
+import tree.binary.structure.BinaryNode;
+import tree.binary.structure.BinaryTreeUtil;
+
+public class IsBST {
+
+    public static void main(String[] args) {
+        int n = -1;
+        var root = BinaryTreeUtil.create(new int[]{50, 25, 12, n, n, 37, n, n, 75, 62, n, n, 87, n, n});
+        System.out.println(IsBST.recursive(root));
+    }
+
+
+    private static Answer recursive(BinaryNode root) {
+        if (root == null) {
+            var answer = new Answer();
+            answer.isBST = true;
+            answer.max = Integer.MIN_VALUE;
+            answer.min = Integer.MAX_VALUE;
+            return answer;
+        }
+
+        var leftAnswer = recursive(root.getLeft());
+        var rightAnswer = recursive(root.getRight());
+
+        var answer = new Answer();
+        answer.isBST = leftAnswer.isBST && rightAnswer.isBST && root.getData() > leftAnswer.max && root.getData() < rightAnswer.min;
+        answer.min = Math.min(root.getData(), Math.min(leftAnswer.min, rightAnswer.min));
+        answer.max = Math.max(root.getData(), Math.max(leftAnswer.max, rightAnswer.max));
+        return answer;
+    }
+
+    private static class Answer {
+        int max;
+        int min;
+        boolean isBST;
+
+        @Override
+        public String toString() {
+            return "Answer{" +
+                    "max=" + max +
+                    ", min=" + min +
+                    ", isBST=" + isBST +
+                    '}';
+        }
+    }
+}
