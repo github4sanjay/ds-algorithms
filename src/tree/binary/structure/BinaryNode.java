@@ -11,6 +11,12 @@ public class BinaryNode {
         this.right = right;
     }
 
+    public BinaryNode(int data) {
+        this.data = data;
+        this.left = null;
+        this.right = null;
+    }
+
     public int getData() {
         return data;
     }
