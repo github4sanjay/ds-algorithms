@@ -13,6 +13,9 @@ public class IsBST {
         int n = -1;
         var root = BinaryTreeUtil.create(new int[]{50, 25, 12, n, n, 37, n, n, 75, 62, n, n, 87, n, n});
         System.out.println(IsBST.recursive(root));
+
+        var root1 = BinaryTreeUtil.create(new int[]{50, 25, 12, n, n, 37, 30, n, n, 51, n, n, 75, 62, 60, n, n, 70, n, n, n});
+        System.out.println(IsBST.recursive(root1));
     }
 
 
