@@ -132,6 +132,11 @@ public class MaxHeap {
         }
     }
 
+    /**
+     * Since time complexity of both insertion and deletion is logn
+     * and total elements is n
+     * so heap sort time complexity is nlogn
+     */
     public static int[] HeapSort(int[] A){
         MaxHeap maxHeap = new MaxHeap(A.length);
         MaxHeap.buildHeap(maxHeap, A);
