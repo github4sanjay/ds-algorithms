@@ -15,6 +15,57 @@ public class IterativeTraversalBinaryTree {
         System.out.println(TraversalBinaryTree.recursive(root));
     }
 
+    public static BinaryNode getNextFromNormalInOrder(Stack<Pair> inOrderStack) {
+
+        while (!inOrderStack.isEmpty()){
+            var peek = inOrderStack.peek();
+            if (peek.state == 0){
+                var node = peek.node;
+                if (node.getLeft() != null){
+                    inOrderStack.push(new Pair(node.getLeft(), 0));
+                }
+                peek.state++;
+            } else if (peek.state == 1){
+                var node = peek.node;
+                if (node.getRight() != null){
+                    inOrderStack.push(new Pair(node.getRight(), 0));
+                }
+                peek.state++;
+                return node;
+            } else {
+                inOrderStack.pop();
+            }
+        }
+
+        return null;
+    }
+
+    public static BinaryNode getNextFromReverseInOrder(Stack<Pair> inOrderStack) {
+
+        while (!inOrderStack.isEmpty()){
+            var peek = inOrderStack.peek();
+            if (peek.state == 0){
+                var node = peek.node;
+                if (node.getRight() != null){
+                    inOrderStack.push(new Pair(node.getRight(), 0));
+                }
+                peek.state++;
+            } else if (peek.state == 1){
+                var node = peek.node;
+                if (node.getLeft() != null){
+                    inOrderStack.push(new Pair(node.getLeft(), 0));
+                }
+                peek.state++;
+                return node;
+            } else {
+                inOrderStack.pop();
+            }
+        }
+
+        return null;
+    }
+
+
     private static Answer recursive(BinaryNode root) {
         var answer = new Answer();
         var stack = new Stack<Pair>();
@@ -42,7 +93,7 @@ public class IterativeTraversalBinaryTree {
         return answer;
     }
 
-    private static class Pair {
+    public static class Pair {
         BinaryNode node;
         int state;
 

@@ -33,7 +33,7 @@ public class TraversalBinaryTree {
         answer.addPostorder(root.getData()); // post
     }
 
-    private static class Answer {
+    public static class Answer {
         List<Integer> preorder;
         List<Integer> inorder;
         List<Integer> postorder;
@@ -42,6 +42,18 @@ public class TraversalBinaryTree {
             this.preorder = new ArrayList<>();
             this.inorder = new ArrayList<>();
             this.postorder = new ArrayList<>();
+        }
+
+        public List<Integer> getPreorder() {
+            return preorder;
+        }
+
+        public List<Integer> getInorder() {
+            return inorder;
+        }
+
+        public List<Integer> getPostorder() {
+            return postorder;
         }
 
         public void addPreorder(int data){

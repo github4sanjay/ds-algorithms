@@ -23,13 +23,13 @@ public class BSTUtil {
         return node;
     }
 
-    public static void preOrder(BinaryNode node) {
+    public static void inOrder(BinaryNode node) {
         if (node == null) {
             return;
         }
+        inOrder(node.getLeft());
         System.out.print(node.getData() + " ");
-        preOrder(node.getLeft());
-        preOrder(node.getRight());
+        inOrder(node.getRight());
     }
 
     public static List<Display> display(BinaryNode root) {
