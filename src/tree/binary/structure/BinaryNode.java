@@ -34,4 +34,5 @@ public class BinaryNode {
     public void setRight(BinaryNode right) {
         this.right = right;
     }
+
 }
