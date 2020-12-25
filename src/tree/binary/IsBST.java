@@ -3,6 +3,10 @@ package tree.binary;
 import tree.binary.structure.BinaryNode;
 import tree.binary.structure.BinaryTreeUtil;
 
+/**
+ * You are required to check if the tree is a Binary Search Tree (BST) as well.
+ * In a BST every node has a value greater than all nodes on it's left side and smaller value than all node on it's right side.
+ */
 public class IsBST {
 
     public static void main(String[] args) {
