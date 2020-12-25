@@ -2,17 +2,34 @@ package heap;
 
 import java.util.Arrays;
 
-public class Heap {
+/**
+ * Heap is complete binary tree
+ * Follows heap order property either max or min
+ *
+ * 10, 20, 30, 40, 35, 45, 42, 55, 50
+ *
+ *          array is visualised as tree
+ *                     10
+ *                   /    \
+ *                 20      30
+ *                /  \    /  \
+ *               40  35  45  42
+ *              / \
+ *            55  50
+ *
+ *            add -> logn
+ *            remove -> logn
+ *            peek -> 1
+ */
+public class MaxHeap {
     private int[] array;
     private int capacity;
     private int count;
-    private final int heapType;
 
-    public Heap(int capacity, int heapType) {
+    public MaxHeap(int capacity) {
         this.array = new int[capacity];
         this.capacity = capacity;
         this.count = 0;
-        this.heapType = heapType;
     }
 
     public int parent(int i){
@@ -45,10 +62,16 @@ public class Heap {
         int l = leftChild(k);
         int r = rightChild(k);
         int max;
-        if (l != -1 && array[l] > array[k]) max = l;
-        else max = k;
+        if (l != -1 && array[l] > array[k]) {
+            max = l;
+        }  else {
+            max = k;
+        }
 
-        if (r != -1 && array[r] > array[max]) max = r;
+        if (r != -1 && array[r] > array[max]) {
+            max = r;
+        }
+
         if (max != k){
             int temp = array[k];
             array[k] = array[max];
@@ -74,9 +97,13 @@ public class Heap {
         }
         count++;
         int i = count - 1;
-        while (i >0 && data > array[(i-1)/2]){
-            array[i] = array[(i-1)/2];
-            i = (i-1)/2;
+        percolateUp(data, i);
+    }
+
+    private void percolateUp(int data, int i) {
+        while (i >0 && data > array[(i -1)/2]){
+            array[i] = array[(i -1)/2];
+            i = (i -1)/2;
         }
         array[i] = data;
     }
@@ -92,35 +119,39 @@ public class Heap {
         this.array = newArray;
     }
 
-    public static void buildHeap(Heap h, int[] A){
+    public static void buildHeap(MaxHeap h, int[] A){
         while (h.getCapacity() < A.length){
             h.resize();
         }
         h.count = A.length;
         System.arraycopy(A, 0, h.array, 0, A.length);
-        for (int i = (h.count-1)/2; i>=0; i--){
+        int lastLeaf = h.count-1;
+        // start from parent of last leaf node
+        for (int i = (lastLeaf-1)/2; i>=0; i--){
             h.percolateDown(i);
         }
     }
 
     public static int[] HeapSort(int[] A){
-        Heap heap = new Heap(A.length, 1);
-        Heap.buildHeap(heap, A);
+        MaxHeap maxHeap = new MaxHeap(A.length);
+        MaxHeap.buildHeap(maxHeap, A);
         for (int i =0; i< A.length;i++){
-            int temp = heap.getMax();
-            heap.array[0] = heap.array[heap.count - 1];
-            heap.array[heap.count - 1] = temp;
-            heap.count--;
-            heap.percolateDown(0);
+            int temp = maxHeap.getMax();
+            maxHeap.array[0] = maxHeap.array[maxHeap.count - 1];
+            maxHeap.array[maxHeap.count - 1] = temp;
+            maxHeap.count--;
+            maxHeap.percolateDown(0);
         }
-        return heap.array;
+        return maxHeap.array;
     }
 
     public static void main(String[] args) {
 
-        Heap heap2 = new Heap(2, 1);
-        Heap.buildHeap(heap2, new int[]{2,5,1,9,4,3});
-        System.out.println(heap2.getMax());
+        MaxHeap maxHeap2 = new MaxHeap(2);
+        MaxHeap.buildHeap(maxHeap2, new int[]{2,5,1,9,4,3});
+        System.out.println(maxHeap2.getMax());
+        System.out.println(maxHeap2.deleteMax());
+        System.out.println(maxHeap2.getMax());
         System.out.println(Arrays.toString(HeapSort(new int[]{2,5,1,9,4,3})));
     }
 }
