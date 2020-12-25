@@ -1,10 +1,17 @@
 package heap;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.PriorityQueue;
 
 public class KLargestElements {
 
-    public void findKLargestElements(int [] A, int k){
+    public static void main(String[] args) {
+       System.out.println(KLargestElements.findKLargestElements(new int[]{ 11, 3, 2, 1, 15, 5, 4,
+               45, 88, 96, 50, 45 }, 3));
+    }
+
+    public static List<Integer> findKLargestElements(int[] A, int k){
         var queue = new PriorityQueue<Integer>();
         for (int i=0; i< A.length;i++){
             if (i< k){
@@ -16,8 +23,10 @@ public class KLargestElements {
                 }
             }
         }
+        var list = new ArrayList<Integer>();
         while (queue.size() > 0){
-            System.out.println(queue.remove());
+            list.add(queue.remove());
         }
+        return list;
     }
 }
