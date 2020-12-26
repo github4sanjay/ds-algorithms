@@ -15,10 +15,10 @@ public class Graph {
 
         for (int[] edge : edges) {
             var edge1 = this.edges[edge[0]];
-            edge1.add(new Edge(edge[0], edge[1], edge[2]));
+            edge1.add(new Edge(edge[0], edge[1], edge.length >= 3 ? edge[2] : 0)); //  put 0 when weight not passed
 
             var edge2 = this.edges[edge[1]];
-            edge2.add(new Edge(edge[1], edge[0], edge[2]));
+            edge2.add(new Edge(edge[1], edge[0], edge.length >= 3 ? edge[2]: 0)); //  put 0 when weight not passed
         }
     }
 
