@@ -1,8 +1,30 @@
 package graph;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class Graph {
+
+    private final List<Edge>[] edges;
+
+    public Graph(int[][] edges, int vertices) {
+        this.edges = new ArrayList[vertices];
+        for (int i=0;i< vertices;i++){
+            this.edges[i] = new ArrayList<>();
+        }
+
+        for (int[] edge : edges) {
+            var edge1 = this.edges[edge[0]];
+            edge1.add(new Edge(edge[0], edge[1], edge[2]));
+
+            var edge2 = this.edges[edge[1]];
+            edge2.add(new Edge(edge[1], edge[0], edge[2]));
+        }
+    }
+
+    public List<Edge>[] getEdges() {
+        return edges;
+    }
 
     public static class Edge {
         private int src;
