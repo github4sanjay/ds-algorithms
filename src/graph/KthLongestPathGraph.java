@@ -37,7 +37,11 @@ public class KthLongestPathGraph {
     }
 
     /**
-     * if source and destination are equal then check if current weight is greater than previous path weight
+     * if source and destination are equal then check
+     *  1.  if size of priority queue is greater than k then check if peek's weight is less than current weight
+     *      a. if yes then remove and add current
+     *      b. otherwise current path's weight is lesser than already k element in the queue so don't do anything
+     *  2. if k is greater than size of priority queue than add this path to queue
      * other wise check in all neighbour
      * with the source = neighbour and same destination
      */
