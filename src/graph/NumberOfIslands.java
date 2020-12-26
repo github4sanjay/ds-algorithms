@@ -19,9 +19,34 @@ public class NumberOfIslands {
                 {1, 1, 1, 1, 1, 1, 1, 0},
                 {1, 1, 1, 1, 1, 1, 1, 0},
         })); // 3
+
+        System.out.println(NumberOfIslands.findAlt(new int[][]{
+                {0, 0, 1, 1, 1, 1, 1, 1},
+                {0, 0, 1, 1, 1, 1, 1, 1},
+                {1, 1, 1, 1, 1, 1, 1, 0},
+                {1, 1, 0, 0, 0, 1, 1, 0},
+                {1, 1, 1, 1, 0, 1, 1, 0},
+                {1, 1, 1, 1, 0, 1, 1, 0},
+                {1, 1, 1, 1, 1, 1, 1, 0},
+                {1, 1, 1, 1, 1, 1, 1, 0},
+        })); // 3
     }
 
-    private static int find(int[][] array) {
+    /**
+     * Must fulfill:
+     * 1. safe row and col
+     * 2. should not be visited
+     * 2. should be land i.e array[i][j] = 0
+     */
+    private static boolean canVisit(int[][] array, int row, int col, boolean[][] visited) {
+        return isSafe(array, row, col) && !visited[row][col] && array[row][col] == 0;
+    }
+
+    private static boolean isSafe(int[][] array, int row, int col) {
+        return row >= 0 && col >= 0 && row <= array.length - 1 && col <= array[row].length - 1;
+    }
+
+    public static int find(int[][] array) {
         boolean[][] visited = new boolean[array.length][array[0].length];
         int count = 0;
         for (int i=0; i<array.length; i++){
@@ -60,17 +85,28 @@ public class NumberOfIslands {
         }
     }
 
-    /**
-     * Must fulfill:
-     * 1. safe row and col
-     * 2. should not be visited
-     * 2. should be land i.e array[i][j] = 0
-     */
-    private static boolean canVisit(int[][] array, int row, int col, boolean[][] visited) {
-        return isSafe(array, row, col) && !visited[row][col] && array[row][col] == 0;
+    public static int findAlt(int[][] array) {
+        boolean[][] visited = new boolean[array.length][array[0].length];
+        int count = 0;
+        for (int i=0; i<array.length; i++){
+            for (int j=0; j<array[i].length; j++){
+                if (array[i][j] == 0 && !visited[i][j]){
+                    findAlt(array, i, j, visited);
+                    count++;
+                }
+            }
+        }
+        return count;
     }
 
-    private static boolean isSafe(int[][] array, int row, int col) {
-        return row >= 0 && col >= 0 && row <= array.length - 1 && col <= array[row].length - 1;
+    private static void findAlt(int[][] array, int row, int col, boolean[][] visited) {
+        if (!canVisit(array, row, col, visited)){
+            return;
+        }
+        visited[row][col] = true;
+        findAlt(array, row-1, col, visited);
+        findAlt(array, row, col+1, visited);
+        findAlt(array, row+1, col, visited);
+        findAlt(array, row, col-1, visited);
     }
 }
