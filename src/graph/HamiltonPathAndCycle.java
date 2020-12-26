@@ -9,7 +9,7 @@ import java.util.List;
  * A Hamiltonian cycle (or Hamiltonian circuit) is a Hamiltonian Path such that there is an edge (in the graph)
  * from the last vertex to the first vertex of the Hamiltonian Path.
  *
- * Given number of vertex and edges. Find paths and cycle.
+ * Given number of vertex, edges and a source vertex. Find paths and cycle.
  */
 public class HamiltonPathAndCycle {
 
@@ -38,7 +38,10 @@ public class HamiltonPathAndCycle {
      *          4______5______6
      *          |_____________|
      *
-     *
+     * Visit all paths starting from source until all vertices are visited
+     * if all nodes are visited
+     *  1. if original source has edge to last vertex then hamilton cycle
+     *  2. else hamilton path
      */
     private static Hamilton find(int[][] array, int vertices, int sourceVertex) {
         var hamilton = new Hamilton();
@@ -52,17 +55,17 @@ public class HamiltonPathAndCycle {
 
     private static void findHamilton(Graph graph, int src, ArrayList<Integer> path, boolean[] visited, Hamilton hamilton) {
         int count = 0;
-        for (var vertex : visited){
+        for (var vertex : visited){ // if don't want loop keep count
             if (vertex){
                 count++;
             }
         }
-        if (count == visited.length-1){
+        if (count == visited.length-1){ // if all nodes visited
             var originalSource = path.get(0);
             var originalSourceEdges = graph.getEdges()[originalSource];
             var isCycle = false;
             for (var edge : originalSourceEdges){
-                if (edge.getNbr() == src){
+                if (edge.getNbr() == src){ //  original source has edge to last vertex
                     isCycle = true;
                     break;
                 }
