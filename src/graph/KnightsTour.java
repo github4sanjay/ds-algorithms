@@ -1,4 +1,4 @@
-package recurssion;
+package graph;
 
 import util.AlgoUtil;
 import util.ArrayUtil;
@@ -23,7 +23,8 @@ public class KnightsTour {
     public static void main(String[] args) {
         var boards = KnightsTour.go(5, 2, 0);
         for (var board : boards){
-            displayChess(board);
+            AlgoUtil.print(board);
+            System.out.println();
         }
     }
 
@@ -34,27 +35,37 @@ public class KnightsTour {
     }
 
     private static void go(int[][] chess, int row, int col, int move, ArrayList<int[][]> list) {
-        if (row < 0 || col < 0 || col >= chess.length || row >= chess.length || chess[row][col] > 0){
-            return;
-        } else if (move == chess.length * chess.length){
+
+        if (move == chess.length * chess.length){
             chess[row][col] = move;
             list.add(ArrayUtil.copy2DArray(chess));
             chess[row][col] = 0;
+            return;
         }
+
         chess[row][col] = move;
-        go(chess, row-2, col+1, move+1, list);
-        go(chess, row-1, col+2, move+1, list);
-        go(chess, row+1, col+2, move+1, list);
-        go(chess, row+2, col+1, move+1, list);
-        go(chess, row+2, col-1, move+1, list);
-        go(chess, row+1, col-2, move+1, list);
-        go(chess, row-1, col-2, move+1, list);
-        go(chess, row-2, col-1, move+1, list);
+
+        if (canVisit(chess, row-2, col+1))
+            go(chess, row-2, col+1, move+1, list);
+        if (canVisit(chess, row-1, col+2))
+            go(chess, row-1, col+2, move+1, list);
+        if (canVisit(chess, row+1, col+2))
+            go(chess, row+1, col+2, move+1, list);
+        if (canVisit(chess, row+2, col+1))
+            go(chess, row+2, col+1, move+1, list);
+        if (canVisit(chess, row+2, col-1))
+            go(chess, row+2, col-1, move+1, list);
+        if (canVisit(chess, row+1, col-2))
+            go(chess, row+1, col-2, move+1, list);
+        if (canVisit(chess, row-1, col-2))
+            go(chess, row-1, col-2, move+1, list);
+        if (canVisit(chess, row-2, col-1))
+            go(chess, row-2, col-1, move+1, list);
+
         chess[row][col] = 0;
     }
 
-    private static void displayChess(int[][] chess) {
-        AlgoUtil.print(chess);
-        System.out.println();
+    private static boolean canVisit(int[][] chess, int row, int col) {
+        return row >= 0 && col >= 0 && col < chess.length && row < chess.length && chess[row][col] == 0;
     }
 }
