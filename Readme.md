@@ -20,4 +20,4 @@ Level up **coding skills** and stay engaged while doing it.
 * [Sorting](https://github.com/github4sanjay/ds-algorithms/tree/master/src/sorting "Title")    
 * [Selection](https://github.com/github4sanjay/ds-algorithms/tree/master/src/selection "Title")    
 * [Greedy Method](https://github.com/github4sanjay/ds-algorithms/tree/master/src/greedy "Title") 
-* [Dynamic Programming](https://github.com/github4sanjay/ds-algorithms/tree/master/src/dyanamic "Title")
+* [Dynamic Programming](https://github.com/github4sanjay/ds-algorithms/tree/master/src/dynamic "Title")
