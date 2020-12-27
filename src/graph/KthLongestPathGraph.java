@@ -7,7 +7,7 @@ import java.util.PriorityQueue;
 public class KthLongestPathGraph {
 
     public static void main(String[] args) {
-        var graph = new Graph(new int[][]{
+        int[][] array = new int[][]{
                 {0, 1, 10},
                 {1, 2, 10},
                 {2, 3, 10},
@@ -17,9 +17,10 @@ public class KthLongestPathGraph {
                 {5, 6, 3 },
                 {4, 6, 8 },
                 {2, 5, 5 }
-        }, 7);
+        };
+        int vertices = 7;
 
-        var path = FindAllPathGraph.findPath(graph, 0, 6);
+        var path = FindAllPathGraph.findPath(array, vertices, 0, 6);
 
         /*
           Answer{path=[0, 1, 2, 5, 6], weight=28}
@@ -32,7 +33,7 @@ public class KthLongestPathGraph {
           Answer{path=[0, 3, 2, 5, 4, 6], weight=66}
          */
         for (int i = path.size(); i > 0; i--){
-            System.out.println(KthLongestPathGraph.findPath(graph, 0, 6, i));
+            System.out.println(KthLongestPathGraph.findPath(array, vertices, 0, 6, i));
         }
     }
 
@@ -45,8 +46,9 @@ public class KthLongestPathGraph {
      * other wise check in all neighbour
      * with the source = neighbour and same destination
      */
-    public static Answer findPath(Graph graph, int vertex1, int vertex2, int k) {
-        var visited = new boolean[graph.getEdges().length];
+    public static Answer findPath(int[][] array, int vertices, int vertex1, int vertex2, int k) {
+        var graph = new Graph(array, vertices);
+        var visited = new boolean[vertices];
         var currentPath = new ArrayList<Integer>();
         var priorityQueue = new PriorityQueue<Answer>();
         currentPath.add(vertex1);

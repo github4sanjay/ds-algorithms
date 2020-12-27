@@ -2,11 +2,11 @@ package graph;
 
 import java.util.ArrayList;
 import java.util.List;
-
 public class FindAllPathGraph {
 
     public static void main(String[] args) {
-        var graph = new Graph(new int[][]{
+
+        System.out.println(FindAllPathGraph.findPath(new int[][]{
                 {0, 1, 10},
                 {1, 2, 10},
                 {2, 3, 10},
@@ -15,9 +15,8 @@ public class FindAllPathGraph {
                 {4, 5, 10},
                 {5, 6, 10},
                 {4, 6, 10}
-        }, 7);
+        }, 7, 0, 6));
 
-        System.out.println(FindAllPathGraph.findPath(graph, 0, 6));
     }
 
     /**
@@ -25,7 +24,8 @@ public class FindAllPathGraph {
      * other wise check in all neighbour
      * with the source = neighbour and same destination
      */
-    public static List<List<Integer>> findPath(Graph graph, int vertex1, int vertex2) {
+    public static List<List<Integer>> findPath(int[][] array, int vertices, int vertex1, int vertex2) {
+        var graph = new Graph(array, vertices);
         var visited = new boolean[graph.getEdges().length];
         var currentPath = new ArrayList<Integer>();
         var allPaths = new ArrayList<List<Integer>>();
