@@ -29,6 +29,22 @@ public class IsCyclic {
         }, 7)); // true
     }
 
+    /**
+     *   Example :
+     *
+     *   0----------1    3-----------4
+     *
+     *       4----------5
+     *        \        /
+     *         \      /
+     *          \    /
+     *            6
+     *
+     *   When loop reaches vertex 4 :
+     *   then 4 either go 5 or 6 first:
+     *   if chooses 5 first then path would 4---5---6 then stop
+     *   then it start for 6 but since six already visited so there are two paths to 6 from 4 so cyclic
+     */
     private static boolean find(int[][] array, int vertices) {
         var graph = new Graph(array, vertices);
 
