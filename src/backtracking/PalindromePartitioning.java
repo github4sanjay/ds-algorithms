@@ -1,6 +1,6 @@
 package backtracking;
 
-import general.Palindrome;
+import string.Palindrome;
 
 public class PalindromePartitioning {
 

@@ -6,7 +6,7 @@ public class Factorial {
         System.out.println(Factorial.factorial(5));
     }
 
-    private static int factorial(int n) {
+    public static int factorial(int n) {
         if (n==1){
             return 1;
         }

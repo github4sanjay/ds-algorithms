@@ -1,6 +1,6 @@
 package dynamic.category5;
 
-import general.Palindrome;
+import string.Palindrome;
 import recurssion.Subsequence;
 
 /**

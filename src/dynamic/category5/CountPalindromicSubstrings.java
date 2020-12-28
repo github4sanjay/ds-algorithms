@@ -1,7 +1,7 @@
 package dynamic.category5;
 
-import general.FindSubstring;
-import general.Palindrome;
+import string.FindSubstring;
+import string.Palindrome;
 
 /**
  * Given a string, your task is to count how many palindromic substrings in this string.

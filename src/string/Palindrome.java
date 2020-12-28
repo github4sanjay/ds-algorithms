@@ -1,4 +1,4 @@
-package general;
+package string;
 
 public class Palindrome {
 
