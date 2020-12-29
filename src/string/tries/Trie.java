@@ -1,18 +1,10 @@
 package string.tries;
 
 public class Trie {
-    private TrieNode root;
+    private final TrieNode root;
 
     public Trie() {
         this.root = new TrieNode();;
-    }
-
-    public TrieNode getRoot() {
-        return root;
-    }
-
-    public void setRoot(TrieNode root) {
-        this.root = root;
     }
 
     public void insert(String str){
