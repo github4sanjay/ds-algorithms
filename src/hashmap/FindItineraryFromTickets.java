@@ -35,8 +35,8 @@ public class FindItineraryFromTickets {
     private static List<String> find(String[][] tickets) {
         var setFrom = new HashSet<String>();
         var setTo = new HashSet<String>();
-
         var hashMap = new HashMap<String, String>();
+
         for (var ticket : tickets){
             var from = ticket[0];
             var to = ticket[1];
@@ -53,17 +53,12 @@ public class FindItineraryFromTickets {
            }
         }
 
-        String end = null;
-        for (var to : setTo){
-            if (!setFrom.contains(to)){
-                end = to;
-            }
-        }
         var journey = new ArrayList<String>();
         var from = beginning;
         journey.add(from);
-        while (!from.equals(end)){
+        while (true){
             from = hashMap.get(from);
+            if (from == null) break;
             journey.add(from);
         }
         return journey;
