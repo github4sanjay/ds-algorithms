@@ -1,52 +1,59 @@
 package backtracking;
 
-import java.util.Arrays;
-import java.util.HashMap;
+import util.MapUtil;
+
+import java.util.*;
 
 public class StringPermutation {
 
     public static void main(String[] args) {
-        StringPermutation.find("aabb");
+        System.out.println(StringPermutation.findWithCombination("aabb")); // [aabb, abab, abba, baab, baba, bbaa]
+        System.out.println(StringPermutation.findWithPermutation("aabb")); // [aabb, abab, abba, baab, baba, bbaa]
     }
 
-    public static void find(String str) {
+    public static List<String> findWithCombination(String str) {
 
-        /*var hashmap = new HashMap<Character, Integer>();
-        for (char ch : str.toCharArray()) {
-            hashmap.merge(ch, 1, Integer::sum);
-        }
-
-        findWithPermutation(hashmap, str.length(), 1, "");*/
-
-
-        var lastOccurredAt = new HashMap<Character, Integer>();
-        for (char ch : str.toCharArray()) {
-            lastOccurredAt.put(ch, -1);
-        }
-
-        findWithCombination(str, lastOccurredAt, 0, new Character[str.length()]);
+        var hashmap = MapUtil.stringToFrequencyMap(str);
+        var list = new ArrayList<String>();
+        findWithCombination(hashmap, str.length(), 1, "", list);
+        return list;
     }
 
-    // with combination
-    private static void findWithPermutation(HashMap<Character, Integer> frequencyMap, int totalBox, int currentBox, String ans) {
+    // here box decides which character to choose
+    private static void findWithCombination(Map<Character, Integer> frequencyMap, int totalBox, int currentBox, String ans, List<String> list) {
         if (currentBox > totalBox){
-            System.out.println(ans);
+            list.add(ans);
             return;
         }
         for (char ch : frequencyMap.keySet()){
             int frequency = frequencyMap.get(ch);
             if (frequency > 0){
                 frequencyMap.put(ch, frequency-1);
-                findWithPermutation(frequencyMap, totalBox, currentBox+1, ans+ch);
+                findWithCombination(frequencyMap, totalBox, currentBox+1, ans+ch, list);
                 frequencyMap.put(ch, frequency);
             }
         }
     }
 
-    // with permutation
-    private static void findWithCombination(String str, HashMap<Character, Integer> lastOccurredAt, int currentCharacterPosition, Character[] filledBox) {
+    public static List<String> findWithPermutation(String str) {
+
+        var lastOccurredAt = new HashMap<Character, Integer>();
+        for (char ch : str.toCharArray()) {
+            lastOccurredAt.put(ch, -1);
+        }
+        var list = new ArrayList<String>();
+        findWithPermutation(str, lastOccurredAt, 0, new Character[str.length()], list);
+        return list;
+    }
+
+    // here character decides which box to choose
+    private static void findWithPermutation(String str, HashMap<Character, Integer> lastOccurredAt, int currentCharacterPosition, Character[] filledBox, List<String> list) {
         if (currentCharacterPosition == filledBox.length){
-            System.out.println(Arrays.toString(filledBox));
+            var permutation = new StringBuilder();
+            for (char box : filledBox) {
+                permutation.append(box);
+            }
+            list.add(permutation.toString());
             return;
         }
 
@@ -56,7 +63,7 @@ public class StringPermutation {
             if (filledBox[i] == null){
                 filledBox[i] = currentCharacter;
                 lastOccurredAt.put(currentCharacter, i);
-                findWithCombination(str, lastOccurredAt, currentCharacterPosition + 1, filledBox);
+                findWithPermutation(str, lastOccurredAt, currentCharacterPosition + 1, filledBox, list);
                 lastOccurredAt.put(currentCharacter, -1);
                 filledBox[i] = null;
             }
