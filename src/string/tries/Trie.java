@@ -14,7 +14,7 @@ public class Trie {
             var characterNode = node.getCharacterNode(ch);
             if (characterNode == null){
                 characterNode = new TrieNode();
-                node.putCharacterNode(ch, characterNode);
+                node.putCharacterNode(ch,  characterNode);
             }
             node = characterNode;
         }
