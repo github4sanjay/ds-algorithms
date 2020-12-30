@@ -14,38 +14,30 @@ public class TwoElementSumClosestTo0 {
     public static void main(String[] args) {
         System.out.println(withSorting(new int[]{1, 60, -10, 70, -80, 85}));
         System.out.println(withSorting(new int[]{-21, -67, -37, -18, 4, -65}));
+
+        System.out.println(bruteForce(new int[]{1, 60, -10, 70, -80, 85}));
+        System.out.println(bruteForce(new int[]{-21, -67, -37, -18, 4, -65}));
     }
 
     private static Pair withSorting(int[] array) {
         Arrays.sort(array);
-        var positivePair = new Pair();
-        var negativePair = new Pair();
-        int minPositiveSum = Integer.MAX_VALUE;
-        int maxNegativeSum = Integer.MIN_VALUE;
+        var pair = new Pair();
+        int minSum = Integer.MAX_VALUE;
         int i=0, j=array.length-1;
         while (i < j){
             int sum = array[j] + array[i];
+            if (Math.abs(sum) < Math.abs(minSum)){
+                minSum = sum;
+                pair.data1 = array[i];
+                pair.data2 = array[j];
+            }
             if (sum > 0){
-                if (sum < minPositiveSum){
-                    minPositiveSum = sum;
-                    positivePair.data1 = array[i];
-                    positivePair.data2 = array[j];
-                }
                 j--;
             } else if (sum < 0){
-                if (maxNegativeSum < sum){
-                    maxNegativeSum = sum;
-                    negativePair.data1 = array[i];
-                    negativePair.data2 = array[j];
-                }
                 i++;
             }
         }
-        if (minPositiveSum < Math.abs(maxNegativeSum)){
-            return positivePair;
-        } else {
-            return negativePair;
-        }
+        return pair;
     }
 
     private static Pair bruteForce(int[] array) {
