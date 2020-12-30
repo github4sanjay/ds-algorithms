@@ -8,6 +8,9 @@ package string.matching;
  * So Rabin Karp algorithm needs to calculate hash values for following strings.
  * 1) Pattern itself.
  * 2) All the substrings of the text of length m.
+ *
+ * Worst case O(nm)
+ * Average O(n-m+1)
  */
 public class RobinKarp {
 
