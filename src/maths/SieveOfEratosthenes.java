@@ -1,7 +1,7 @@
 package maths;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 public class SieveOfEratosthenes {
 
@@ -9,7 +9,7 @@ public class SieveOfEratosthenes {
         System.out.println(SieveOfEratosthenes.find(30));
     }
 
-    public static List<Integer> find(int n) {
+    public static Set<Integer> find(int n) {
         // Create a boolean array "prime[0..n]" and initialize
         // all entries it as true. A value in prime[i] will
         // finally be false if i is Not a prime, else true.
@@ -27,12 +27,12 @@ public class SieveOfEratosthenes {
             }
         }
 
-        var list = new ArrayList<Integer>();
+        var set = new HashSet<Integer>();
         for(int i = 2; i <= n; i++) {
             if(prime[i]){
-                list.add(i);
+                set.add(i);
             }
         }
-        return list;
+        return set;
     }
 }

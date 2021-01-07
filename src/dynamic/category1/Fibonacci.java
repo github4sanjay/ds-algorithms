@@ -3,7 +3,7 @@ package dynamic.category1;
 public class Fibonacci {
 
     public static void main(String[] args) {
-        int n =4;
+        int n =0;
         System.out.println(Fibonacci.findByDP(n, new int[n+1]));
     }
 
