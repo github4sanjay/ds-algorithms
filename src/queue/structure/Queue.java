@@ -32,7 +32,7 @@ public class Queue {
             throw new RuntimeException("queue is empty");
         }
         int data = repo[front];
-        front = (front + 1)/repo.length;
+        front = (front + 1)%repo.length;
         size--;
         return data;
     }

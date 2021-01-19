@@ -11,7 +11,7 @@ public class FindBetweenRange {
     public static void main(String[] args) {
         int n = -1;
         var root = BinaryTreeUtil.create(new int[]{50, 25, 12, n, n, 37, 30, n, n, n, 75, 62, 60, n, n, 70, n, n, 87, n, n});
-        System.out.println(FindBetweenRange.find(root, 12, 65)); // 25
+        System.out.println(FindBetweenRange.find(root, 12, 65)); // [12, 25, 30, 37, 50, 60, 62]
     }
 
     private static List<Integer> find(BinaryNode root, int low, int high) {

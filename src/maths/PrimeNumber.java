@@ -16,4 +16,19 @@ public class PrimeNumber {
         }
         return true;
     }
+
+    public static boolean isPrimeWithSchoolMethod(int val){
+        if (val <= 1) return false;
+        if (val <= 3) return true;
+
+        // This is checked so that we can skip
+        // middle five numbers in below loop
+        if (val % 2 == 0 || val % 3 == 0) return false;
+        for (int div=5; div*div<=val; div = div+6){
+            if (val % div == 0 || val % (div+2) == 0){
+                return false;
+            }
+        }
+        return true;
+    }
 }

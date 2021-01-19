@@ -21,7 +21,7 @@ public class BinaryTreeUtil {
                 }
                 pair.state++;
                 i++;
-            } else if (pair.state == 1){
+            } else if (pair.state == 1) {
                 if (ints[i] != -1) {
                     var newNode = new BinaryNode(ints[i], null, null);
                     pair.data.setRight(newNode);

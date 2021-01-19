@@ -11,7 +11,7 @@ public class FindNodesKDistanceAway {
 
     public static void main(String[] args) {
         var root = BinaryTreeUtil.create(new int[]{50, 25, 12, -1, -1, 37, 30, -1, -1, -1, 75, 62, -1, 70, -1, -1, 87, -1, -1});
-        System.out.println(FindNodesKDistanceAway.iterative(root, 37, 2));
+        System.out.println(FindNodesKDistanceAway.iterative(root, 37, 2)); // [12, 50]
     }
 
     /**

@@ -12,7 +12,7 @@ public class QuickSelect {
             return selectKthLargestElement(A, k, partitionIndex +1, high);
         } else if (k < partitionIndex){
             return selectKthLargestElement(A, k, low, partitionIndex - 1);
-        }else {
+        } else {
             return A[partitionIndex];
         }
     }

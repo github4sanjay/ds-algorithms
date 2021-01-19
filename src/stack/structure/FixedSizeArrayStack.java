@@ -1,7 +1,7 @@
 package stack.structure;
 
 public class FixedSizeArrayStack {
-    private static final int DEFAUT_CAPACITY = 10;
+    private static final int DEFAULT_CAPACITY = 10;
     private final int[] stackRepo;
     private final int capacity;
     private int top = -1;
@@ -12,7 +12,7 @@ public class FixedSizeArrayStack {
     }
 
     public FixedSizeArrayStack(){
-        this(DEFAUT_CAPACITY);
+        this(DEFAULT_CAPACITY);
     }
 
     public boolean isEmpty(){

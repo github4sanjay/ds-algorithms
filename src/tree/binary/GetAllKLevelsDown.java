@@ -2,7 +2,6 @@ package tree.binary;
 
 import tree.binary.structure.BinaryNode;
 import tree.binary.structure.BinaryTreeUtil;
-import util.AlgoUtil;
 
 import java.util.ArrayList;
 import java.util.LinkedList;
@@ -12,9 +11,9 @@ public class GetAllKLevelsDown {
 
     public static void main(String[] args) {
         var root = BinaryTreeUtil.create(new int[]{50, 25, 12, -1, -1, 37, 30, -1, -1, -1, 75, 62, -1, 70, -1, -1, 87, -1, -1});
-        System.out.println(GetAllKLevelsDown.iterative(root, 3));
-        System.out.println(GetAllKLevelsDown.iterative(root, 2, 75)); // with blocker
-        System.out.println(GetAllKLevelsDown.recursive(root, 3));
+        System.out.println(GetAllKLevelsDown.iterative(root, 2)); // [12, 37, 62, 87]
+        System.out.println(GetAllKLevelsDown.iterative(root, 2, 75)); // with blocker [12, 37]
+        System.out.println(GetAllKLevelsDown.recursive(root, 3)); // [30, 70]
     }
 
     private static List<Integer> recursive(BinaryNode root, int k) {
