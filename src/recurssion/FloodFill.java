@@ -1,58 +1,102 @@
 package recurssion;
 
+import util.AlgoUtil;
+
+/**
+ * Flood fill Algorithm – how to implement fill() in paint?
+ * In MS-Paint, when we take the brush to a pixel and click, the color of the region of that pixel is replaced with a new selected color.
+ * Following is the problem statement to do this task.
+ * Given a 2D screen, location of a pixel in the screen and a color, replace color of the given pixel and all adjacent same colored pixels with the given color.
+ *
+ * Example:
+ *
+ * Input:
+ * screen[M][N] = {{1, 1, 1, 1, 1, 1, 1, 1},
+ *                {1, 1, 1, 1, 1, 1, 0, 0},
+ *                {1, 0, 0, 1, 1, 0, 1, 1},
+ *                {1, 2, 2, 2, 2, 0, 1, 0},
+ *                {1, 1, 1, 2, 2, 0, 1, 0},
+ *                {1, 1, 1, 2, 2, 2, 2, 0},
+ *                {1, 1, 1, 1, 1, 2, 1, 1},
+ *                {1, 1, 1, 1, 1, 2, 2, 1},
+ *                };
+ *     x = 4, y = 4, newColor = 3
+ * The values in the given 2D screen
+ *   indicate colors of the pixels.
+ * x and y are coordinates of the brush,
+ *    newColor is the color that
+ * should replace the previous color on
+ *    screen[x][y] and all surrounding
+ * pixels with same color.
+ *
+ * Output:
+ * Screen should be changed to following.
+ * screen[M][N] = {{1, 1, 1, 1, 1, 1, 1, 1},
+ *                {1, 1, 1, 1, 1, 1, 0, 0},
+ *                {1, 0, 0, 1, 1, 0, 1, 1},
+ *                {1, 3, 3, 3, 3, 0, 1, 0},
+ *                {1, 1, 1, 3, 3, 0, 1, 0},
+ *                {1, 1, 1, 3, 3, 3, 3, 0},
+ *                {1, 1, 1, 1, 1, 3, 1, 1},
+ *                {1, 1, 1, 1, 1, 3, 3, 1},
+ *                };
+ */
 public class FloodFill {
+
     public static void main(String[] args) {
-        int[][] arr = new int[][]{
-                {0, 0, 0, 1, 0},
-                {1, 0, 0, 1, 1},
-                {0, 0, 0, 1, 0},
-                {1, 0, 0, 0, 0},
-                {0, 0, 1, 0, 0}
+        var matrix =  new int[][]{
+                {1, 1, 1, 1, 1, 1, 1, 1},
+                {1, 1, 1, 1, 1, 1, 0, 0},
+                {1, 0, 0, 1, 1, 0, 1, 1},
+                {1, 2, 2, 2, 2, 0, 1, 0},
+                {1, 1, 1, 2, 2, 0, 1, 0},
+                {1, 1, 1, 2, 2, 2, 2, 0},
+                {1, 1, 1, 1, 1, 2, 1, 1},
+                {1, 1, 1, 1, 1, 2, 2, 1},
         };
-        /**
-         * Output:
-         * rdddrrdr
-         * rdddrrrd
-         * rddrdrdr
-         * rddrdrrd
-         * rdrdldrrdr
-         * rdrdldrrrd
-         * rdrddrdr
-         * rdrddrrd
-         * rrdlddrrdr
-         * rrdlddrrrd
-         * rrdldrdrdr
-         * rrdldrdrrd
-         * rrddldrrdr
-         * rrddldrrrd
-         * rrdddrdr
-         * rrdddrrd
-         */
-        FloodFill.fill(arr);
+        FloodFill.fill(matrix, 4, 4, 3);
+        AlgoUtil.print(matrix);
     }
 
-    private static void fill(int[][] arr) {
-       fill(arr, 0, 0, "", new int[arr.length][arr[0].length]);
+    private static void fill(int[][] ints, int srcRow, int srcCol, int newColor) {
+        var visited = new boolean[ints.length][ints[0].length];
+        ints[srcRow][srcCol] = newColor;
+        fill(ints, srcRow, srcCol, ints[srcRow][srcCol], newColor, visited);
     }
 
-    private static void fill(int[][] arr, int srcRow, int srcCol, String ans, int[][] visited){
-        if (srcRow < 0 || srcCol < 0 || srcRow == arr.length || srcCol == arr[0].length ||
-                arr[srcRow][srcCol] == 1 || visited[srcRow][srcCol] == 1){
+    private static void fill(int[][] matrix, int srcRow, int srcCol, int oldColor, int newColor, boolean[][] visited) {
+
+        if (visited[srcRow][srcCol]){
             return;
         }
 
-        if (srcRow == arr.length-1 && srcCol == arr[0].length-1){
-            System.out.println(ans);
-            return;
+        visited[srcRow][srcCol] = true;
+        if (canVisit(matrix,srcRow-1, srcCol, oldColor, visited)){
+            matrix[srcRow-1][srcCol] = newColor;
+            fill(matrix, srcRow-1, srcCol, oldColor, newColor, visited);
         }
 
-        visited[srcRow][srcCol] = 1;
+        if (canVisit(matrix,srcRow, srcCol-1, oldColor, visited)){
+            matrix[srcRow][srcCol-1] = newColor;
+            fill(matrix, srcRow, srcCol-1, oldColor, newColor, visited);
+        }
 
-        fill(arr, srcRow-1, srcCol, ans + "t", visited);
-        fill(arr, srcRow, srcCol-1, ans + "l", visited);
-        fill(arr, srcRow+1, srcCol, ans + "d", visited);
-        fill(arr, srcRow, srcCol+1, ans + "r", visited);
+        if (canVisit(matrix,srcRow+1, srcCol, oldColor, visited)){
+            matrix[srcRow+1][srcCol] = newColor;
+            fill(matrix, srcRow+1, srcCol, oldColor, newColor, visited);
+        }
 
-        visited[srcRow][srcCol] = 0;
+        if (canVisit(matrix,srcRow, srcCol+1, oldColor, visited)){
+            matrix[srcRow][srcCol+1] = newColor;
+            fill(matrix, srcRow, srcCol+1, oldColor, newColor, visited);
+        }
+    }
+
+    private static boolean canVisit(int[][] matrix, int row, int col, int oldColor, boolean[][] visited) {
+        return isSafe(row, col, matrix.length-1, matrix[0].length-1) && !visited[row][col] && matrix[row][col] == oldColor;
+    }
+
+    private static boolean isSafe(int row, int col, int rowLength, int colLength) {
+        return row >= 0 && col >= 0 && row <= rowLength && col <= colLength;
     }
 }

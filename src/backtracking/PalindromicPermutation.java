@@ -55,12 +55,11 @@ public class PalindromicPermutation {
             for (int i = answer.length() -1; i >=0; i--){
                 reverse = reverse + answer.charAt(i);
             }
-            if (singleFrequency != null){
+            if (singleFrequency != null) {
                 System.out.println(answer + singleFrequency + reverse);
             } else {
                 System.out.println(answer + reverse);
             }
-
             return;
         }
         for (char ch : map.keySet()){

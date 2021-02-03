@@ -10,7 +10,6 @@ public class PlaceKDigitsInNPlaces {
     }
 
     private static void place(int n, int k) {
-
         place(n, k, new int[n], 0, 0);
     }
 
@@ -19,11 +18,9 @@ public class PlaceKDigitsInNPlaces {
         if (currentItem == n){
             if (k == placeSoFar){
                 System.out.println(Arrays.toString(placed));
-
             }
             return;
         }
-
 
         for (int i=0; i< n; i++){
             if (placed[i] == 0){

@@ -27,15 +27,24 @@ public class FindElementInRotatedSortedArray {
         System.out.println(find(new int[]{5, 6, 7, 8, 9, 10, 1, 2, 3}, 3));
         System.out.println(find(new int[]{5, 6, 7, 8, 9, 10, 11, 2, 3}, 3));
         System.out.println(find(new int[]{5, 16, 17, 18, 1, 2, 3}, 3));
+        System.out.println(find(new int[]{5, 16, 17, 18, 1, 2, 3}, 16));
+        System.out.println(find(new int[]{5, 16, 17, 18, 1, 2, 3}, 5));
+        System.out.println(find(new int[]{5, 16, 17, 18, 1, 2, 3}, 1));
     }
 
     private static int find(int[] array, int k) {
         int pivot = FindPivotInRotatedSortedArray.findPivot(array);
-        int index = binarySearch(array, k, 0, pivot);
+        int index = -1;
+        if (pivot == 0){
+            index = binarySearch(array, k, 0, array.length-1);
+        } else {
+            index = binarySearch(array, k, 0, pivot-1);
+        }
+
         if (index != -1){
             return index;
         }
-        return binarySearch(array, k, pivot+1, array.length-1);
+        return binarySearch(array, k, pivot, array.length-1);
     }
 
     private static int binarySearch(int[] array, int k, int low, int high) {

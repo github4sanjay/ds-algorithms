@@ -89,7 +89,7 @@ public class CrossWordPuzzle {
     }
 
     private static boolean tryFittingInRow(char[][] crossword, String word, int row, int col) {
-        if (col-1 >=0 && crossword[row][col-1] != '*'){
+        if (col-1 >=0 && crossword[row][col-1] != '*'){ // there should be some gap between two words
             return false;
         } else if (col+word.length() < crossword[0].length && crossword[row][col+word.length()] != '*'){
             return false;
@@ -109,7 +109,7 @@ public class CrossWordPuzzle {
     }
 
     private static boolean tryFittingInCol(char[][] crossword, String word, int row, int col) {
-        if (row-1 >=0 && crossword[row-1][col] != '*'){
+        if (row-1 >=0 && crossword[row-1][col] != '*'){ // there should be some gap between two words
             return false;
         } else if (row+word.length() < crossword.length && crossword[row+word.length()][col] != '*'){
             return false;

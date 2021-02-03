@@ -53,7 +53,7 @@ public class CryptarithmeticPuzzles {
             int num2 = getStringNumber(s2, map);
             int num3 = getStringNumber(s3, map);
             if (num1 + num2 == num3){
-                for (int i=0; i< 26; i++){
+                for (int i=0; i< 26; i++){ // map can also be printed
                     char ch = (char) ('a' + i);
                     if (map.containsKey(ch)){
                         System.out.print(ch +"-"+ map.get(ch)+" ");
