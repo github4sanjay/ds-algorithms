@@ -31,64 +31,25 @@ public class Rotate {
 
     public static void main(String[] args) {
         int[] arr = new int[]{1,2,3,4,5,6,7};
-        rotateClockWise(arr, 3);
+        rotate(arr, 3);
         System.out.println(Arrays.toString(arr));
 
         int[] arr1 = new int[]{1,2,3,4,5,6,7};
-        rotateAntiClockWise(arr1, 3);
+        rotate(arr1, -3);
         System.out.println(Arrays.toString(arr1));
     }
 
-    public static void rotateAntiClockWise(int[] arr, int k) {
-        int i=0, j= arr.length-k-1;
-        while (i < j){
-            int temp = arr[j];
-            arr[j] = arr[i];
-            arr[i] = temp;
-            i++; j--;
+    public static void rotate(int[] arr, int k) {
+        k = k % arr.length;
+        if (k < 0) {
+            k = k + arr.length;
         }
-
-        i=arr.length-k;
-        j= arr.length-1;
-        while (i < j){
-            int temp = arr[j];
-            arr[j] = arr[i];
-            arr[i] = temp;
-            i++; j--;
-        }
-
-        i=0;
-        j= arr.length-1;
-        while (i < j){
-            int temp = arr[j];
-            arr[j] = arr[i];
-            arr[i] = temp;
-            i++; j--;
-        }
+        reverse(0, arr.length - k - 1, arr);
+        reverse(arr.length-k, arr.length-1, arr);
+        reverse(0, arr.length-1, arr);
     }
 
-    public static void rotateClockWise(int[] arr, int k) {
-
-        int i=0;
-        int j= arr.length-1;
-        while (i < j){
-            int temp = arr[j];
-            arr[j] = arr[i];
-            arr[i] = temp;
-            i++; j--;
-        }
-
-        i=0;
-        j= arr.length-k-1;
-        while (i < j){
-            int temp = arr[j];
-            arr[j] = arr[i];
-            arr[i] = temp;
-            i++; j--;
-        }
-
-        i=arr.length-k;
-        j= arr.length-1;
+    private static void reverse(int i, int j, int[] arr) {
         while (i < j){
             int temp = arr[j];
             arr[j] = arr[i];

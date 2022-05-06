@@ -33,7 +33,7 @@ public class ShellRotate {
 
     private static int[][] rotateAntiClockWise(int[][] matrix, int shell, int rotate) {
         int[] shellAs1DArray = getShellAs1DArray(matrix, shell);
-        Rotate.rotateAntiClockWise(shellAs1DArray, rotate);
+        Rotate.rotate(shellAs1DArray, rotate);
         fillShellFrom1DArray(matrix, shell, shellAs1DArray);
         return matrix;
     }
@@ -65,7 +65,7 @@ public class ShellRotate {
     private static int[] getShellAs1DArray(int[][] matrix, int shell) {
         int minR = shell-1, minC = shell-1;
         int maxR = matrix.length-shell, maxC = matrix[0].length-shell;
-        int[] result = new int[2*maxR + 2*maxC - 4];
+        int[] result = new int[2*(maxR - minR + maxC - minC)];
         int count = 0;
         for (int i=minR; i<=maxR;i++){
             result[count++] = matrix[i][minC];
