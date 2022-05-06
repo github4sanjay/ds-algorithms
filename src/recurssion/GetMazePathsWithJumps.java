@@ -23,22 +23,22 @@ public class GetMazePathsWithJumps {
         }
 
         var finalList = new ArrayList<String>();
-        for (int i = 1; i <= desCol - srcCol; i++){
-            List<String> rowList = getWithJumps(sourceRow, srcCol + i, desRow, desCol);
+        for (int i = 1; i <= desRow - sourceRow; i++){
+            List<String> rowList = getWithJumps(sourceRow + i, srcCol, desRow, desCol);
             for (String path : rowList){
                 finalList.add("v" + i + path);
             }
         }
 
 
-        for (int i = 1; i <= desRow - sourceRow; i++){
-            List<String> colList = getWithJumps(sourceRow + i, srcCol , desRow, desCol);
+        for (int i = 1; i <=  desCol - srcCol; i++){
+            List<String> colList = getWithJumps(sourceRow, srcCol + i, desRow, desCol);
             for (String path : colList){
                 finalList.add("h" + i + path);
             }
         }
 
-        for (int i = 1; i < Math.min(desRow, desCol); i++){
+        for (int i = 1; i <= desRow - sourceRow && i <= desCol - srcCol; i++){
             List<String> diaList = getWithJumps(sourceRow + i, srcCol + i, desRow, desCol);
             for (String path : diaList){
                 finalList.add("d" + i + path);
