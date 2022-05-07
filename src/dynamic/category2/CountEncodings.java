@@ -22,6 +22,8 @@ public class CountEncodings {
 
     public static void main(String[] args) {
         System.out.println(CountEncodings.count("124"));
+        System.out.println(CountEncodings.count("1234"));
+        System.out.println(CountEncodings.count("655196"));
     }
 
     private static int count(String str) {

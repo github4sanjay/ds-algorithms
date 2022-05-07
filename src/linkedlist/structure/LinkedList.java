@@ -350,4 +350,34 @@ public class LinkedList<T> {
 
         return slowerNode.getData();
     }
+
+    public T removeAtIndexFromLast(int index) {
+        if (index > getSize()-1) {
+            throw new RuntimeException("Invalid index");
+        }
+        if (getSize() == index) {
+            return removeFirst();
+        }
+        var slowPointer = getHead();
+        var fastPointer = getHead();
+        for (int i =0; i<index; i++) {
+            fastPointer = fastPointer.getNext();
+        }
+        while (fastPointer.getNext() != null){
+            fastPointer = fastPointer.getNext();
+            slowPointer = slowPointer.getNext();
+        }
+        var next = slowPointer.getNext();
+        slowPointer.setNext(next.getNext());
+        if (next == tail) {
+            if (next.getNext() == null) {
+                tail = slowPointer;
+            } else {
+                tail = next.getNext();
+            }
+        }
+        size--;
+        return next.getData();
+    }
+
 }

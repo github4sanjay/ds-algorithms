@@ -60,8 +60,9 @@ public class FloodFill {
 
     private static void fill(int[][] ints, int srcRow, int srcCol, int newColor) {
         var visited = new boolean[ints.length][ints[0].length];
+        var oldColor = ints[srcRow][srcCol];
         ints[srcRow][srcCol] = newColor;
-        fill(ints, srcRow, srcCol, ints[srcRow][srcCol], newColor, visited);
+        fill(ints, srcRow, srcCol, oldColor, newColor, visited);
     }
 
     private static void fill(int[][] matrix, int srcRow, int srcCol, int oldColor, int newColor, boolean[][] visited) {
