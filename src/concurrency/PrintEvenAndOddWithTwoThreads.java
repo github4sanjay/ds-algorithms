@@ -46,7 +46,7 @@ public class PrintEvenAndOddWithTwoThreads {
         private final Lock lock;
         private final Condition even;
         private final Condition odd;
-        boolean isOdd = false;
+        boolean isOdd = true;
 
         public Printer(Lock lock, Condition even, Condition odd) {
             this.lock = lock;
@@ -56,7 +56,7 @@ public class PrintEvenAndOddWithTwoThreads {
 
         public void printEven(int number) {
             lock.lock();
-            while (!isOdd) {
+            while (isOdd) {
                 try {
                     even.await();
                 } catch (InterruptedException e) {
@@ -64,14 +64,14 @@ public class PrintEvenAndOddWithTwoThreads {
                 }
             }
             System.out.println("Even:" + number);
-            isOdd = false;
+            isOdd = true;
             odd.signalAll();
             lock.unlock();
         }
 
         public void printOdd(int number) {
             lock.lock();
-            while (isOdd) {
+            while (!isOdd) {
                 try {
                     odd.await();
                 } catch (InterruptedException e) {
@@ -79,7 +79,7 @@ public class PrintEvenAndOddWithTwoThreads {
                 }
             }
             System.out.println("Odd:" + number);
-            isOdd = true;
+            isOdd = false;
             even.signalAll();
             lock.unlock();
         }
