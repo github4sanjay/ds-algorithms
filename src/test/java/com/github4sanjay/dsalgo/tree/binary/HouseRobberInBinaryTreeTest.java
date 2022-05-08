@@ -11,12 +11,12 @@ class HouseRobberInBinaryTreeTest {
   public void test1() {
     var root1 =
         BinaryTreeUtil.create(new int[] {1, 1, -1, 1, 1, -1, 1, -1, -1, 1, -1, -1, 1, -1, -1});
-    Assertions.assertEquals(4, HouseRobberInBinaryTree.find(root1));
+    Assertions.assertEquals(4, HouseRobberInBinaryTree.get(root1));
 
     var root2 = BinaryTreeUtil.create(new int[] {3, 2, -1, 3, -1, -1, 3, -1, 1, -1, -1});
-    Assertions.assertEquals(7, HouseRobberInBinaryTree.find(root2));
+    Assertions.assertEquals(7, HouseRobberInBinaryTree.get(root2));
 
     var root3 = BinaryTreeUtil.create(new int[] {3, 4, 1, -1, -1, 3, -1, -1, 5, -1, 1, -1, -1});
-    Assertions.assertEquals(9, HouseRobberInBinaryTree.find(root3));
+    Assertions.assertEquals(9, HouseRobberInBinaryTree.get(root3));
   }
 }

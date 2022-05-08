@@ -4,7 +4,6 @@ import com.github4sanjay.dsalgo.tree.binary.structure.BinaryNode;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 
 /**
  * 1. You are given a partially written function to solve. 2. The thief has found himself a new
@@ -29,24 +28,20 @@ import lombok.Setter;
  */
 public class HouseRobberInBinaryTree {
 
-  public static Integer find(BinaryNode node) {
-    var answer = new Answer();
-    find(node, answer);
-    return answer.getMoney();
+  public static Integer get(BinaryNode node) {
+    var result = find(node);
+    return Math.max(result.getWithRobbery(), result.getWithoutRobbery());
   }
 
-  private static Money find(BinaryNode node, Answer answer) {
+  private static Money find(BinaryNode node) {
     if (node == null) return new Money();
-    var lChild = find(node.getLeft(), answer);
-    var rChild = find(node.getRight(), answer);
+    var lChild = find(node.getLeft());
+    var rChild = find(node.getRight());
     // max of with or without robbery
-    answer.setMoney(
-        Math.max(
-            lChild.getWithoutRobbery() + rChild.getWithoutRobbery() + node.getData(),
-            lChild.withRobbery + rChild.withRobbery));
     return new Money(
         lChild.getWithoutRobbery() + rChild.getWithoutRobbery() + node.getData(),
-        lChild.withRobbery + rChild.withRobbery);
+        Math.max(lChild.getWithRobbery(), lChild.getWithoutRobbery())
+            + Math.max(rChild.getWithRobbery(), rChild.getWithoutRobbery()));
   }
 
   @Getter
@@ -55,15 +50,5 @@ public class HouseRobberInBinaryTree {
   public static class Money {
     private int withRobbery;
     private int withoutRobbery;
-  }
-
-  @Setter
-  @Getter
-  public static class Answer {
-    private int money;
-
-    public void add(int more) {
-      money = money + more;
-    }
   }
 }
