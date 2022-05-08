@@ -98,4 +98,13 @@ public class LinkedListUtil {
     }
     return newLinkedList;
   }
+
+  public static void print(LinkNode<Integer> head) {
+    var current = head;
+    while (current != null) {
+      var data = current.getData();
+      System.out.println(data);
+      current = current.getNext();
+    }
+  }
 }

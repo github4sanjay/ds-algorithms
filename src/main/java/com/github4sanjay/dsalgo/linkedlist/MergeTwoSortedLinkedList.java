@@ -4,10 +4,10 @@ import com.github4sanjay.dsalgo.linkedlist.structure.LinkNode;
 
 public class MergeTwoSortedLinkedList {
 
-  public static LinkNode<Integer> merge(LinkNode<Integer> head1, LinkNode<Integer> head2) {
+  public static <T extends Comparable<T>> LinkNode<T> merge(LinkNode<T> head1, LinkNode<T> head2) {
     if (head1 == null || head2 == null) return head1 == null ? head2 : head1;
-    LinkNode<Integer> prev = null;
-    LinkNode<Integer> head = null;
+    LinkNode<T> prev = null;
+    LinkNode<T> head = null;
     var current1 = head1;
     var current2 = head2;
     while (current1 != null && current2 != null) {
@@ -36,13 +36,5 @@ public class MergeTwoSortedLinkedList {
       prev.setNext(current2);
     }
     return head;
-  }
-
-  private static void print(LinkNode<Integer> head) {
-    var current = head;
-    while (current != null) {
-      System.out.println(current.getData());
-      current = current.getNext();
-    }
   }
 }

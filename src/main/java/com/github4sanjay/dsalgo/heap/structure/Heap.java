@@ -39,6 +39,7 @@ public class Heap<T extends Comparable<T>> {
     return removed;
   }
 
+  // O(log n)
   private void percolateDown(int index) {
     int leftChildIndex = getLeftChildIndex(index);
     int rightChildIndex = getRightChildIndex(index);
@@ -93,6 +94,7 @@ public class Heap<T extends Comparable<T>> {
     return storage.isEmpty();
   }
 
+  // O(log n)
   private void percolateUp(T data, int index) {
     while (index > 0 && compare(data, storage.get(getParent(index)))) {
       storage.set(index, storage.get((index - 1) / 2));
