@@ -26,9 +26,7 @@ class MergeTwoSortedLinkedListTest {
     anotherLL.addLast(3);
     String text =
         tapSystemOut(
-            () -> {
-              LinkedListUtil.mergeSorted(linkedList.getHead(), anotherLL.getHead()).print();
-            });
+            () -> LinkedListUtil.mergeSorted(linkedList.getHead(), anotherLL.getHead()).print());
 
     Assertions.assertEquals(
         """
