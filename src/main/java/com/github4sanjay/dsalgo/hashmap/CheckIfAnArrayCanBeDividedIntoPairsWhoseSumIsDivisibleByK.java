@@ -1,4 +1,4 @@
-package com.github4sanjay.dsalgo.hashmap.subarray;
+package com.github4sanjay.dsalgo.hashmap;
 
 import com.github4sanjay.dsalgo.hashmap.structure.HashMap;
 

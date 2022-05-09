@@ -18,21 +18,9 @@ import java.util.Map;
  */
 public class NumberOfEmployeesUnderEveryManager {
 
-  public static void main(String[] args) {
-    System.out.println(
-        NumberOfEmployeesUnderEveryManager.find(
-            new char[][] {
-              {'A', 'C'},
-              {'B', 'C'},
-              {'C', 'F'},
-              {'D', 'E'},
-              {'E', 'F'},
-              {'F', 'F'},
-            }));
-  }
-
-  private static Map<Character, Integer> find(char[][] relations) {
+  public static Map<Character, Integer> find(char[][] relations) {
     var map = new HashMap<Character, Integer>();
+    if (relations.length == 0) return map;
     var charVsNode = new HashMap<Character, Node>();
     Node root = null;
     for (char[] relation : relations) {
