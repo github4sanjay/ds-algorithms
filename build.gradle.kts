@@ -15,7 +15,8 @@ repositories {
 dependencies {
     testImplementation(platform("org.junit:junit-bom:5.8.2"))
     testImplementation("org.junit.jupiter:junit-jupiter")
-    testImplementation("com.github.stefanbirkner:system-lambda:1.0.0")
+    testImplementation("com.github.stefanbirkner:system-lambda:1.2.1")
+    testImplementation("org.apache.commons:commons-collections4:4.4")
 }
 
 tasks.withType<Test> {
