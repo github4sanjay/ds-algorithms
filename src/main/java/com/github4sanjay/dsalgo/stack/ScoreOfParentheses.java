@@ -54,4 +54,20 @@ public class ScoreOfParentheses {
     }
     return finalSum;
   }
+
+  public static int sum(int i1, int i2) {
+    return i1 + i2;
+  }
+
+  public static void main(String[] args) {
+    var s = new ScoreOfParentheses();
+    System.out.println(str);
+  }
+
+  private static String str;
+
+  public void ScoreOfParentheses() {
+    System.out.println("sdfkjsdf");
+    str = "hello world";
+  }
 }
