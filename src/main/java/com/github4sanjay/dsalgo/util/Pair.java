@@ -1,5 +1,8 @@
 package com.github4sanjay.dsalgo.util;
 
+import lombok.Getter;
+
+@Getter
 public class Pair {
 
   int data1;
