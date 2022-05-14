@@ -13,6 +13,8 @@ repositories {
 }
 
 dependencies {
+    implementation("com.google.code.gson:gson:2.9.0")
+
     testImplementation(platform("org.junit:junit-bom:5.8.2"))
     testImplementation("org.junit.jupiter:junit-jupiter")
     testImplementation("com.github.stefanbirkner:system-lambda:1.2.1")
