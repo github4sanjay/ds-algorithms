@@ -4,20 +4,26 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
-/**
- * Given an array arr[], where each element represents the maximum number of steps that can be made
- * forward from that element, the task is to print all possible paths that require the minimum
- * number of jumps to reach the end of the given array starting from the first array element.
- *
- * <p>Note: If an element is 0, then there are no moves allowed from that element.
- *
- * <p>Examples:
- *
- * <p>Input: arr[] = {1, 1, 1, 1, 1} Output: 0 ⇾ 1 ⇾ 2 ⇾ 3 ⇾4 Explanation: In every step, only one
- * jump is allowed. Therefore, only one possible path exists to reach end of the array.
- *
- * <p>Input: arr[] = {3, 3, 0, 2, 1, 2, 4, 2, 0, 0} Output: 0 ⇾ 3 ⇾ 5 ⇾ 6 ⇾ 9 0 ⇾ 3 ⇾ 5 ⇾ 7 ⇾ 9
- */
+/*
+  Given an array arr[], where each element represents the maximum number of steps that can be made forward from that element,
+  the task is to print all possible paths that require the minimum number of jumps to reach the end of the given array starting from the first array element.
+
+  Note: If an element is 0, then there are no moves allowed from that element.
+
+  Examples:
+
+  Input: arr[] = {1, 1, 1, 1, 1}
+  Output:
+  0 ⇾ 1 ⇾ 2 ⇾ 3 ⇾4
+  Explanation:
+  In every step, only one jump is allowed.
+  Therefore, only one possible path exists to reach end of the array.
+
+  Input: arr[] = {3, 3, 0, 2, 1, 2, 4, 2, 0, 0}
+  Output:
+  0 ⇾ 3 ⇾ 5 ⇾ 6 ⇾ 9
+  0 ⇾ 3 ⇾ 5 ⇾ 7 ⇾ 9
+*/
 public class FindAllPathsWithMinimumJumps {
 
   public static void main(String[] args) {
@@ -68,6 +74,8 @@ public class FindAllPathsWithMinimumJumps {
       }
       for (int i = 1; i <= node.jump && node.index + i < dp.length; i++) {
         var currentIndex = node.index + i;
+
+        // add node whose ways = (current node ways - 1)
         if (dp[currentIndex] != null && dp[currentIndex] == node.ways - 1) {
           var newPath = new ArrayList<>(node.path);
           newPath.add(node.index + i);
