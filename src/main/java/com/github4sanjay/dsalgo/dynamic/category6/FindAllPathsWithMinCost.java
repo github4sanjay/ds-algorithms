@@ -4,24 +4,32 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
-/**
- * 1. You are given a number n, representing the number of rows. 2. You are given a number m,
- * representing the number of columns. 3. You are given n*m numbers, representing elements of 2d
- * array a, which represents a maze. 4. You are standing in top-left cell and are required to move
- * to bottom-right cell. 5. You are allowed to move 1 cell right (h move) or 1 cell down (v move) in
- * 1 motion. 6. Each cell has a value that will have to be paid to enter that cell (even for the
- * top-left and bottom-right cell). 7. You are required to traverse through the matrix and print the
- * cost of the path which is least costly. 8. Also, you have to print all the paths with minimum
- * cost.
- *
- * <p>input
- *
- * <p>0 1 4 2 8 2 4 3 6 5 0 4 1 2 4 1 4 6 2 0 7 3 2 2 3 1 5 9 2 4 2 7 0 8 5 1
- *
- * <p>output
- *
- * <p>23 HVVHHVHVHV HVVHHVHHVV
- */
+/*
+ 1. You are given a number n, representing the number of rows.
+ 2. You are given a number m, representing the number of columns.
+ 3. You are given n*m numbers, representing elements of 2d array a, which represents a maze.
+ 4. You are standing in top-left cell and are required to move to bottom-right cell.
+ 5. You are allowed to move 1 cell right (h move) or 1 cell down (v move) in 1 motion.
+ 6. Each cell has a value that will have to be paid to enter that cell (even for the top-left and bottom-right cell).
+ 7. You are required to traverse through the matrix and print the cost of the path which is least costly.
+ 8. Also, you have to print all the paths with minimum cost.
+
+ input
+
+ 0 1 4 2 8 2
+ 4 3 6 5 0 4
+ 1 2 4 1 4 6
+ 2 0 7 3 2 2
+ 3 1 5 9 2 4
+ 2 7 0 8 5 1
+
+ output
+
+ 23
+ HVVHHVHVHV
+ HVVHHVHHVV
+
+*/
 public class FindAllPathsWithMinCost {
 
   public static void main(String[] args) {
@@ -37,13 +45,18 @@ public class FindAllPathsWithMinCost {
             }));
   }
 
-  /**
-   * [23, 23, 24, 20, 21, 19], [24, 22, 23, 18, 13, 17], [20, 19, 17, 13, 13, 13], [21, 19, 19, 12,
-   * 9, 7], [23, 20, 19, 16, 7, 5], [23, 21, 14, 14, 6, 1]
-   *
-   * <p>Add first move depending on cost to the queue 23 < 24 so first add H to queue if both are
-   * equal then add both
-   */
+  /*
+   [23, 23, 24, 20, 21, 19],
+   [24, 22, 23, 18, 13, 17],
+   [20, 19, 17, 13, 13, 13],
+   [21, 19, 19, 12, 9, 7],
+   [23, 20, 19, 16, 7, 5],
+   [23, 21, 14, 14, 6, 1]
+
+   Add first move depending on cost to the queue
+   23 < 24 so first add H to queue
+   if both are equal then add both
+  */
   private static Answer find(int[][] ints) {
     int[][] dp = new int[ints.length][ints[0].length];
     dp[ints.length - 1][ints[0].length - 1] = ints[ints.length - 1][ints[0].length - 1];
