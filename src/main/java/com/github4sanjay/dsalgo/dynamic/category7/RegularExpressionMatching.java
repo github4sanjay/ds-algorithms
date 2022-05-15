@@ -91,7 +91,7 @@ public class RegularExpressionMatching {
    *                                                                   character is . in expression
    *
    *
-   *     1. when patter character is other than * and .
+   *     1. when pattern character is other than * and .
    *          a. when its not equal to string character dp[i][j] = false
    *          b. when its equal then check in previous pattern and string dp[i][j] = dp[i-1][j-1]
    *     2. when character is .
