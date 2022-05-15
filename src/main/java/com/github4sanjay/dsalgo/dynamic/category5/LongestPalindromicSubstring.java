@@ -21,8 +21,8 @@ public class LongestPalindromicSubstring {
   /*
    * highest gap + 1
    *
-   * @param str find longest palindromic substrings in this string
-   * @return length of longest palindromic substring
+   * @param str find the longest palindromic substrings in this string
+   * @return length of the longest palindromic substring
    */
   private static int find(String str) {
 
