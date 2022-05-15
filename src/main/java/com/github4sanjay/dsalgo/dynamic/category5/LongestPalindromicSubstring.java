@@ -1,11 +1,15 @@
 package com.github4sanjay.dsalgo.dynamic.category5;
 
-/**
- * Given a string, find the longest substring which is palindrome. For example,
+/*
+ * Given a string, find the longest substring which is palindrome.
+ * For example,
  *
- * <p>Input: Given string :"forgeeksskeegfor", Output: "geeksskeeg"
  *
- * <p>Input: Given string :"Geeks", Output: "ee"
+ * Input: Given string :"forgeeksskeegfor",
+ * Output: "geeksskeeg"
+ *
+ * Input: Given string :"Geeks",
+ * Output: "ee"
  */
 public class LongestPalindromicSubstring {
 
@@ -14,7 +18,7 @@ public class LongestPalindromicSubstring {
     System.out.println(LongestPalindromicSubstring.find("Geeks")); // 2
   }
 
-  /**
+  /*
    * highest gap + 1
    *
    * @param str find longest palindromic substrings in this string

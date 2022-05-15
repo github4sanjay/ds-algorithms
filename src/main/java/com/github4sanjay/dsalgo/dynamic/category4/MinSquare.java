@@ -1,16 +1,21 @@
 package com.github4sanjay.dsalgo.dynamic.category4;
 
-/**
+/*
  * Minimum number of squares whose sum equals to given number n
  *
- * <p>A number can always be represented as a sum of squares of other numbers. Note that 1 is a
- * square and we can always break a number as (1*1 + 1*1 + 1*1 + …). Given a number n, find the
- * minimum number of squares that sum to X. Examples :
+ * A number can always be represented as a sum of squares of other numbers.
+ * Note that 1 is a square and we can always break a number as (1*1 + 1*1 + 1*1 + …).
+ * Given a number n, find the minimum number of squares that sum to X.
+ * Examples :
  *
- * <p>Input: n = 100 Output: 1 100 can be written as 10^2. Note that 100 can also be written as 5^2
- * + 5^2 + 5^2 + 5^2, but this representation requires 4 squares.
+ * Input:  n = 100
+ * Output: 1
+ * 100 can be written as 10^2. Note that 100 can also be
+ * written as 5^2 + 5^2 + 5^2 + 5^2, but this
+ * representation requires 4 squares.
  *
- * <p>Input: n = 6 Output: 3
+ * Input:  n = 6
+ * Output: 3
  */
 public class MinSquare {
 
@@ -20,7 +25,9 @@ public class MinSquare {
     System.out.println(getMinSquares(35));
   }
 
-  /** dp[i] = min {dp[i-1] for 1^2, dp[i-4] for 2^2, ....} + 1 */
+  /*
+   * dp[i] = min {dp[i-1] for 1^2, dp[i-4] for 2^2, ....} + 1
+   */
   private static int getMinSquares(int n) {
 
     int[] dp = new int[n + 1];

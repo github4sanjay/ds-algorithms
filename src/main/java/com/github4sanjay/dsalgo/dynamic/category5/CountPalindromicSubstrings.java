@@ -3,15 +3,19 @@ package com.github4sanjay.dsalgo.dynamic.category5;
 import com.github4sanjay.dsalgo.string.FindSubstring;
 import com.github4sanjay.dsalgo.string.Palindrome;
 
-/**
- * Given a string, your task is to count how many palindromic substrings in this string. The
- * substrings with different start indexes or end indexes are counted as different substrings even
- * they consist of the same characters.
+/*
+ * Given a string, your task is to count how many palindromic substrings in this string.
+ * The substrings with different start indexes or end indexes are counted as different substrings even they consist of the same characters.
  *
- * <p>Example 1: Input: "abc" Output: 3 Explanation: Three palindromic strings: "a", "b", "c".
+ * Example 1:
+ * Input: "abc"
+ * Output: 3
+ * Explanation: Three palindromic strings: "a", "b", "c".
  *
- * <p>Example 2: Input: "aaa" Output: 6 Explanation: Six palindromic strings: "a", "a", "a", "aa",
- * "aa", "aaa".
+ * Example 2:
+ * Input: "aaa"
+ * Output: 6
+ * Explanation: Six palindromic strings: "a", "a", "a", "aa", "aa", "aaa".
  */
 public class CountPalindromicSubstrings {
 
@@ -38,20 +42,30 @@ public class CountPalindromicSubstrings {
     return count;
   }
 
-  /**
+  /*
+   *
    * For string "abccbc" matrix will be like this
    *
-   * <p>-----------> end
    *
-   * <p>a b c c b c | |+++++++|+++++++|+++++++|++++++++|++++++++|++++++++| | s a | a | ab | abc |
-   * abcc | abccb | abccbc | | t |+++++++|+++++++|+++++++|++++++++|++++++++|++++++++| | a b | x | b
-   * | bc | bcc | bccb | bccbc | | r |+++++++|+++++++|+++++++|++++++++|++++++++|++++++++| | t c | x
-   * | x | c | cc | ccb | ccbc | | |+++++++|+++++++|+++++++|++++++++|++++++++|++++++++| V c | x | x
-   * | x | c | cb | cbc | |+++++++|+++++++|+++++++|++++++++|++++++++|++++++++| b | x | x | x | x | b
-   * | bc | |+++++++|+++++++|+++++++|++++++++|++++++++|++++++++| c | x | x | x | x | x | b |
-   * |+++++++|+++++++|+++++++|++++++++|++++++++|++++++++|
+   *                    -----------> end
    *
-   * <p>if first and last character same then check without prefix and suffix
+   *                  a       b       c       c        b        c
+   *   |           |+++++++|+++++++|+++++++|++++++++|++++++++|++++++++|
+   *   | s      a  |    a  |   ab  |  abc  |  abcc  | abccb  | abccbc |
+   *   | t         |+++++++|+++++++|+++++++|++++++++|++++++++|++++++++|
+   *   | a      b  |   x   |    b  |  bc   |   bcc  | bccb   | bccbc  |
+   *   | r         |+++++++|+++++++|+++++++|++++++++|++++++++|++++++++|
+   *   | t      c  |   x   |   x   |   c   |   cc   |   ccb  | ccbc   |
+   *   |           |+++++++|+++++++|+++++++|++++++++|++++++++|++++++++|
+   *   V        c  |   x   |   x   |   x   |   c    |   cb   |   cbc  |
+   *               |+++++++|+++++++|+++++++|++++++++|++++++++|++++++++|
+   *            b  |   x   |   x   |   x   |    x   |   b    |   bc   |
+   *               |+++++++|+++++++|+++++++|++++++++|++++++++|++++++++|
+   *            c  |   x   |   x   |   x   |   x    |    x   |    b   |
+   *               |+++++++|+++++++|+++++++|++++++++|++++++++|++++++++|
+   *
+   *
+   *  if first and last character same then check without prefix and suffix
    *
    * @param str palindromic substrings in this string
    * @return count how many palindromic substrings in this string

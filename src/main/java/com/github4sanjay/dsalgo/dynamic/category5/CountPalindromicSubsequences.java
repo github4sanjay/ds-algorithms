@@ -3,16 +3,21 @@ package com.github4sanjay.dsalgo.dynamic.category5;
 import com.github4sanjay.dsalgo.recurssion.Subsequence;
 import com.github4sanjay.dsalgo.string.Palindrome;
 
-/**
- * Find how many palindromic subsequences (need not necessarily be distinct) can be formed in a
- * given string. Note that the empty string is not considered as a palindrome. Examples:
+/*
+ * Find how many palindromic subsequences (need not necessarily be distinct) can be formed in a given string.
+ * Note that the empty string is not considered as a palindrome.
+ * Examples:
  *
- * <p>Input : str = "abcd" Output : 4 Explanation :- palindromic subsequence are : "a" ,"b", "c"
- * ,"d"
+ * Input : str = "abcd"
+ * Output : 4
+ * Explanation :- palindromic  subsequence are : "a" ,"b", "c" ,"d"
  *
- * <p>Input : str = "aab" Output : 4 Explanation :- palindromic subsequence are :"a", "a", "b", "aa"
+ * Input : str = "aab"
+ * Output : 4
+ * Explanation :- palindromic subsequence are :"a", "a", "b", "aa"
  *
- * <p>Input : str = "aaaa" Output : 15
+ * Input : str = "aaaa"
+ * Output : 15
  */
 public class CountPalindromicSubsequences {
 
@@ -42,18 +47,23 @@ public class CountPalindromicSubsequences {
     return count;
   }
 
-  /**
-   * count(str) -> count(c1mc2) where c1 = prefix, m = middle part, c2= suffix
+  /*
+   * count(str) -> count(c1mc2)
+   * where c1 = prefix, m = middle part, c2= suffix
    *
-   * <p>count(c1mc2) = count in subsequence(m) + count in c1+subsequence(m) + count in
-   * subsequence(m)+c2 + count in c1+subsequence(m)+c2 when c1 == c2 count(c1mc2) = 1 +
-   * count(subsequence(m)) + count(c1+subsequence(m)) + count(subsequence(m)+c2) +
-   * count(subsequence(m)) _________________________________________________
-   * _______________________________________________ = 1 + count(subsequence(c1m)) +
-   * count(subsequence(mc2))
+   * count(c1mc2) = count in subsequence(m)      +
+   *                count in c1+subsequence(m)   +
+   *                count in subsequence(m)+c2   +
+   *                count in c1+subsequence(m)+c2
+   * when c1 == c2
+   * count(c1mc2) = 1 + count(subsequence(m)) +  count(c1+subsequence(m)) + count(subsequence(m)+c2) + count(subsequence(m))
+   *                    _________________________________________________   _______________________________________________
+   *              = 1 +  count(subsequence(c1m))                          +     count(subsequence(mc2))
    *
-   * <p>when c1 != c2 count(c1mc2) = c(m) + c(c1m) + c(mc2) = c(m) + c(c1m) + c(mc2) + c(m) - c(m) =
-   * c(c1m) + c(mc2) - c(m)
+   * when c1 != c2
+   * count(c1mc2) = c(m) +  c(c1m) + c(mc2)
+   *              = c(m) +  c(c1m) + c(mc2) + c(m) - c(m)
+   *              = c(c1m) + c(mc2) - c(m)
    *
    * @param str string to find count of palindromic subsequence
    * @return count of palindromic subsequence

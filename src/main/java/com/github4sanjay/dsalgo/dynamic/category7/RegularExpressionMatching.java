@@ -1,33 +1,48 @@
 package com.github4sanjay.dsalgo.dynamic.category7;
 
-/**
- * Given an input string (s) and a pattern (p), implement regular expression matching with support
- * for '.' and '*' where:
+/*
+ * Given an input string (s) and a pattern (p), implement regular expression matching with support for '.' and '*' where:
  *
- * <p>'.' Matches any single character. '*' Matches zero or more of the preceding element. The
- * matching should cover the entire input string (not partial).
+ * '.' Matches any single character.
+ * '*' Matches zero or more of the preceding element.
+ * The matching should cover the entire input string (not partial).
  *
- * <p>Example 1:
  *
- * <p>Input: s = "aa", p = "a" Output: false Explanation: "a" does not match the entire string "aa".
+ *
+ * Example 1:
+ *
+ * Input: s = "aa", p = "a"
+ * Output: false
+ * Explanation: "a" does not match the entire string "aa".
  * Example 2:
  *
- * <p>Input: s = "aa", p = "a*" Output: true Explanation: '*' means zero or more of the preceding
- * element, 'a'. Therefore, by repeating 'a' once, it becomes "aa". Example 3:
+ * Input: s = "aa", p = "a*"
+ * Output: true
+ * Explanation: '*' means zero or more of the preceding element, 'a'. Therefore, by repeating 'a' once, it becomes "aa".
+ * Example 3:
  *
- * <p>Input: s = "ab", p = ".*" Output: true Explanation: ".*" means "zero or more (*) of any
- * character (.)". Example 4:
+ * Input: s = "ab", p = ".*"
+ * Output: true
+ * Explanation: ".*" means "zero or more (*) of any character (.)".
+ * Example 4:
  *
- * <p>Input: s = "aab", p = "c*a*b" Output: true Explanation: c can be repeated 0 times, a can be
- * repeated 1 time. Therefore, it matches "aab". Example 5:
+ * Input: s = "aab", p = "c*a*b"
+ * Output: true
+ * Explanation: c can be repeated 0 times, a can be repeated 1 time. Therefore, it matches "aab".
+ * Example 5:
  *
- * <p>Input: s = "mississippi", p = "mis*is*p*." Output: false
+ * Input: s = "mississippi", p = "mis*is*p*."
+ * Output: false
  *
- * <p>Constraints:
  *
- * <p>0 <= s.length <= 20 0 <= p.length <= 30 s contains only lowercase English letters. p contains
- * only lowercase English letters, '.', and '*'. It is guaranteed for each appearance of the
- * character '*', there will be a previous valid character to match.
+ * Constraints:
+ *
+ * 0 <= s.length <= 20
+ * 0 <= p.length <= 30
+ * s contains only lowercase English letters.
+ * p contains only lowercase English letters, '.', and '*'.
+ * It is guaranteed for each appearance of the character '*', there will be a previous valid character to match.
+ *
  */
 public class RegularExpressionMatching {
 
@@ -40,44 +55,55 @@ public class RegularExpressionMatching {
     System.out.println(RegularExpressionMatching.find("mississippi", "mis*i.*p*i")); // true
   }
 
-  /**
+  /*
    * Input: s = "mississippi", p = "mis*is*p*."
    *
-   * <p>| _ | m | i | s | s | i | s | s | i | p | p | i |
-   * ___|_____|______|______|_____|______|______|_______|_______|________|_______|________|________|_
-   * _ | Y | N | N | N | N | N | N | N | N | N | N | N |
-   * ___|_____|______|______|_____|______|______|_______|_______|________|_______|________|________|_
-   * m | N | Y | N | N | N | N | N | N | N | N | N | N |
-   * ___|_____|______|______|_____|______|______|_______|_______|________|_______|________|________|_
-   * i | N | N | Y | N | N | N | N | N | N | N | N | N |
-   * ___|_____|______|______|_____|______|______|_______|_______|________|_______|________|________|_
-   * s | N | N | N | Y | N | N | N | N | N | N | N | N |
-   * ___|_____|______|______|_____|______|______|_______|_______|________|_______|________|________|_
-   * * | N | N | Y<--|--Y--|------|------|-------|-------|--------|-------|--------|--------|-------
-   * Here need to compare
-   * ___|_____|______|______|__|__|______|______|_______|_______|________|_______|________|________|_
-   * mi and mis* i | N | | | | | | | | | | | | | if s* becomes blank
-   * ___|_____|______|______|__|__|______|______|_______|_______|________|_______|________|________|_
-   * then dp[i-2][j] s | N | | | | | | | | | | | | |
-   * ___|_____|______|______|__|__|______|______|_______|_______|________|_______|________|________|_
-   * * | N | | | | | | | | | | | | |
-   * ___|_____|______|______|__|__|______|______|_______|_______|________|_______|________|________|_
-   * p | N | | | | | | | | | | | | |
-   * ___|_____|______|______|__|__|______|______|_______|_______|________|_______|________|________|_
-   * * | N | | | | | | | | | | | | |
-   * ___|_____|______|______|__|__|______|______|_______|_______|________|_______|________|________|_
-   * . | | | | | | | | | | | | | |
-   * ___|_____|______|______|__|__|______|______|_______|_______|________|_______|________|________|_
-   * | | here mis and mis* mis and mis[s*] when s* give 1 s remove s from both then ------------>
-   * character should be same in expression and string mi and mi[s*] then dp[i][j-1] or character is
-   * . in expression
+   *             | _   |   m  | i    | s   |  s   |   i  |    s  |    s  |      i |     p |      p |      i |
+   *          ___|_____|______|______|_____|______|______|_______|_______|________|_______|________|________|_
+   *          _  |  Y  |  N   |  N   |  N  |  N   |   N  |  N    |  N    |   N    |  N    |    N   |   N    |
+   *          ___|_____|______|______|_____|______|______|_______|_______|________|_______|________|________|_
+   *          m  | N   |   Y  |  N   |  N  |  N   |  N   |   N   |  N    |   N    |   N   |  N     |  N     |
+   *          ___|_____|______|______|_____|______|______|_______|_______|________|_______|________|________|_
+   *          i  | N   |  N   |  Y   | N   |  N   | N    |  N    |  N    |    N   |   N   |   N    |   N    |
+   *          ___|_____|______|______|_____|______|______|_______|_______|________|_______|________|________|_
+   *          s  | N   |  N   | N    | Y   |  N   |  N   |  N    |  N    |  N     |  N    |    N   |  N     |
+   *          ___|_____|______|______|_____|______|______|_______|_______|________|_______|________|________|_
+   *          *  | N   |   N  |  Y<--|--Y--|------|------|-------|-------|--------|-------|--------|--------|------- Here need to compare
+   *          ___|_____|______|______|__|__|______|______|_______|_______|________|_______|________|________|_           mi and mis*
+   *          i  | N   |      |      |  |  |      |      |       |       |        |       |        |        |         if s* becomes blank
+   *          ___|_____|______|______|__|__|______|______|_______|_______|________|_______|________|________|_           then dp[i-2][j]
+   *          s  | N   |      |      |  |  |      |      |       |       |        |       |        |        |
+   *          ___|_____|______|______|__|__|______|______|_______|_______|________|_______|________|________|_
+   *          *  | N   |      |      |  |  |      |      |       |       |        |       |        |        |
+   *          ___|_____|______|______|__|__|______|______|_______|_______|________|_______|________|________|_
+   *          p  | N   |      |      |  |  |      |      |       |       |        |       |        |        |
+   *          ___|_____|______|______|__|__|______|______|_______|_______|________|_______|________|________|_
+   *          *  | N   |      |      |  |  |      |      |       |       |        |       |        |        |
+   *          ___|_____|______|______|__|__|______|______|_______|_______|________|_______|________|________|_
+   *          .  |     |      |      |  |  |      |      |       |       |        |       |        |        |
+   *          ___|_____|______|______|__|__|______|______|_______|_______|________|_______|________|________|_
+   *                                    |
+   *                                    |
+   *                              here mis and mis*
+   *                              mis and mis[s*] when s* give 1 s
+   *                              remove s from both then ------------> character should be same in expression and string
+   *                              mi and mi[s*] then dp[i][j-1]               or
+   *                                                                   character is . in expression
    *
-   * <p>1. when patter character is other than * and . a. when its not equal to string character
-   * dp[i][j] = false b. when its equal then check in previous pattern and string dp[i][j] =
-   * dp[i-1][j-1] 2. when character is . since . can match any single character so if we assume it
-   * matches str.charAt(j) then check in previous pattern and string dp[i][j] = dp[i-1][j-1] 3. when
-   * character is * ___________________________ take | mis* -> mi, mis, miss.....| dp[i][j] =
-   * dp[i-2][j] | or | or | mi, miss* | dp[i][j] = dp[i][j-1] |___________________________|
+   *
+   *     1. when patter character is other than * and .
+   *          a. when its not equal to string character dp[i][j] = false
+   *          b. when its equal then check in previous pattern and string dp[i][j] = dp[i-1][j-1]
+   *     2. when character is .
+   *          since . can match any single character so if we assume it matches str.charAt(j)
+   *          then check in previous pattern and string dp[i][j] = dp[i-1][j-1]
+   *     3. when character is *
+   *                ___________________________
+   *          take | mis* -> mi, mis, miss.....|    dp[i][j] = dp[i-2][j]
+   *               |            or             |           or
+   *               |          mi, miss*        |    dp[i][j] = dp[i][j-1]
+   *               |___________________________|
+   *
    */
   private static boolean find(String str, String pattern) {
     boolean[][] dp = new boolean[pattern.length() + 1][str.length() + 1];

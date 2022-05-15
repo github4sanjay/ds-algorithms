@@ -1,18 +1,24 @@
 package com.github4sanjay.dsalgo.dynamic.category8;
 
-/**
+/*
  * Count ways to divide circle using N non-intersecting chords
  *
- * <p>Given a number N, find the number of ways you can draw N chords in a circle with 2*N points
- * such that no 2 chords intersect. Two ways are different if there exists a chord which is present
- * in one way and not in other.
+ * Given a number N, find the number of ways you can draw N chords in a circle with 2*N points such that no 2 chords intersect.
+ * Two ways are different if there exists a chord which is present in one way and not in other.
  *
- * <p>Examples:
+ * Examples:
  *
- * <p>Input : N = 2 Output : 2 Explanation: If points are numbered 1 to 4 in clockwise direction,
- * then different ways to draw chords are: {(1-2), (3-4)} and {(1-4), (2-3)}
+ * Input : N = 2
+ * Output : 2
+ * Explanation: If points are numbered 1 to 4 in
+ * clockwise direction, then different ways to
+ * draw chords are:
+ * {(1-2), (3-4)} and {(1-4), (2-3)}
  *
- * <p>Input : N = 1 Output : 1 Explanation: Draw a chord between points 1 and 2.
+ *
+ * Input : N = 1
+ * Output : 1
+ * Explanation: Draw a chord between points 1 and 2.
  */
 public class CircleAndChords {
 

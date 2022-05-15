@@ -4,16 +4,17 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
-/**
+/*
  * Construction of Longest Increasing Subsequence(LIS) and printing LIS sequence
  *
- * <p>The Longest Increasing Subsequence (LIS) problem is to find the length of the longest
- * subsequence of a given sequence such that all elements of the subsequence are sorted in
- * increasing order. For example, the length of LIS for {10, 22, 9, 33, 21, 50, 41, 60, 80} is 6 and
- * LIS is {10, 22, 33, 50, 60, 80}.
+ * The Longest Increasing Subsequence (LIS) problem is to find the length of the longest subsequence
+ * of a given sequence such that all elements of the subsequence are sorted in increasing order.
+ * For example, the length of LIS for {10, 22, 9, 33, 21, 50, 41, 60, 80} is 6 and LIS is {10, 22, 33, 50, 60, 80}.
  *
- * <p>Input: [10, 22, 9, 33, 21, 50, 41, 60, 80] Output: [10, 22, 33, 50, 60, 80] OR [10 22 33 41 60
- * 80] or any other LIS of same length.
+ * Input:  [10, 22, 9, 33, 21, 50, 41, 60, 80]
+ * Output: [10, 22, 33, 50, 60, 80]
+ *         OR
+ *         [10 22 33 41 60 80] or any other LIS of same length.
  */
 public class FindAllLongestIncreasingSubsequence {
 
@@ -22,11 +23,11 @@ public class FindAllLongestIncreasingSubsequence {
         FindAllLongestIncreasingSubsequence.find(new int[] {10, 22, 9, 33, 21, 50, 41, 60, 80}));
   }
 
-  /**
+  /*
+   *
    * Find LIS solution with dynamic programming and then create queue to do breadth first traversing
-   * First pop and then look for element in dp with length-1 of current element and also should be
-   * less than current value and push those elements in the queue. when popped length is 1, you get
-   * the list.
+   * First pop and then look for element in dp with length-1 of current element and also should be less than current value
+   * and push those elements in the queue. when popped length is 1, you get the list.
    *
    * @param arr array to find longest increasing subsequences
    * @return List of longest increasing subsequences
