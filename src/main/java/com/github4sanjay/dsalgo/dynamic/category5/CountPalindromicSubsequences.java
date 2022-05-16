@@ -33,6 +33,8 @@ public class CountPalindromicSubsequences {
    *
    * <p>This solution is exponential in term of time complexity.
    *
+   * <p>time complexity = n2^n
+   *
    * @param str string to find count of palindromic subsequence
    * @return count of palindromic subsequence
    */
@@ -64,6 +66,29 @@ public class CountPalindromicSubsequences {
    * count(c1mc2) = c(m) +  c(c1m) + c(mc2)
    *              = c(m) +  c(c1m) + c(mc2) + c(m) - c(m)
    *              = c(c1m) + c(mc2) - c(m)
+   *
+   * Important to realise that
+   * for a string "c1mc2", prefix is "c1m" and suffix is "mc2"
+   *
+   *        .    |      a    |     b      |        c     |       c        |       b        |           c
+   *    _________|___________|____________|______________|________________|________________|_____________________
+   *        a    |    1   (a)|      2 (ab)|         (abc)|          (abcc)|         (abccb)|             (abccbc)
+   *    _________|___________|____________|______________|________________|________________|_____________________
+   *        b    |      .    |     1   (b)|       2  (bc)|           (bcc)|          (bccb)|              (bccbc)
+   *    _________|___________|____________|______________|________________|_____________|__|_____________________
+   *        c    |           |            |       1   (c)|     3      (cc)|           (ccb)|               (ccbc)
+   *    _________|___________|____________|______________|________________|_____________|__|_____________________
+   *        c    |           |            |              |     1       (c)|     2      (cb)|                (cbc)
+   *    _________|___________|____________|______________|________________|_____________|__|_____________________
+   *        b    |           |            |              |                |     1       (b)|        2        (bc)
+   *    _________|___________|____________|______________|________________|_____________|__|_____________________
+   *        c    |           |            |              |                |             |  |        1         (c)
+   *    _________|___________|____________|______________|________________|_____________|__|_____________________
+   *             |           |            |              |                |             |  |
+   *                                                                                    |
+   *                                                                                    |
+   *                         important ------------------------------>for abccb, prefix is abcc and suffix is bccb
+   *
    *
    * @param str string to find count of palindromic subsequence
    * @return count of palindromic subsequence

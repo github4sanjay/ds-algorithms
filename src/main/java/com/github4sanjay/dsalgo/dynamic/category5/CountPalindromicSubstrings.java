@@ -43,7 +43,7 @@ public class CountPalindromicSubstrings {
   }
 
   /*
-   *
+   * Time complexity = n^2
    * For string "abccbc" matrix will be like this
    *
    *

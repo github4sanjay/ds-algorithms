@@ -41,11 +41,7 @@ public class RussianDollEnvelopes {
 
     @Override
     public int compareTo(Envelope o) {
-      if (!this.width.equals(o.width)) {
-        return this.width.compareTo(o.width);
-      } else {
-        return this.height.compareTo(o.height);
-      }
+      return this.width.compareTo(o.width);
     }
   }
 
@@ -64,7 +60,8 @@ public class RussianDollEnvelopes {
       var currentEnvelope = list.get(i);
       for (int j = 0; j < i; j++) {
         var previousEnvelope = list.get(j);
-        if (currentEnvelope.height > previousEnvelope.height) {
+        if (currentEnvelope.height > previousEnvelope.height
+            && currentEnvelope.width > previousEnvelope.width) {
           localMax = Math.max(localMax, dp[j]);
         }
       }

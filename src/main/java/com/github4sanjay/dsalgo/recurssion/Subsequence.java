@@ -39,6 +39,7 @@ public class Subsequence {
     return temp;
   }
 
+  // 2^n time complexity
   public static List<String> get(String str) {
     var list = new ArrayList<String>();
     get(str, "", 0, list);
