@@ -54,7 +54,7 @@ public class MergeOverlappingIntervals {
         stackStart.push(interval.start);
         stackEnd.push(interval.end);
       } else {
-        stackEnd.pop();
+        var peek = stackEnd.pop();
         stackEnd.push(interval.end > peek ? interval.end : peek);
       }
     }
