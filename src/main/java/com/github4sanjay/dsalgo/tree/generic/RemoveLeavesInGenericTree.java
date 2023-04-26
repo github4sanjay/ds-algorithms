@@ -38,15 +38,16 @@ public class RemoveLeavesInGenericTree {
   }
 
   private static void removeRecursion(Node root) {
-    for (var child : root.getChildren()) {
-      removeRecursion(child);
-    }
     var children = root.getChildren();
     for (int i = children.size() - 1; i >= 0; i--) {
       var child = children.get(i);
       if (child.getChildren().size() == 0) {
         children.remove(child);
       }
+    }
+    
+    for (var child : root.getChildren()) {
+      removeRecursion(child);
     }
   }
 }
