@@ -38,7 +38,6 @@ public class Tilt {
     int rightSum = recursive(root.getRight(), answer);
 
     answer.tiltSum = answer.tiltSum + Math.abs(leftSum - rightSum);
-    ;
     return leftSum + rightSum + root.getData();
   }
 

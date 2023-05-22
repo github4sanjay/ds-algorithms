@@ -19,6 +19,7 @@ public class RemoveNodeInBST {
   }
 
   private static BinaryNode remove(BinaryNode root, int data) {
+    if (root == null) return null;
 
     if (data < root.getData()) {
       root.setLeft(remove(root.getLeft(), data));

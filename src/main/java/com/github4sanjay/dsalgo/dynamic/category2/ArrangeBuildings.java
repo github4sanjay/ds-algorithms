@@ -28,6 +28,7 @@ public class ArrangeBuildings {
 
   public static void main(String[] args) {
     System.out.println(ArrangeBuildings.count(3));
+    System.out.println(ArrangeBuildings.count(4));
   }
 
   private static int count(int n) {

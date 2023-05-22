@@ -1,4 +1,4 @@
-package com.github4sanjay.dsalgo.concurrency;
+package com.github4sanjay.dsalgo.java.concurrency;
 
 import java.util.concurrent.*;
 

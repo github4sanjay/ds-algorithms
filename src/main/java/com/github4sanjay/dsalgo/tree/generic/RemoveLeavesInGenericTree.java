@@ -45,7 +45,7 @@ public class RemoveLeavesInGenericTree {
         children.remove(child);
       }
     }
-    
+
     for (var child : root.getChildren()) {
       removeRecursion(child);
     }

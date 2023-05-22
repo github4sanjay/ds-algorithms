@@ -21,8 +21,14 @@ dependencies {
     testImplementation("org.apache.commons:commons-collections4:4.4")
 }
 
+val ENABLE_PREVIEW = "--enable-preview"
+tasks.withType<JavaCompile> {
+    options.compilerArgs.add(ENABLE_PREVIEW)
+}
+
 tasks.withType<Test> {
     useJUnitPlatform()
+    jvmArgs(ENABLE_PREVIEW)
 }
 
 spotless {
