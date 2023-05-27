@@ -9,8 +9,8 @@ public class StairsPathWithVariableJumps {
 
   public static int find(int[] jumps) {
     // return dpMemoization(0, jumps, new int[jumps.length+1]);
-    // return recursion(0, jumps);
-    return recursion(0, jumps);
+    // return dpTabular(jumps.length, jumps);
+    return recursion(jumps.length, jumps);
   }
 
   public static int dpTabular(int n, int[] jumps) {

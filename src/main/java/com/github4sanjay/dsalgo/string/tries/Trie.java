@@ -50,4 +50,18 @@ public class Trie {
     node.setCompleteWord(false);
     return true;
   }
+
+  public boolean startsWith(String prefix) {
+    var node = root;
+    for (int i = 0; i < prefix.length(); i++) {
+      var ch = prefix.charAt(i);
+      var currentNode = node.getCharacterNode(ch);
+      if (currentNode == null) {
+        return false;
+      } else {
+        node = currentNode;
+      }
+    }
+    return node != null;
+  }
 }

@@ -58,4 +58,18 @@ public class Subsequence {
     get(str, answer, index + 1, list);
     get(str, answer + ch, index + 1, list);
   }
+
+  public void print(String question, String answer) {
+    if (question.length() == 0) {
+      System.out.println(answer);
+      return;
+    }
+
+    var c = question.charAt(0);
+    var newQuestion = question.substring(1);
+    print(newQuestion, answer);
+    ;
+    print(newQuestion, answer + c);
+    ;
+  }
 }

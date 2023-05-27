@@ -20,17 +20,16 @@ public class ReverseColumn {
   }
 
   public static int[][] reverse(int[][] mat) {
-    int minC = 0, maxC = mat[0].length - 1;
-    int count = mat[0].length / 2;
-    while (count > 0) {
-      for (int i = 0; i < mat.length; i++) {
-        int temp = mat[i][minC];
-        mat[i][minC] = mat[i][maxC];
-        mat[i][maxC] = temp;
+    for (int i = 0; i < mat.length; i++) {
+      int li = 0;
+      int ri = mat[i].length - 1;
+      while (li < ri) {
+        int temp = mat[i][li];
+        mat[i][li] = mat[i][ri];
+        mat[i][ri] = temp;
+        li++;
+        ri--;
       }
-      minC++;
-      maxC--;
-      count--;
     }
     return mat;
   }

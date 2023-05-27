@@ -74,30 +74,30 @@ public class Spiral {
   private static List<Integer> antiClockWise(int[][] mat) {
     var list = new ArrayList<Integer>();
 
-    var count = 1;
+    var count = 0;
     int minR = 0, minC = 0;
     int maxR = mat.length - 1, maxC = mat[0].length - 1;
     var total = mat.length * mat[0].length;
-    while (count <= total) {
-      for (int k = minR; k <= maxR && count <= total; k++) {
+    while (count < total) {
+      for (int k = minR; k <= maxR && count < total; k++) {
         list.add(mat[k][minC]);
         count++;
       }
       minC++;
 
-      for (int k = minC; k <= maxC && count <= total; k++) {
+      for (int k = minC; k <= maxC && count < total; k++) {
         list.add(mat[maxR][k]);
         count++;
       }
       maxR--;
 
-      for (int k = maxR; k >= minR && count <= total; k--) {
+      for (int k = maxR; k >= minR && count < total; k--) {
         list.add(mat[k][maxC]);
         count++;
       }
       maxC--;
 
-      for (int k = maxC; k >= minC && count <= total; k--) {
+      for (int k = maxC; k >= minC && count < total; k--) {
         list.add(mat[minR][k]);
         count++;
       }

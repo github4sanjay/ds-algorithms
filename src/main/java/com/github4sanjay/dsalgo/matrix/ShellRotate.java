@@ -57,7 +57,6 @@ public class ShellRotate {
 
     for (int i = minC; i <= maxC; i++) {
       matrix[maxR][i] = shellAs1DArray[count++];
-      ;
     }
     maxR--;
 

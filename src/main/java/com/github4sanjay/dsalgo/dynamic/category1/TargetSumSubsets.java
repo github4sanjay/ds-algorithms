@@ -20,9 +20,13 @@ public class TargetSumSubsets {
 
   public static void main(String[] args) {
     int[] set = {3, 34, 4, 12, 5, 2};
-    int sum = 9;
+    int sum = 25;
     int n = set.length;
     if (isSubsetSum(set, sum)) System.out.println("Found a subset" + " with given sum");
+    else System.out.println("No subset with" + " given sum");
+
+    if (recursiveDP(set, sum, set.length - 1))
+      System.out.println("Found a subset" + " with given sum");
     else System.out.println("No subset with" + " given sum");
   }
 
@@ -51,5 +55,38 @@ public class TargetSumSubsets {
       }
     }
     return dp[set.length][sum];
+  }
+
+  public static boolean recursive(int[] set, int sum, int index) {
+    if (sum == 0) return true;
+    if (index == 0) {
+      return set[index] == sum;
+    }
+    boolean notTake = recursive(set, sum, index - 1);
+    boolean take = false;
+    if (sum >= set[index]) {
+      take = recursive(set, sum - set[index], index - 1);
+    }
+    return notTake || take;
+  }
+
+  public static boolean recursiveDP(int[] set, int sum, int index) {
+    return recursiveDP(set, sum, index, new Boolean[set.length][sum + 1]);
+  }
+
+  public static boolean recursiveDP(int[] set, int sum, int index, Boolean[][] dp) {
+    if (sum == 0) return true;
+    if (index == 0) {
+      return set[index] == sum;
+    }
+    if (dp[index][sum] != null) return dp[index][sum];
+    boolean notTake = recursive(set, sum, index - 1);
+    boolean take = false;
+    if (sum >= set[index]) {
+      take = recursive(set, sum - set[index], index - 1);
+    }
+    var result = notTake || take;
+    dp[index][sum] = result;
+    return result;
   }
 }

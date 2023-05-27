@@ -18,5 +18,9 @@ public class CreateTrie {
 
     trie.insert("ranjay");
     System.out.println(trie.search("ranjay"));
+
+    System.out.println(trie.startsWith("ra"));
+    System.out.println(trie.startsWith("rt"));
+    System.out.println(trie.startsWith("sanja"));
   }
 }

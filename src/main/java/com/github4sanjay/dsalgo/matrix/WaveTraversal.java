@@ -3,11 +3,12 @@ package com.github4sanjay.dsalgo.matrix;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * 1 2 3 4 5 6 7 8 9
- *
- * <p>1->4->7->8->5->2->3->6->9
- */
+/*
+ 1 2 3
+ 4 5 6
+ 7 8 9
+ 1->4->7->8->5->2->3->6->9
+*/
 public class WaveTraversal {
 
   public static void main(String[] args) {

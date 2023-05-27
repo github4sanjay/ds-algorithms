@@ -18,6 +18,7 @@ public class MazeTraversalMinCost {
     };
 
     System.out.println(minCost(cost));
+    System.out.println(recursive(cost, cost.length - 1, cost[0].length - 1));
   }
 
   private static int minCost(int[][] cost) {
@@ -38,5 +39,15 @@ public class MazeTraversalMinCost {
       }
     }
     return dp[0][0];
+  }
+
+  public static int recursive(int[][] cost, int m, int n) {
+    if (n < 0 || m < 0) return Integer.MAX_VALUE;
+    else if (m == 0 && n == 0) return cost[m][n];
+    else
+      return cost[m][n]
+          + Math.min(
+              recursive(cost, m - 1, n - 1),
+              Math.min(recursive(cost, m - 1, n), recursive(cost, m, n - 1)));
   }
 }

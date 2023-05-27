@@ -36,18 +36,8 @@ public class Rotate {
     if (k < 0) {
       k = k + arr.length;
     }
-    reverse(0, arr.length - k - 1, arr);
-    reverse(arr.length - k, arr.length - 1, arr);
-    reverse(0, arr.length - 1, arr);
-  }
-
-  private static void reverse(int i, int j, int[] arr) {
-    while (i < j) {
-      int temp = arr[j];
-      arr[j] = arr[i];
-      arr[i] = temp;
-      i++;
-      j--;
-    }
+    ReverseArray.reverse(0, arr.length - k - 1, arr);
+    ReverseArray.reverse(arr.length - k, arr.length - 1, arr);
+    ReverseArray.reverse(0, arr.length - 1, arr);
   }
 }

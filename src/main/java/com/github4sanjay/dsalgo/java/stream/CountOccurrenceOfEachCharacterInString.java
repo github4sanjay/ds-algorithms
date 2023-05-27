@@ -9,7 +9,6 @@ public class CountOccurrenceOfEachCharacterInString {
   public static void main(String[] args) {
 
     var str = "ilovesanjay";
-
     var map =
         Arrays.stream(str.split(""))
             .collect(Collectors.groupingBy(Function.identity(), Collectors.counting()));

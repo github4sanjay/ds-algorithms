@@ -10,9 +10,15 @@ package com.github4sanjay.dsalgo.dynamic.category1;
 public class GoldMineProblem {
 
   public static void main(String[] args) {
-    int gold[][] = {{1, 3, 1, 5}, {2, 2, 4, 1}, {5, 0, 2, 3}, {0, 6, 1, 2}};
+    /*int[][] gold = {{1, 3, 1, 5}, {2, 2, 4, 1}, {5, 0, 2, 3}, {0, 6, 1, 2}};
 
     System.out.print(getMaxGold(gold));
+    System.out.print(recursive(gold, 0, gold[0].length-1));*/
+
+    int[][] gold1 = {{1, 3, 1, 5}, {2, 2, 4, 1}, {5, 0, 2, 3}, {0, 6, 1, 2}};
+
+    System.out.println(getMaxGold(gold1));
+    System.out.println(recursive(gold1, gold1.length, gold1[0].length));
   }
 
   private static int getMaxGold(int[][] gold) {
@@ -41,5 +47,32 @@ public class GoldMineProblem {
       max = Math.max(max, dp[i][0]);
     }
     return max;
+  }
+
+  public static int collectGold(int[][] gold, int x, int y, int m, int n) {
+
+    if ((x < 0) || (x == m) || (y == n)) {
+      return 0;
+    }
+
+    int rightUpperDiagonal = collectGold(gold, x - 1, y + 1, m, n);
+
+    int right = collectGold(gold, x, y + 1, m, n);
+
+    int rightLowerDiagonal = collectGold(gold, x + 1, y + 1, m, n);
+
+    return gold[x][y] + Math.max(Math.max(rightUpperDiagonal, rightLowerDiagonal), right);
+  }
+
+  public static int recursive(int[][] gold, int m, int n) {
+    int maxGold = 0;
+
+    for (int i = 0; i < n; i++) {
+
+      int goldCollected = collectGold(gold, i, 0, m, n);
+      maxGold = Math.max(maxGold, goldCollected);
+    }
+
+    return maxGold;
   }
 }
