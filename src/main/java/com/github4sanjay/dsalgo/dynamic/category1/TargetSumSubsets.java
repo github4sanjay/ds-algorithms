@@ -20,13 +20,17 @@ public class TargetSumSubsets {
 
   public static void main(String[] args) {
     int[] set = {3, 34, 4, 12, 5, 2};
-    int sum = 25;
-    int n = set.length;
+    int sum = 43;
     if (isSubsetSum(set, sum)) System.out.println("Found a subset" + " with given sum");
     else System.out.println("No subset with" + " given sum");
 
-    if (recursiveDP(set, sum, set.length - 1))
-      System.out.println("Found a subset" + " with given sum");
+    if (recursive(set, sum)) System.out.println("Found a subset" + " with given sum");
+    else System.out.println("No subset with" + " given sum");
+
+    if (memoization(set, sum)) System.out.println("Found a subset" + " with given sum");
+    else System.out.println("No subset with" + " given sum");
+
+    if (tabular(set, sum)) System.out.println("Found a subset" + " with given sum");
     else System.out.println("No subset with" + " given sum");
   }
 
@@ -57,7 +61,11 @@ public class TargetSumSubsets {
     return dp[set.length][sum];
   }
 
-  public static boolean recursive(int[] set, int sum, int index) {
+  public static boolean recursive(int[] set, int sum) {
+    return recursive(set, sum, set.length - 1);
+  }
+
+  private static boolean recursive(int[] set, int sum, int index) {
     if (sum == 0) return true;
     if (index == 0) {
       return set[index] == sum;
@@ -70,11 +78,11 @@ public class TargetSumSubsets {
     return notTake || take;
   }
 
-  public static boolean recursiveDP(int[] set, int sum, int index) {
-    return recursiveDP(set, sum, index, new Boolean[set.length][sum + 1]);
+  public static boolean memoization(int[] set, int sum) {
+    return memoization(set, sum, set.length - 1, new Boolean[set.length][sum + 1]);
   }
 
-  public static boolean recursiveDP(int[] set, int sum, int index, Boolean[][] dp) {
+  private static boolean memoization(int[] set, int sum, int index, Boolean[][] dp) {
     if (sum == 0) return true;
     if (index == 0) {
       return set[index] == sum;
@@ -88,5 +96,24 @@ public class TargetSumSubsets {
     var result = notTake || take;
     dp[index][sum] = result;
     return result;
+  }
+
+  public static boolean tabular(int[] set, int sum) {
+    var dp = new boolean[set.length][sum + 1];
+    for (int i = 0; i < set.length; i++) dp[i][0] = true;
+    dp[0][set[0]] = true;
+    for (int i = 1; i < set.length; i++) {
+      for (int j = 1; j <= sum; j++) {
+        boolean notTake = dp[i - 1][j];
+        boolean take = false;
+        if (j >= set[i]) {
+          take = dp[i - 1][j - set[i]];
+        }
+        var result = notTake || take;
+        dp[i][j] = result;
+      }
+    }
+
+    return dp[set.length - 1][sum];
   }
 }

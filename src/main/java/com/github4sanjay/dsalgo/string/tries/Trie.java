@@ -5,7 +5,6 @@ public class Trie {
 
   public Trie() {
     this.root = new TrieNode();
-    ;
   }
 
   public void insert(String str) {

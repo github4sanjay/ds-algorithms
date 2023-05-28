@@ -2,7 +2,7 @@ plugins {
     java
     jacoco
     id("io.freefair.lombok") version "6.4.3"
-    id("com.diffplug.spotless") version "6.5.1"
+    id("com.diffplug.spotless") version "6.19.0"
     id("ai.clarity.codeartifact") version "0.0.12"
 }
 

@@ -10,15 +10,19 @@ package com.github4sanjay.dsalgo.dynamic.category1;
 public class GoldMineProblem {
 
   public static void main(String[] args) {
-    /*int[][] gold = {{1, 3, 1, 5}, {2, 2, 4, 1}, {5, 0, 2, 3}, {0, 6, 1, 2}};
+    int[][] gold = {{1, 3, 1, 5}, {2, 2, 4, 1}, {5, 0, 2, 3}, {0, 6, 1, 2}};
 
-    System.out.print(getMaxGold(gold));
-    System.out.print(recursive(gold, 0, gold[0].length-1));*/
+    System.out.println(getMaxGold(gold));
+    System.out.println(recursive(gold));
+    System.out.println(memoization(gold));
+    System.out.println(tabular(gold));
 
-    int[][] gold1 = {{1, 3, 1, 5}, {2, 2, 4, 1}, {5, 0, 2, 3}, {0, 6, 1, 2}};
+    int[][] gold1 = {{10, 33, 13, 15}, {22, 21, 4, 1}, {5, 0, 2, 3}, {0, 6, 14, 2}};
 
-    System.out.println(getMaxGold(gold1));
-    System.out.println(recursive(gold1, gold1.length, gold1[0].length));
+    System.out.println(getMaxGold(gold1)); // 83
+    System.out.println(recursive(gold1));
+    System.out.println(memoization(gold1));
+    System.out.println(tabular(gold1));
   }
 
   private static int getMaxGold(int[][] gold) {
@@ -49,27 +53,96 @@ public class GoldMineProblem {
     return max;
   }
 
-  public static int collectGold(int[][] gold, int x, int y, int m, int n) {
+  private static int recursive(int[][] gold, int i, int j) {
 
-    if ((x < 0) || (x == m) || (y == n)) {
+    if ((j < 0 || i < 0 || i > gold.length - 1)) {
       return 0;
     }
 
-    int rightUpperDiagonal = collectGold(gold, x - 1, y + 1, m, n);
+    if (j == 0) {
+      return gold[i][j];
+    }
 
-    int right = collectGold(gold, x, y + 1, m, n);
+    int rightUpperDiagonal = recursive(gold, i + 1, j - 1);
+    int right = recursive(gold, i, j - 1);
+    int rightLowerDiagonal = recursive(gold, i - 1, j - 1);
 
-    int rightLowerDiagonal = collectGold(gold, x + 1, y + 1, m, n);
-
-    return gold[x][y] + Math.max(Math.max(rightUpperDiagonal, rightLowerDiagonal), right);
+    return gold[i][j] + Math.max(Math.max(rightUpperDiagonal, rightLowerDiagonal), right);
   }
 
-  public static int recursive(int[][] gold, int m, int n) {
-    int maxGold = 0;
+  public static int recursive(int[][] gold) {
+    int maxGold = Integer.MIN_VALUE;
 
-    for (int i = 0; i < n; i++) {
+    for (int i = 0; i < gold.length; i++) {
+      int goldCollected = recursive(gold, i, gold.length - 1);
+      maxGold = Math.max(maxGold, goldCollected);
+    }
 
-      int goldCollected = collectGold(gold, i, 0, m, n);
+    return maxGold;
+  }
+
+  private static int memoization(int[][] gold, int i, int j, Integer[][] dp) {
+
+    if ((j < 0 || i < 0 || i > gold.length - 1)) {
+      return 0;
+    }
+
+    if (j == 0) {
+      return gold[i][j];
+    }
+
+    if (dp[i][j] != null) return dp[i][j];
+
+    int rightUpperDiagonal = recursive(gold, i + 1, j - 1);
+    int right = recursive(gold, i, j - 1);
+    int rightLowerDiagonal = recursive(gold, i - 1, j - 1);
+
+    var result = gold[i][j] + Math.max(Math.max(rightUpperDiagonal, rightLowerDiagonal), right);
+    dp[i][j] = result;
+    return result;
+  }
+
+  public static int memoization(int[][] gold) {
+    int maxGold = Integer.MIN_VALUE;
+
+    for (int i = 0; i < gold.length; i++) {
+      int goldCollected =
+          memoization(gold, i, gold.length - 1, new Integer[gold.length][gold[0].length]);
+      maxGold = Math.max(maxGold, goldCollected);
+    }
+
+    return maxGold;
+  }
+
+  public static int tabular(int[][] gold) {
+
+    var dp = new int[gold.length][gold[0].length];
+
+    for (int i = 0; i < gold.length; i++) {
+      dp[i][0] = gold[i][0];
+    }
+
+    for (int i = 0; i < gold.length; i++) {
+      for (int j = 1; j < gold[0].length; j++) {
+        int rightUpperDiagonal = Integer.MIN_VALUE;
+        if (i + 1 < gold.length) {
+          rightUpperDiagonal = dp[i + 1][j - 1];
+        }
+
+        int right = dp[i][j - 1];
+
+        int rightLowerDiagonal = Integer.MIN_VALUE;
+        if (i - 1 >= 0) {
+          rightLowerDiagonal = dp[i - 1][j - 1];
+        }
+        var result = gold[i][j] + Math.max(Math.max(rightUpperDiagonal, rightLowerDiagonal), right);
+        dp[i][j] = result;
+      }
+    }
+    int maxGold = Integer.MIN_VALUE;
+
+    for (int i = 0; i < gold.length; i++) {
+      int goldCollected = dp[i][gold.length - 1];
       maxGold = Math.max(maxGold, goldCollected);
     }
 
