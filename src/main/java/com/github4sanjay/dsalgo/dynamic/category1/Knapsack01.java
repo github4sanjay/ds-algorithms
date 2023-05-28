@@ -13,8 +13,12 @@ public class Knapsack01 {
   public static void main(String[] args) {
     int[] val = new int[] {60, 100, 120};
     int[] wt = new int[] {10, 20, 30};
-    int W = 50;
-    System.out.println(knapsack(W, wt, val)); // 220
+
+    System.out.println(knapsack(50, wt, val)); // 220
+
+    System.out.println(recursive(wt, val, 50)); // 220
+    System.out.println(memoization(wt, val, 50)); // 220
+    System.out.println(tabular(wt, val, 50)); // 220
   }
 
   private static int knapsack(int w, int[] wt, int[] val) {
@@ -32,5 +36,71 @@ public class Knapsack01 {
       }
     }
     return dp[wt.length][w];
+  }
+
+  public static int recursive(int[] wt, int[] val, int w) {
+    return recursive(wt.length - 1, w, wt, val);
+  }
+
+  private static int recursive(int i, int w, int[] wt, int[] val) {
+    if (w == 0) return 0;
+    if (i == 0) {
+      if (w <= wt[0]) return val[0];
+      else return 0;
+    }
+    var notTake = recursive(i - 1, w, wt, val);
+    var take = Integer.MIN_VALUE;
+    if (wt[i] <= w) {
+      take = val[i] + recursive(i - 1, w - wt[i], wt, val);
+    }
+    return Math.max(notTake, take);
+  }
+
+  public static int memoization(int[] wt, int[] val, int w) {
+    return recursive(wt.length - 1, w, wt, val, new Integer[wt.length][w + 1]);
+  }
+
+  private static int recursive(int i, int w, int[] wt, int[] val, Integer[][] dp) {
+    if (w == 0) return 0;
+    if (i == 0) {
+      if (w <= wt[0]) return val[0];
+      else return 0;
+    }
+
+    if (dp[i][w] != null) {
+      return dp[i][w];
+    }
+    var notTake = recursive(i - 1, w, wt, val);
+    var take = Integer.MIN_VALUE;
+    if (wt[i] <= w) {
+      take = val[i] + recursive(i - 1, w - wt[i], wt, val);
+    }
+    var result = Math.max(notTake, take);
+    dp[i][w] = result;
+    return result;
+  }
+
+  private static int tabular(int[] wt, int[] val, int w) {
+    var dp = new int[wt.length][w + 1];
+    for (int i = 0; i < wt.length; i++) {
+      dp[i][0] = 0;
+    }
+    for (int j = wt[0]; j <= w; j++) {
+      dp[0][j] = val[0];
+    }
+
+    for (int i = 1; i < dp.length; i++) {
+      for (int j = 1; j < dp[0].length; j++) {
+        var notTake = dp[i - 1][j];
+        var take = Integer.MIN_VALUE;
+        if (wt[i] <= j) {
+          take = val[i] + dp[i - 1][j - wt[i]];
+        }
+        var result = Math.max(notTake, take);
+        dp[i][j] = result;
+      }
+    }
+
+    return dp[dp.length - 1][w];
   }
 }
