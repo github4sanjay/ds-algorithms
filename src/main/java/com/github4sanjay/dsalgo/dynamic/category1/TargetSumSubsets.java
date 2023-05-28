@@ -101,7 +101,10 @@ public class TargetSumSubsets {
   public static boolean tabular(int[] set, int sum) {
     var dp = new boolean[set.length][sum + 1];
     for (int i = 0; i < set.length; i++) dp[i][0] = true;
-    dp[0][set[0]] = true;
+    if (set[0] <= sum) {
+      // dp row starts with set first element, so it will be true only at j = set[0]
+      dp[0][set[0]] = true;
+    }
     for (int i = 1; i < set.length; i++) {
       for (int j = 1; j <= sum; j++) {
         boolean notTake = dp[i - 1][j];
