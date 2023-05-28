@@ -1,4 +1,4 @@
-package com.github4sanjay.dsalgo.dynamic.category1;
+package com.github4sanjay.dsalgo.dynamic.grid;
 
 /**
  * Given a gold mine of n*m dimensions. Each field in this mine contains a positive integer which is

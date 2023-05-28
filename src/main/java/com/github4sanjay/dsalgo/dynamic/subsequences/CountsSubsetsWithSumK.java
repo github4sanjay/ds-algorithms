@@ -1,4 +1,4 @@
-package com.github4sanjay.dsalgo.dynamic.category1;
+package com.github4sanjay.dsalgo.dynamic.subsequences;
 
 /*
 Given an array arr[] of length N and an integer X, the task is to find the number of subsets with a

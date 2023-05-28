@@ -1,4 +1,4 @@
-package com.github4sanjay.dsalgo.dynamic.category1;
+package com.github4sanjay.dsalgo.dynamic.fibonacci;
 
 public class Fibonacci {
 

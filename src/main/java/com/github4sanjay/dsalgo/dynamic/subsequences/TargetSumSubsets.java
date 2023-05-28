@@ -1,4 +1,4 @@
-package com.github4sanjay.dsalgo.dynamic.category1;
+package com.github4sanjay.dsalgo.dynamic.subsequences;
 
 /**
  * Given a set of non-negative integers, and a value sum, determine if there is a subset of the

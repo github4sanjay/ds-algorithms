@@ -1,4 +1,4 @@
-package com.github4sanjay.dsalgo.dynamic.category5;
+package com.github4sanjay.dsalgo.dynamic.strings;
 
 import com.github4sanjay.dsalgo.recurssion.Subsequence;
 
@@ -18,6 +18,21 @@ public class LongestCommonSubsequence {
     System.out.println("Length of LCS is" + " " + LongestCommonSubsequence.lcs("HABCDH", "AEDFHR"));
     System.out.println(
         "Length of LCS is" + " " + LongestCommonSubsequence.lcs("AGGTAB", "GXTXAYB"));
+
+    System.out.println(
+        "Length of LCS is" + " " + LongestCommonSubsequence.recursive("HABCDH", "AEDFHR"));
+    System.out.println(
+        "Length of LCS is" + " " + LongestCommonSubsequence.recursive("AGGTAB", "GXTXAYB"));
+
+    System.out.println(
+        "Length of LCS is" + " " + LongestCommonSubsequence.memoization("HABCDH", "AEDFHR"));
+    System.out.println(
+        "Length of LCS is" + " " + LongestCommonSubsequence.memoization("AGGTAB", "GXTXAYB"));
+
+    System.out.println(
+        "Length of LCS is" + " " + LongestCommonSubsequence.tabular("HABCDH", "AEDFHR"));
+    System.out.println(
+        "Length of LCS is" + " " + LongestCommonSubsequence.tabular("AGGTAB", "GXTXAYB"));
   }
 
   /*
@@ -99,5 +114,61 @@ public class LongestCommonSubsequence {
       }
     }
     return dp[dp.length - 1][dp[0].length - 1];
+  }
+
+  public static int recursive(String str1, String str2) {
+    return recursive(str1.length() - 1, str2.length() - 1, str1, str2);
+  }
+
+  private static int recursive(int i1, int i2, String str1, String str2) {
+    if (i1 < 0 || i2 < 0) return 0;
+    if (str1.charAt(i1) == str2.charAt(i2)) {
+      return 1 + recursive(i1 - 1, i2 - 1, str1, str2);
+    } else {
+      return Math.max(recursive(i1 - 1, i2, str1, str2), recursive(i1, i2 - 1, str1, str2));
+    }
+  }
+
+  public static int memoization(String str1, String str2) {
+    return memoization(
+        str1.length() - 1, // str1.length() when shift
+        str2.length() - 1, // str2.length() when shift
+        str1,
+        str2,
+        new Integer[str1.length()]
+            [str2.length()]); // Integer[str1.length()+1][str2.length()+1]) when shift
+  }
+
+  private static int memoization(int i1, int i2, String str1, String str2, Integer[][] dp) {
+    if (i1 < 0 || i2 < 0) return 0; // if (i1 == 0 || i2 == 0) return 0; when shift
+    if (dp[i1][i2] != null) return dp[i1][i2];
+    int result;
+    if (str1.charAt(i1)
+        == str2.charAt(i2)) { // if (str1.charAt(i1-1) == str2.charAt(i2-1)) { when shift
+      result = 1 + memoization(i1 - 1, i2 - 1, str1, str2, dp);
+    } else {
+      result =
+          Math.max(
+              memoization(i1 - 1, i2, str1, str2, dp), memoization(i1, i2 - 1, str1, str2, dp));
+    }
+    dp[i1][i2] = result;
+    return result;
+  }
+
+  private static int tabular(String str1, String str2) {
+    var dp = new int[str1.length() + 1][str2.length() + 1]; // shift by one for easy base case
+    for (int i1 = 1; i1 < str1.length() + 1; i1++) {
+      for (int i2 = 1; i2 < str2.length() + 1; i2++) {
+        int result;
+        if (str1.charAt(i1 - 1) == str2.charAt(i2 - 1)) {
+          result = 1 + dp[i1 - 1][i2 - 1];
+        } else {
+          result = Math.max(dp[i1 - 1][i2], dp[i1][i2 - 1]);
+        }
+        dp[i1][i2] = result;
+      }
+    }
+
+    return dp[str1.length()][str2.length()];
   }
 }

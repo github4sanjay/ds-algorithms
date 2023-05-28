@@ -1,4 +1,4 @@
-package com.github4sanjay.dsalgo.dynamic.category1;
+package com.github4sanjay.dsalgo.dynamic.subsequences;
 
 /**
  * Given a value N, if we want to make change for N cents, and we have infinite supply of each of S

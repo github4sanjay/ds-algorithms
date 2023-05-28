@@ -1,4 +1,4 @@
-package com.github4sanjay.dsalgo.dynamic.category1;
+package com.github4sanjay.dsalgo.dynamic.grid;
 
 /**
  * Given a cost matrix cost[][] and a position (m, n) in cost[][], write a function that returns

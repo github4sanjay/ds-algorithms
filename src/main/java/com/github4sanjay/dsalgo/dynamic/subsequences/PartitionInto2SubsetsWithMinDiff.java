@@ -1,4 +1,4 @@
-package com.github4sanjay.dsalgo.dynamic.category1;
+package com.github4sanjay.dsalgo.dynamic.subsequences;
 
 /*
 Partition a set into two subsets such that the difference of subset sums is minimum

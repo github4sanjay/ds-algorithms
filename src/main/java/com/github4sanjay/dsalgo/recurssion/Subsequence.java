@@ -68,8 +68,6 @@ public class Subsequence {
     var c = question.charAt(0);
     var newQuestion = question.substring(1);
     print(newQuestion, answer);
-    ;
     print(newQuestion, answer + c);
-    ;
   }
 }

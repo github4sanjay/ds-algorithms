@@ -1,4 +1,4 @@
-package com.github4sanjay.dsalgo.dynamic.category1;
+package com.github4sanjay.dsalgo.dynamic.subsequences;
 
 public class CoinChangePermutation {
   public static void main(String[] args) {

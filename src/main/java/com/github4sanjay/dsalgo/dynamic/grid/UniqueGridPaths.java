@@ -1,4 +1,4 @@
-package com.github4sanjay.dsalgo.dynamic.category1;
+package com.github4sanjay.dsalgo.dynamic.grid;
 
 /*
 There is a robot on an m x n grid. The robot is initially located at the top-left corner (i.e., grid[0][0]).

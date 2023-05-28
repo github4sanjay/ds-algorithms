@@ -1,4 +1,4 @@
-package com.github4sanjay.dsalgo.dynamic.category1;
+package com.github4sanjay.dsalgo.dynamic.grid;
 
 /*
 Given a triangle array, return the minimum path sum from top to bottom.

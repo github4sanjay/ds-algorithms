@@ -1,4 +1,4 @@
-package com.github4sanjay.dsalgo.dynamic;
+package com.github4sanjay.dsalgo.dynamic.subsequences;
 
 /*
  * Given a rod of length n inches and an array of prices that contains prices of all pieces of size smaller than n.
@@ -22,6 +22,15 @@ public class RodCutting {
   public static void main(String[] args) {
     System.out.println(RodCutting.find(new int[] {1, 5, 8, 9, 10, 17, 17, 20}));
     System.out.println(RodCutting.find(new int[] {3, 5, 8, 9, 10, 17, 17, 20}));
+
+    System.out.println(RodCutting.recursive(new int[] {1, 5, 8, 9, 10, 17, 17, 20}));
+    System.out.println(RodCutting.recursive(new int[] {3, 5, 8, 9, 10, 17, 17, 20}));
+
+    System.out.println(RodCutting.memoization(new int[] {1, 5, 8, 9, 10, 17, 17, 20}));
+    System.out.println(RodCutting.memoization(new int[] {3, 5, 8, 9, 10, 17, 17, 20}));
+
+    System.out.println(RodCutting.tabular(new int[] {1, 5, 8, 9, 10, 17, 17, 20}));
+    System.out.println(RodCutting.tabular(new int[] {3, 5, 8, 9, 10, 17, 17, 20}));
   }
 
   /*
@@ -80,5 +89,63 @@ public class RodCutting {
     }
 
     return dp[dp.length - 1];
+  }
+
+  public static int recursive(int[] prices) {
+    return recursive(prices.length - 1, prices.length, prices);
+  }
+
+  private static int recursive(int i, int j, int[] prices) {
+    if (j == 0) return 0;
+    if (i == 0) return prices[0] * j;
+    var notTake = recursive(i - 1, j, prices);
+    var take = Integer.MIN_VALUE;
+    int rodLength = i + 1;
+    if (rodLength <= j) {
+      take = prices[i] + recursive(i, j - rodLength, prices);
+    }
+    return Math.max(notTake, take);
+  }
+
+  public static int memoization(int[] prices) {
+    return memoization(
+        prices.length - 1, prices.length, prices, new Integer[prices.length][prices.length + 1]);
+  }
+
+  private static int memoization(int i, int j, int[] prices, Integer[][] dp) {
+    if (j == 0) return 0;
+    if (i == 0) return prices[0] * j;
+
+    if (dp[i][j] != null) return dp[i][j];
+    var notTake = recursive(i - 1, j, prices);
+    var take = Integer.MIN_VALUE;
+    int rodLength = i + 1;
+    if (rodLength <= j) {
+      take = prices[i] + recursive(i, j - rodLength, prices);
+    }
+    var result = Math.max(notTake, take);
+    dp[i][j] = result;
+    return result;
+  }
+
+  public static int tabular(int[] prices) {
+    var dp = new int[prices.length][prices.length + 1];
+    for (int i = 0; i < dp.length; i++) dp[i][0] = 0;
+    for (int j = 0; j < dp[0].length; j++) dp[0][j] = prices[0] * j;
+
+    for (int i = 1; i < dp.length; i++) {
+      for (int j = 1; j < dp[0].length; j++) {
+        var notTake = dp[i - 1][j];
+        var take = Integer.MIN_VALUE;
+        int rodLength = i + 1;
+        if (rodLength <= j) {
+          take = prices[i] + dp[i][j - rodLength];
+        }
+        var result = Math.max(notTake, take);
+        dp[i][j] = result;
+      }
+    }
+
+    return dp[prices.length - 1][prices.length];
   }
 }
