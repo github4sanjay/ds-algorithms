@@ -1,4 +1,4 @@
-package com.github4sanjay.dsalgo.dynamic.category5;
+package com.github4sanjay.dsalgo.dynamic.strings;
 
 /*
  Longest Common Substring

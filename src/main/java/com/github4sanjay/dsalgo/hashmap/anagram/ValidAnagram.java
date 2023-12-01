@@ -21,6 +21,7 @@ public class ValidAnagram {
         map.put(ch, frequency - 1);
       }
     }
+    String bin = Long.toBinaryString(15);
     return map.size() == 0;
   }
 }

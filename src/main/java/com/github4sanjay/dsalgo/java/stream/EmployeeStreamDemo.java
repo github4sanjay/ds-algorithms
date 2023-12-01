@@ -300,6 +300,20 @@ public class EmployeeStreamDemo {
 
     System.out.println("Department : " + oldestEmployee.getDepartment());
   }
+
+  public static void method16() {
+    System.out.println(
+        "Query 15 : Who is the oldest employee in the organization? What is his age and which department he belongs to?");
+
+    var list =
+        employeeList.stream()
+            .collect(
+                Collectors.collectingAndThen(
+                    Collectors.toCollection(
+                        () -> new TreeSet<>(Comparator.comparing(Employee::getDepartment))),
+                    ArrayList::new));
+    System.out.println(list);
+  }
 }
 
 class Employee {

@@ -1,7 +1,6 @@
 package com.github4sanjay.dsalgo.dynamic.category5;
 
-import static org.junit.jupiter.api.Assertions.*;
-
+import com.github4sanjay.dsalgo.dynamic.strings.LongestCommonSubstring;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 

@@ -1,4 +1,4 @@
-package com.github4sanjay.dsalgo.dynamic.category5;
+package com.github4sanjay.dsalgo.dynamic.strings;
 
 import com.github4sanjay.dsalgo.recurssion.Subsequence;
 import com.github4sanjay.dsalgo.string.Palindrome;
@@ -14,6 +14,9 @@ public class LongestPalindromicSubsequences {
   public static void main(String[] args) {
     System.out.println(LongestPalindromicSubsequences.find("BBABCBCAB")); // 7
     System.out.println(LongestPalindromicSubsequences.find("abcgackbc")); // 5
+
+    System.out.println(LongestPalindromicSubsequences.tabular("BBABCBCAB")); // 7
+    System.out.println(LongestPalindromicSubsequences.tabular("abcgackbc")); // 5
   }
 
   /*
@@ -88,5 +91,9 @@ public class LongestPalindromicSubsequences {
       }
     }
     return dp[0][str.length() - 1];
+  }
+
+  public static int tabular(String str1) {
+    return LongestCommonSubsequence.tabular(str1, new StringBuilder(str1).reverse().toString());
   }
 }

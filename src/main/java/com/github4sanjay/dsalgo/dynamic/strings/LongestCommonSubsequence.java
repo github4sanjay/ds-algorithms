@@ -155,7 +155,7 @@ public class LongestCommonSubsequence {
     return result;
   }
 
-  private static int tabular(String str1, String str2) {
+  public static int tabular(String str1, String str2) {
     var dp = new int[str1.length() + 1][str2.length() + 1]; // shift by one for easy base case
     for (int i1 = 1; i1 < str1.length() + 1; i1++) {
       for (int i2 = 1; i2 < str2.length() + 1; i2++) {
