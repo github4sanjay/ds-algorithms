@@ -11,18 +11,7 @@ import java.util.List;
 */
 public class WaveTraversal {
 
-  public static void main(String[] args) {
-    int[][] mat = {
-      {1, 1, 1, 1},
-      {2, 2, 2, 2},
-      {3, 3, 3, 3},
-      {4, 4, 4, 4}
-    };
-
-    System.out.println(traverse(mat));
-  }
-
-  private static List<Integer> traverse(int[][] mat) {
+  public static List<Integer> traverse(int[][] mat) {
 
     var result = new ArrayList<Integer>();
     for (int j = 0; j < mat[0].length; j++) {

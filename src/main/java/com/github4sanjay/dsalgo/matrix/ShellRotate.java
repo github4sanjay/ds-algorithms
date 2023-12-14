@@ -1,7 +1,6 @@
 package com.github4sanjay.dsalgo.matrix;
 
-import com.github4sanjay.dsalgo.array.Rotate;
-import com.github4sanjay.dsalgo.util.AlgoUtil;
+import com.github4sanjay.dsalgo.array.RotateArray;
 
 /**
  * You are given a n*m matrix where n are the number of rows and m are the number of columns. You
@@ -14,34 +13,9 @@ import com.github4sanjay.dsalgo.util.AlgoUtil;
  */
 public class ShellRotate {
 
-  public static void main(String[] args) {
-    AlgoUtil.print(
-        rotateAntiClockWise(
-            new int[][] {
-              {1, 2, 3, 4},
-              {5, 6, 7, 8},
-              {9, 10, 11, 12},
-              {13, 14, 15, 16}
-            },
-            2,
-            2));
-
-    AlgoUtil.print(
-        rotateAntiClockWise(
-            new int[][] {
-              {1, 2, 3, 9, 4},
-              {1, 2, 3, 9, 4},
-              {5, 6, 7, 9, 8},
-              {9, 10, 11, 9, 12},
-              {13, 14, 15, 9, 16}
-            },
-            2,
-            2));
-  }
-
-  private static int[][] rotateAntiClockWise(int[][] matrix, int shell, int rotate) {
+  public static int[][] rotateAntiClockWise(int[][] matrix, int shell, int rotate) {
     int[] shellAs1DArray = getShellAs1DArray(matrix, shell);
-    Rotate.rotate(shellAs1DArray, rotate);
+    RotateArray.rotate(shellAs1DArray, rotate);
     fillShellFrom1DArray(matrix, shell, shellAs1DArray);
     return matrix;
   }
@@ -73,6 +47,7 @@ public class ShellRotate {
   private static int[] getShellAs1DArray(int[][] matrix, int shell) {
     int minR = shell - 1, minC = shell - 1;
     int maxR = matrix.length - shell, maxC = matrix[0].length - shell;
+    // int[] result = new int[ 2*(maxR - minR + 1) + 2 * (maxC - minC + 1) - 4];
     int[] result = new int[2 * (maxR - minR + maxC - minC)];
     int count = 0;
     for (int i = minR; i <= maxR; i++) {

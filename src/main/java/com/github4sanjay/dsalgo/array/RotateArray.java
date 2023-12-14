@@ -19,7 +19,7 @@ import java.util.Arrays;
  * <p>Input: nums = [-1,-100,3,99], k = 2 Output: [3,99,-1,-100] Explanation: rotate 1 steps to the
  * right: [99,-1,-100,3] rotate 2 steps to the right: [3,99,-1,-100]
  */
-public class Rotate {
+public class RotateArray {
 
   public static void main(String[] args) {
     int[] arr = new int[] {1, 2, 3, 4, 5, 6, 7};

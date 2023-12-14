@@ -15,24 +15,7 @@ package com.github4sanjay.dsalgo.matrix;
  */
 public class SearchInSortedMatrix {
 
-  public static void main(String[] args) {
-    System.out.println(
-        SearchInSortedMatrix.find(
-            new int[][] {{10, 20, 30, 40}, {15, 25, 35, 45}, {27, 29, 37, 48}, {32, 33, 39, 50}},
-            29));
-
-    System.out.println(
-        SearchInSortedMatrix.find(
-            new int[][] {
-              {10, 20, 30, 40},
-              {15, 25, 35, 45},
-              {27, 29, 37, 48},
-              {32, 33, 39, 50}
-            },
-            100));
-  }
-
-  private static Point find(int[][] ints, int n) {
+  public static Point find(int[][] ints, int n) {
     int row = ints.length - 1;
     int col = 0;
     while (row >= 0 && row < ints.length && col >= 0 && col < ints[0].length) {

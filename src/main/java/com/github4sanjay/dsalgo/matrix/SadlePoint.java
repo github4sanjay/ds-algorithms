@@ -14,10 +14,6 @@ package com.github4sanjay.dsalgo.matrix;
  */
 public class SadlePoint {
 
-  public static void main(String[] args) {
-    System.out.println(SadlePoint.find(new int[][] {{1, 2, 3}, {4, 5, 6}, {7, 8, 9}}));
-  }
-
   public static int find(int[][] ints) {
 
     for (int i = 0; i < ints.length; i++) {
@@ -28,7 +24,7 @@ public class SadlePoint {
         }
       }
       var found = true;
-      for (int k = 0; k < ints[0].length; k++) {
+      for (int k = 0; k < ints.length; k++) {
         if (ints[i][minCol] < ints[k][minCol]) {
           found = false;
           break;

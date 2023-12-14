@@ -17,25 +17,7 @@ import java.util.List;
  */
 public class Spiral {
 
-  public static void main(String[] args) {
-    System.out.println(
-        Spiral.antiClockWise(
-            new int[][] {
-              {1, 2, 3, 4, 5, 6},
-              {7, 8, 9, 10, 11, 12},
-              {13, 14, 15, 16, 17, 18}
-            }));
-
-    System.out.println(
-        Spiral.clockWise(
-            new int[][] {
-              {1, 2, 3, 4, 5, 6},
-              {7, 8, 9, 10, 11, 12},
-              {13, 14, 15, 16, 17, 18}
-            }));
-  }
-
-  private static List<Integer> clockWise(int[][] mat) {
+  public static List<Integer> clockWise(int[][] mat) {
     var list = new ArrayList<Integer>();
 
     var count = 1;
@@ -71,7 +53,7 @@ public class Spiral {
     return list;
   }
 
-  private static List<Integer> antiClockWise(int[][] mat) {
+  public static List<Integer> antiClockWise(int[][] mat) {
     var list = new ArrayList<Integer>();
 
     var count = 0;

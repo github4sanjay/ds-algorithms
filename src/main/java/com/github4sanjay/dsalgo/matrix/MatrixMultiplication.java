@@ -1,7 +1,5 @@
 package com.github4sanjay.dsalgo.matrix;
 
-import com.github4sanjay.dsalgo.util.AlgoUtil;
-
 /**
  * Program to multiply two matrices
  *
@@ -14,20 +12,7 @@ import com.github4sanjay.dsalgo.util.AlgoUtil;
  */
 public class MatrixMultiplication {
 
-  public static void main(String[] args) {
-    int[][] mat1 = {
-      {1, 1, 1, 1},
-      {2, 2, 2, 2},
-      {3, 3, 3, 3},
-      {4, 4, 4, 4}
-    };
-
-    int[][] mat2 = {{1, 1, 1, 1}, {2, 2, 2, 2}, {3, 3, 3, 3}, {4, 4, 4, 4}};
-
-    AlgoUtil.print(multiply(mat1, mat2));
-  }
-
-  private static int[][] multiply(int[][] mat1, int[][] mat2) {
+  public static int[][] multiply(int[][] mat1, int[][] mat2) {
     if (mat1[0].length != mat2.length) {
       throw new RuntimeException("Multiplication not possible");
     }
@@ -35,7 +20,7 @@ public class MatrixMultiplication {
     for (int i = 0; i < result.length; i++) {
       for (int j = 0; j < result[0].length; j++) {
         int sum = 0;
-        for (int k = 0; k < mat2.length; k++) {
+        for (int k = 0; k < mat2.length /*m1[0].length*/; k++) {
           sum = sum + mat1[i][k] * mat2[k][j];
         }
         result[i][j] = sum;
