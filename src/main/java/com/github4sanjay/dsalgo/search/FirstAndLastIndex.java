@@ -11,10 +11,6 @@ package com.github4sanjay.dsalgo.search;
  * Occurrence = 6
  */
 public class FirstAndLastIndex {
-  public static void main(String[] args) {
-    System.out.println(FirstAndLastIndex.find(new int[] {1, 3, 5, 5, 5, 5, 67, 123, 125}, 5));
-    System.out.println(FirstAndLastIndex.find(new int[] {1, 3, 5, 5, 5, 5, 7, 123, 125}, 7));
-  }
 
   public static Pair find(int[] array, int element) {
     var pair = new Pair(0, array.length - 1);

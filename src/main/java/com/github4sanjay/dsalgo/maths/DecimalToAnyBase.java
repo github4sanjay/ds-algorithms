@@ -2,10 +2,6 @@ package com.github4sanjay.dsalgo.maths;
 
 public class DecimalToAnyBase {
 
-  public static void main(String[] args) {
-    System.out.println(DecimalToAnyBase.find(63, 8)); // 77
-  }
-
   public static int find(int decimal, int base) {
     int dividend = decimal;
     int sum = 0;

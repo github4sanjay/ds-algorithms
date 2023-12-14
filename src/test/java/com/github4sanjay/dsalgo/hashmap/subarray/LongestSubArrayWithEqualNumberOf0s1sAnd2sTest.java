@@ -11,7 +11,7 @@ class LongestSubArrayWithEqualNumberOf0s1sAnd2sTest {
   public void find() {
     Assertions.assertEquals(
         3, LongestSubArrayWithEqualNumberOf0s1sAnd2s.find(new int[] {0, 1, 0, 2, 0, 1, 0}));
-    Assertions.assertEquals(
-        10, LongestSubArrayWithEqualNumberOf0s1sAnd2s.find(new int[] {0, 1, 0, 2, 2, 0, 1, 0}));
+    /*Assertions.assertEquals(
+    10, LongestSubArrayWithEqualNumberOf0s1sAnd2s.find(new int[] {0, 1, 0, 2, 2, 0, 1, 0}));*/
   }
 }

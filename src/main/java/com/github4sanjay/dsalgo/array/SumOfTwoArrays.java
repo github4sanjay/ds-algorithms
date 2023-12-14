@@ -19,6 +19,10 @@ import java.util.ArrayList;
 public class SumOfTwoArrays {
 
   public static void main(String[] args) {
+    System.out.println(SumOfTwoArrays.findAlt(new int[] {9, 5, 4, 9}, new int[] {2, 1, 4})); // 9763
+    System.out.println(
+        SumOfTwoArrays.findAlt(new int[] {3, 1, 0, 7, 5}, new int[] {1, 1, 1, 1, 1, 1})); // 142186
+
     System.out.println(SumOfTwoArrays.find(new int[] {9, 5, 4, 9}, new int[] {2, 1, 4})); // 9763
     System.out.println(
         SumOfTwoArrays.find(new int[] {3, 1, 0, 7, 5}, new int[] {1, 1, 1, 1, 1, 1})); // 142186
@@ -53,5 +57,41 @@ public class SumOfTwoArrays {
     }
     list.add(carry);
     return GetNumberFromList.getNumberFromList(list);
+  }
+
+  private static int findAlt(int[] array1, int[] array2) {
+    int size = Math.max(array1.length, array2.length);
+    int k = size - 1;
+    int i = array1.length - 1;
+    int j = array2.length - 1;
+    int carry = 0;
+    int sum = 0;
+    int p = 1;
+    while (k >= 0) {
+      int digit1 = 0;
+      if (i >= 0) {
+        digit1 = array1[i];
+      }
+
+      int digit2 = 0;
+      if (j >= 0) {
+        digit2 = array2[j];
+      }
+
+      int digitSum = digit1 + digit2 + carry;
+      if (digitSum >= 10) {
+        carry = digitSum / 10;
+        digitSum = digitSum % 10;
+      } else {
+        carry = 0;
+      }
+
+      sum = sum + digitSum * p;
+      p = p * 10;
+      k--;
+      i--;
+      j--;
+    }
+    return sum;
   }
 }

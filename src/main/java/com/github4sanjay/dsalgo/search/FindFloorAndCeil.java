@@ -1,10 +1,6 @@
 package com.github4sanjay.dsalgo.search;
 
 public class FindFloorAndCeil {
-  public static void main(String[] args) {
-    System.out.println(FindFloorAndCeil.find(new int[] {5, 10, 15, 22, 33, 40, 42, 55}, 25));
-    System.out.println(FindFloorAndCeil.find(new int[] {5, 10, 15, 22, 33, 40, 42, 55}, 22));
-  }
 
   public static Pair find(int[] array, int element) {
     var pair = new Pair();

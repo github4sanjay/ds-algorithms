@@ -1,7 +1,5 @@
 package com.github4sanjay.dsalgo.maths;
 
-import java.util.ArrayList;
-
 public class AnyBaseMulitplication {
 
   public static void main(String[] args) {
@@ -24,10 +22,10 @@ public class AnyBaseMulitplication {
 
   private static int multiplyWithSingleDigit(int base, int n, int digit) {
     int sum = 0;
+    int p = 1;
     int dividend = n;
     int carry = 0;
-    var list = new ArrayList<Integer>();
-    while (dividend > 0) {
+    while (dividend > 0 || carry > 0) {
       var lastDigit = dividend % 10;
       dividend = dividend / 10;
 
@@ -37,9 +35,9 @@ public class AnyBaseMulitplication {
         multiply = multiply % 8;
       }
 
-      list.add(multiply);
+      sum = sum + p * multiply;
+      p = p * 10;
     }
-    list.add(carry);
-    return GetNumberFromList.getNumberFromList(list);
+    return sum;
   }
 }

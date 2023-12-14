@@ -17,7 +17,7 @@ public class DiffOfTwoArrays {
     while (k >= 0) {
       int alv = i >= 0 ? a1[i] : 0;
       int d = 0;
-      if (a2[j] + c > alv) {
+      if (a2[j] + c >= alv) {
         d = a2[j] + c - alv;
         c = 0;
       } else {
