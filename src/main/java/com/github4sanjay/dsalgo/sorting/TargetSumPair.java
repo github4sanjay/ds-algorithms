@@ -1,5 +1,9 @@
 package com.github4sanjay.dsalgo.sorting;
 
+import com.github4sanjay.dsalgo.util.Pair;
+import java.util.ArrayList;
+import java.util.List;
+
 public class TargetSumPair {
 
   public static void main(String[] args) {
@@ -9,7 +13,8 @@ public class TargetSumPair {
     /** output -1 , 12 1 , 10 1 , 10 4 , 7 5 , 6 */
   }
 
-  private static void findPair(int[] arr, int sum) {
+  public static List<Pair> findPair(int[] arr, int sum) {
+    var list = new ArrayList<Pair>();
     arr = MergeSort.sort(arr);
     int i = 0, j = arr.length - 1;
     while (i < j) {
@@ -18,10 +23,11 @@ public class TargetSumPair {
       } else if (arr[i] + arr[j] > sum) {
         j--;
       } else {
-        System.out.println(arr[i] + " , " + arr[j]);
+        list.add(new Pair(arr[i], arr[j]));
         i++;
         j--;
       }
     }
+    return list;
   }
 }

@@ -1,7 +1,5 @@
 package com.github4sanjay.dsalgo.sorting;
 
-import java.util.Arrays;
-
 /** stable count sort means does not change the order of equal weight elements */
 public class CountSort {
   public static int[] sort(int[] A) {
@@ -39,6 +37,7 @@ public class CountSort {
 
     int[] tempArray = new int[10];
     for (int value : A) {
+      // important to note here min = 0, so (value/exp%10) - 0 = value/exp%10
       tempArray[value / exp % 10]++;
     }
     int sum = -1;
@@ -74,22 +73,5 @@ public class CountSort {
       tempArray[Integer.parseInt(A[i], 10) / div % mod]--;
     }
     System.arraycopy(finalArray, 0, A, 0, finalArray.length);
-  }
-
-  public static void main(String[] args) {
-    int[] arr = {9, 6, 3, 5, 3, 4, 3, 9, 6, 4, 6, 5, 8, 9, 9};
-    System.out.println(Arrays.toString(CountSort.sort(arr)));
-
-    int[] arr1 = {-5, -10, 0, -3, 8, 5, -1, 10};
-    System.out.println(Arrays.toString(CountSort.sort(arr1)));
-
-    int[] arr2 = {};
-    System.out.println(Arrays.toString(CountSort.sort(arr2)));
-
-    int[] arr3 = {64, 25, 12, 22, 11};
-    System.out.println(Arrays.toString(CountSort.sort(arr3)));
-
-    int[] arr4 = {4, 31, 143, 1, 2};
-    System.out.println(Arrays.toString(CountSort.sort(arr4)));
   }
 }

@@ -16,9 +16,4 @@ public class QuickSelect {
       return A[partitionIndex];
     }
   }
-
-  public static void main(String[] args) {
-    int arr[] = {12, 3, 5, 7, 19}; // for k = 2, its 7
-    System.out.println(QuickSelect.selectKthLargestElement(arr, 1));
-  }
 }

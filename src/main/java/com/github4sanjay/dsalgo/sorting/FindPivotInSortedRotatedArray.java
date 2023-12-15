@@ -2,16 +2,7 @@ package com.github4sanjay.dsalgo.sorting;
 
 public class FindPivotInSortedRotatedArray {
 
-  /** output logn pivot : 10 */
-  public static void main(String[] args) {
-    int arr1[] = {50, 10, 20, 30, 40};
-    System.out.println("Index of the element is : " + pivotedBinarySearch(arr1));
-
-    int arr2[] = {50, 60, 70, 80, 90, 100, 110, 120, 5, 10, 20, 30, 40};
-    System.out.println("Index of the element is : " + pivotedBinarySearch(arr2));
-  }
-
-  private static int pivotedBinarySearch(int[] arr) {
+  public static int pivotedBinarySearch(int[] arr) {
     int low = 0;
     int high = arr.length - 1;
     while (low < high) {
@@ -22,6 +13,6 @@ public class FindPivotInSortedRotatedArray {
         low = mid + 1;
       }
     }
-    return arr[low];
+    return arr[low]; // low[high]
   }
 }
