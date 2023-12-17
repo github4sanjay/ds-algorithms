@@ -3,39 +3,37 @@ package com.github4sanjay.dsalgo.linkedlist;
 import com.github4sanjay.dsalgo.linkedlist.structure.LinkNode;
 import com.github4sanjay.dsalgo.linkedlist.structure.LinkedList;
 
-/**
+/*
  * Add two numbers represented by linked lists | Set 2 Given two numbers represented by two linked
  * lists, write a function that returns the sum list. The sum list is linked list representation of
  * the addition of two input numbers. It is not allowed to modify the lists. Also, not allowed to
  * use explicit extra space (Hint: Use Recursion).
  *
- * <p>Example :
+ * Example :
  *
- * <p>Input: First List: 5->6->3 Second List: 8->4->2 Output Resultant list: 1->4->0->5
+ * Input:
+ *   First List: 5->6->3
+ *   Second List: 8->4->2
+ * Output
+ *   Resultant list: 1->4->0->5
  */
 public class AddTwoLinkedLists {
 
-  public static void main(String[] args) {
-    LinkedList<Integer> list1 = new LinkedList<>();
-    list1.addLast(5);
-    list1.addLast(6);
-    list1.addLast(3);
-
-    LinkedList<Integer> list2 = new LinkedList<>();
-    list2.addLast(8);
-    list2.addLast(4);
-    list2.addLast(2);
-
-    // AddTwoLinkedLists.add(list1, list2).print();
-    AddTwoLinkedLists.addReversing(list1, list2).print();
-  }
-
-  /**
-   * Take 9 -> 8 -> 7 6 -> 5
+  /*
+   *  Take 9 -> 8 -> 7
+   *            6 -> 5
    *
-   * <p>Stack ________________ | null-0, null-0 |_________ |________________| | carry 0 | 7-1, 5-1 |
-   * _______| |________________| |carry 1 | 8-2, 6-2 |________| |________________| | 9-3, 6-2 |
-   * |________________|
+   *       Stack
+   *   ________________
+   *  | null-0, null-0 |_________
+   *  |________________|        | carry 0
+   *  |   7-1, 5-1     | _______|
+   *  |________________|        |carry 1
+   *  |   8-2, 6-2     |________|
+   *  |________________|
+   *  |   9-3, 6-2     |
+   *  |________________|
+   *
    */
   public static LinkedList<Integer> add(LinkedList<Integer> list1, LinkedList<Integer> list2) {
     if (list1 == null) return list2;

@@ -3,9 +3,8 @@ package com.github4sanjay.dsalgo.linkedlist;
 import com.github4sanjay.dsalgo.linkedlist.structure.LinkedList;
 
 /**
- * Rearrange a linked list such that all even and odd positioned nodes are together Last Updated:
- * 18-04-2019 Rearrange a linked list in such a way that all odd position nodes are together and all
- * even positions node are together,
+ * Rearrange a linked list in such a way that all odd position nodes are together and all even
+ * positions node are together,
  *
  * <p>Examples:
  *
@@ -15,32 +14,33 @@ import com.github4sanjay.dsalgo.linkedlist.structure.LinkedList;
  */
 public class OddEvenLinkedList {
 
-  public static void main(String[] args) {
-    var linkedList = new LinkedList<Integer>();
-    linkedList.addLast(10);
-    linkedList.addLast(22);
-    linkedList.addLast(30);
-    linkedList.addLast(43);
-    linkedList.addLast(56);
-    linkedList.addLast(70);
-    OddEvenLinkedList.get(linkedList);
-    linkedList.print();
-  }
-
-  private static void get(LinkedList<Integer> linkedList) {
+  public static void get(LinkedList<Integer> linkedList) {
     var oddList = new LinkedList<Integer>();
     var evenList = new LinkedList<Integer>();
-    var currentNode = linkedList.getHead();
-    while (currentNode.getNext() != null) {
-      if (currentNode.getData() % 2 == 1) {
-        oddList.addLast(currentNode.getData());
+    while (linkedList.getSize() > 0) {
+      var data = linkedList.removeFirst();
+      if (data % 2 == 1) {
+        oddList.addLast(data);
       } else {
-        evenList.addLast(currentNode.getData());
+        evenList.addLast(data);
       }
-      currentNode = currentNode.getNext();
     }
-    oddList.getTail().setNext(evenList.getHead());
-    linkedList.setHead(oddList.getHead());
-    linkedList.setTail(oddList.getTail());
+    // original linkedlist have both even and odd numbers
+    if (oddList.getSize() > 0 && evenList.getSize() > 0) {
+      oddList.getTail().setNext(evenList.getHead());
+      linkedList.setHead(oddList.getHead());
+      linkedList.setTail(evenList.getTail());
+      linkedList.setSize(oddList.getSize() + evenList.getSize());
+      // original linkedlist only odd numbers
+    } else if (oddList.getSize() > 0) {
+      linkedList.setHead(oddList.getHead());
+      linkedList.setTail(oddList.getTail());
+      linkedList.setSize(oddList.getSize());
+      // original linkedlist only even numbers
+    } else {
+      linkedList.setHead(evenList.getHead());
+      linkedList.setTail(evenList.getTail());
+      linkedList.setSize(evenList.getSize());
+    }
   }
 }

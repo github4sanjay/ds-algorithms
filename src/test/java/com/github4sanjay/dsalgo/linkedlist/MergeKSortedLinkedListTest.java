@@ -4,7 +4,6 @@ import static com.github.stefanbirkner.systemlambda.SystemLambda.tapSystemOut;
 
 import com.github4sanjay.dsalgo.linkedlist.structure.LinkNode;
 import com.github4sanjay.dsalgo.linkedlist.structure.LinkedList;
-import com.github4sanjay.dsalgo.linkedlist.structure.LinkedListUtil;
 import java.util.ArrayList;
 import java.util.List;
 import org.junit.jupiter.api.Assertions;

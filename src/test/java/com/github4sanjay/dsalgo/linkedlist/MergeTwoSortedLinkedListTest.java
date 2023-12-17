@@ -3,7 +3,6 @@ package com.github4sanjay.dsalgo.linkedlist;
 import static com.github.stefanbirkner.systemlambda.SystemLambda.tapSystemOut;
 
 import com.github4sanjay.dsalgo.linkedlist.structure.LinkedList;
-import com.github4sanjay.dsalgo.linkedlist.structure.LinkedListUtil;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -26,7 +25,8 @@ class MergeTwoSortedLinkedListTest {
     anotherLL.addLast(3);
     String text =
         tapSystemOut(
-            () -> LinkedListUtil.mergeSorted(linkedList.getHead(), anotherLL.getHead()).print());
+            () ->
+                MergeTwoSortedLinkedList.merge(linkedList.getHead(), anotherLL.getHead()).print());
 
     Assertions.assertEquals(
         """
@@ -59,7 +59,8 @@ class MergeTwoSortedLinkedListTest {
         tapSystemOut(
             () ->
                 LinkedListUtil.print(
-                    MergeTwoSortedLinkedList.merge(linkedList.getHead(), anotherLL.getHead())));
+                    MergeTwoSortedLinkedList.mergeWithoutCreatingNewLinkedList(
+                        linkedList.getHead(), anotherLL.getHead())));
 
     Assertions.assertEquals(
         """

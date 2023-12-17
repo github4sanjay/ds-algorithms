@@ -5,32 +5,6 @@ import com.github4sanjay.dsalgo.linkedlist.structure.LinkedList;
 
 public class PalindromeLinkedList {
 
-  public static void main(String[] args) {
-    LinkedList<Integer> linkedList = new LinkedList<>();
-    linkedList.addLast(10);
-    linkedList.addLast(20);
-    linkedList.addLast(30);
-    linkedList.addLast(40);
-    linkedList.addLast(30);
-    linkedList.addLast(20);
-    linkedList.addLast(10);
-
-    System.out.println(isPalindrome(linkedList.getHead()));
-    linkedList.print();
-
-    LinkedList<Integer> linkedList1 = new LinkedList<>();
-    linkedList1.addLast(10);
-    linkedList1.addLast(20);
-    linkedList1.addLast(30);
-    linkedList1.addLast(40);
-    linkedList1.addLast(30);
-    linkedList1.addLast(20);
-    linkedList1.addLast(70);
-
-    System.out.println(isPalindrome(linkedList1.getHead()));
-    linkedList1.print();
-  }
-
   public static boolean isPalindrome(LinkNode<Integer> head) {
     if (head == null || head.getNext() == null) return true;
     var mid = getMid(head);
@@ -69,19 +43,50 @@ public class PalindromeLinkedList {
     LinkNode<Integer> prev = null;
     var current = head;
     while (current != null) {
-      var forward = current.getNext();
+      var next = current.getNext();
       current.setNext(prev);
       prev = current;
-      current = forward;
+      current = next;
     }
     return prev;
   }
 
-  private static void print(LinkNode<Integer> head) {
-    var current = head;
-    while (current != null) {
-      System.out.println(current.getData());
-      current = current.getNext();
+  /**
+   * Find mid node by slow and fast pointer Add all the nodes after middle node to stack Remove
+   * elements from stack one by one and check in the linked list current node if equal increase
+   * current node to next node of linked list if not equal return false once stack is empty 1. check
+   * if slow pointer is same as current node ( for case when odd number of elements) 2. check if
+   * slow pointer next is same as current node ( for case when even number of elements)
+   */
+  public static boolean isPalindromeWithStack(LinkedList<Integer> linkedList) {
+    var slower = linkedList.getHead();
+    var faster = linkedList.getHead();
+
+    while (faster.getNext() != null && faster.getNext().getNext() != null) {
+      slower = slower.getNext();
+      faster = faster.getNext().getNext();
+    }
+
+    var startOfRightPart = slower.getNext();
+    var stack = new LinkedList<Integer>();
+    while (startOfRightPart != null) {
+      stack.addFirst(startOfRightPart.getData());
+      startOfRightPart = startOfRightPart.getNext();
+    }
+
+    var currentNode = linkedList.getHead();
+    while (stack.getSize() != 0) {
+      var node = stack.removeFirst();
+      if (!currentNode.getData().equals(node)) {
+        return false;
+      }
+      currentNode = currentNode.getNext();
+    }
+
+    if (slower.getNext() == currentNode || slower == currentNode) {
+      return true;
+    } else {
+      return false;
     }
   }
 }

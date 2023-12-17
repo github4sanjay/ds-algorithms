@@ -19,20 +19,9 @@ public class StackWithLinkedList<T> {
   }
 
   public T pop() {
-    if (list.size() == 0) {
+    if (list.isEmpty()) {
       throw new RuntimeException("List is empty");
     }
     return list.removeFirst();
-  }
-
-  public static void main(String[] args) {
-    var stack = new StackWithLinkedList<Integer>();
-    stack.push(10);
-    stack.push(20);
-    stack.push(30);
-    stack.push(40);
-
-    System.out.println(stack.pop());
-    System.out.println(stack.top());
   }
 }

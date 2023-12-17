@@ -15,22 +15,6 @@ import com.github4sanjay.dsalgo.linkedlist.structure.LinkedList;
  */
 public class KReverseLinkedList {
 
-  public static void main(String[] args) {
-    LinkedList<Integer> linkedList = new LinkedList<>();
-    linkedList.addLast(1);
-    linkedList.addLast(2);
-    linkedList.addLast(3);
-    linkedList.addLast(4);
-    linkedList.addLast(5);
-    linkedList.addLast(6);
-    linkedList.addLast(7);
-    linkedList.addLast(8);
-
-    KReverseLinkedList.kReverseLinkedListKeepingLastPartSame(linkedList, 3);
-
-    linkedList.print();
-  }
-
   public static void kReverseLinkedList(LinkedList<Integer> linkedList, int k) {
     var currentLinkedList = new LinkedList<Integer>();
     LinkNode<Integer> previous = null;
@@ -80,5 +64,31 @@ public class KReverseLinkedList {
     linkedList.setHead(head);
     linkedList.setTail(currentLinkedList.getTail());
     linkedList.setSize(size);
+  }
+
+  public static <T> LinkNode<T> reverseBlockOfNodes(LinkNode<T> head, int k) {
+    if (head == null) return head;
+    var current = head;
+    var prevCurrent = head;
+    LinkNode<T> prevTail = null;
+    while (current != null) {
+      LinkNode<T> prev = null;
+      int count = k;
+      while (current != null && count > 0) {
+        var next = current.getNext();
+        current.setNext(prev);
+        prev = current;
+        current = next;
+        count--;
+      }
+      if (prevTail == null) {
+        head = prev;
+      } else {
+        prevTail.setNext(prev);
+      }
+      prevTail = prevCurrent;
+      prevCurrent = current;
+    }
+    return head;
   }
 }

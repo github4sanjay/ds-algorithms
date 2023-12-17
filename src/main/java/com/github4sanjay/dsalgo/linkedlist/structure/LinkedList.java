@@ -1,35 +1,14 @@
 package com.github4sanjay.dsalgo.linkedlist.structure;
 
-import java.util.HashMap;
+import lombok.Getter;
+import lombok.Setter;
 
+@Setter
+@Getter
 public class LinkedList<T> {
   private LinkNode<T> head;
   private LinkNode<T> tail;
   private int size;
-
-  public LinkNode<T> getHead() {
-    return head;
-  }
-
-  public LinkNode<T> getTail() {
-    return tail;
-  }
-
-  public int getSize() {
-    return size;
-  }
-
-  public void setHead(LinkNode<T> head) {
-    this.head = head;
-  }
-
-  public void setTail(LinkNode<T> tail) {
-    this.tail = tail;
-  }
-
-  public void setSize(int size) {
-    this.size = size;
-  }
 
   public void addLast(T data) {
     var node = new LinkNode<>(data, null);
@@ -40,6 +19,30 @@ public class LinkedList<T> {
     }
     tail = node;
     size++;
+  }
+
+  public void print() {
+    if (size != 0) {
+      var curr = head;
+      while (curr != null) {
+        System.out.println(curr.getData());
+        curr = curr.getNext();
+      }
+    }
+  }
+
+  public T removeFirst() {
+    if (size == 0) {
+      return null;
+    } else {
+      var temp = head;
+      head = head.getNext();
+      size--;
+      if (size == 0) {
+        tail = null;
+      }
+      return temp.getData();
+    }
   }
 
   public void reverse() {
@@ -57,124 +60,17 @@ public class LinkedList<T> {
     head = node;
   }
 
-  public static <T> LinkNode<T> reversePair(LinkNode<T> head) {
-    if (head == null) return head;
-    var current = head;
-    LinkNode<T> prev = null;
-    while (current != null && current.getNext() != null) {
-      var next = current.getNext();
-      var temp = next.getNext();
-      current.setNext(temp);
-      next.setNext(current);
-      if (prev == null) {
-        head = next;
-      } else {
-        prev.setNext(next);
-      }
-      prev = current;
-      current = temp;
-    }
-    return head;
-  }
-
-  public static <T> LinkNode<T> reverseBlockOfNodes(LinkNode<T> head, int k) {
-    if (head == null) return head;
-    var current = head;
-    var prevCurrent = head;
-    LinkNode<T> prevTail = null;
-    while (current != null) {
-      LinkNode<T> prev = null;
-      int count = k;
-      while (current != null && count > 0) {
-        var next = current.getNext();
-        current.setNext(prev);
-        prev = current;
-        current = next;
-        count--;
-      }
-      if (prevTail == null) {
-        head = prev;
-      } else {
-        prevTail.setNext(prev);
-      }
-      prevTail = prevCurrent;
-      prevCurrent = current;
-    }
-    return head;
-  }
-
-  public void print() {
-    if (size != 0) {
-      var curr = head;
-      while (curr != null) {
-        System.out.println(curr.getData());
-        curr = curr.getNext();
-      }
-    }
-  }
-
-  private static <T> LinkNode<T> rotateRight(LinkNode<T> head, int k) {
-    var current = head;
-    for (int i = 0; i < k; i++) {
-      current = current.getNext();
-    }
-    var faster = current;
-    current = head;
-    while (faster.getNext() != null) {
-      faster = faster.getNext();
-      current = current.getNext();
-    }
-    faster.setNext(head);
-    head = current.getNext();
-    current.setNext(null);
-    return head;
-  }
-
-  private static LinkNode<Integer> partition(LinkNode<Integer> head, Integer k) {
-    var front = new LinkNode<>(0, null);
-    var newHead = front;
-    var rear = new LinkNode<>(k, null);
-    var rearHead = rear;
-    var curr = head;
-    while (curr != null) {
-      if (curr.getData() < k) {
-        front.setNext(new LinkNode<>(curr.getData(), null));
-        front = front.getNext();
-      } else {
-        rear.setNext(new LinkNode<>(curr.getData(), null));
-        rear = rear.getNext();
-      }
-      curr = curr.getNext();
-    }
-    front.setNext(rearHead.getNext());
-    return newHead.getNext();
-  }
-
-  private static <T> LinkNode<T> removeDuplicates(LinkNode<T> head) {
-    var map = new HashMap<T, Boolean>();
-    var prev = head;
-    map.put(prev.getData(), true);
-    var current = head.getNext();
-    while (current != null) {
-      if (map.get(current.getData()) != null) {
-        prev.setNext(current.getNext());
-      } else {
-        map.put(current.getData(), true);
-      }
-      prev = current;
-      current = current.getNext();
-    }
-    return head;
-  }
-
-  public T removeFirst() {
-    if (size == 0) {
-      return null;
-    } else {
-      var temp = head;
-      head = head.getNext();
-      size--;
-      return temp.getData();
+  public void reverseDataIterative() {
+    int i = 0;
+    int j = size - 1;
+    while (i < j) {
+      var left = getNodeAtIndex(i);
+      var right = getNodeAtIndex(j);
+      T temp = left.getData();
+      left.setData(right.getData());
+      right.setData(temp);
+      i++;
+      j--;
     }
   }
 
@@ -238,6 +134,7 @@ public class LinkedList<T> {
 
       var newNode = new LinkNode<>(item, currentNode.getNext());
       currentNode.setNext(newNode);
+      size++;
     }
   }
 
@@ -284,7 +181,7 @@ public class LinkedList<T> {
     }
   }
 
-  private LinkNode<T> getNodeAtIndex(int i) {
+  public LinkNode<T> getNodeAtIndex(int i) {
     if (size == 0) {
       throw new RuntimeException("Linked list is empty");
     }
@@ -300,21 +197,8 @@ public class LinkedList<T> {
     return node;
   }
 
-  public void reverseDataIterative() {
-    int i = 0;
-    int j = size - 1;
-    while (i < j) {
-      var left = getNodeAtIndex(i);
-      var right = getNodeAtIndex(j);
-      T temp = left.getData();
-      left.setData(right.getData());
-      right.setData(temp);
-      i++;
-      j--;
-    }
-  }
-
   public T getFromEnd(int k) {
+    if (k > size) throw new RuntimeException("index is greater than size");
     var fasterNode = head;
     var index = 0;
     while (index < k) {
@@ -356,8 +240,12 @@ public class LinkedList<T> {
     if (index > getSize() - 1) {
       throw new RuntimeException("Invalid index");
     }
-    if (getSize() == index) {
+    if (index == 0) {
       return removeFirst();
+    }
+
+    if (index == getSize() - 1) {
+      return removeLast();
     }
     var slowPointer = getHead();
     var fastPointer = getHead();
@@ -370,13 +258,6 @@ public class LinkedList<T> {
     }
     var next = slowPointer.getNext();
     slowPointer.setNext(next.getNext());
-    if (next == tail) {
-      if (next.getNext() == null) {
-        tail = slowPointer;
-      } else {
-        tail = next.getNext();
-      }
-    }
     size--;
     return next.getData();
   }

@@ -1,6 +1,8 @@
 package com.github4sanjay.dsalgo.linkedlist;
 
 import java.util.HashMap;
+import lombok.Getter;
+import lombok.Setter;
 
 /**
  * Given a linked list having two pointers in each node. The first one points to the next node of
@@ -63,6 +65,8 @@ public class CloneWithRandomPointer {
     return clonedRoot;
   }
 
+  @Setter
+  @Getter
   public static class Node<T> {
     private T data;
     private Node<T> next;
@@ -70,30 +74,6 @@ public class CloneWithRandomPointer {
 
     public Node(T data) {
       this.data = data;
-    }
-
-    public T getData() {
-      return data;
-    }
-
-    public void setData(T data) {
-      this.data = data;
-    }
-
-    public Node<T> getNext() {
-      return next;
-    }
-
-    public void setNext(Node<T> next) {
-      this.next = next;
-    }
-
-    public Node<T> getRandom() {
-      return random;
-    }
-
-    public void setRandom(Node<T> random) {
-      this.random = random;
     }
   }
 }

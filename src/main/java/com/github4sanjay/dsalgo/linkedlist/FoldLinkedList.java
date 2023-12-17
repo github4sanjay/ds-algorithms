@@ -14,28 +14,13 @@ import com.github4sanjay.dsalgo.linkedlist.structure.LinkedList;
  */
 public class FoldLinkedList {
 
-  public static void main(String[] args) {
-    LinkedList<Integer> linkedList = new LinkedList<>();
-    linkedList.addLast(1);
-    linkedList.addLast(2);
-    linkedList.addLast(3);
-    linkedList.addLast(4);
-    linkedList.addLast(5);
-    linkedList.addLast(6);
-    linkedList.addLast(7);
-    linkedList.addLast(8);
-
-    FoldLinkedList.fold(linkedList.getHead());
-
-    linkedList.print();
-  }
-
-  /**
-   * Find mid node by slow and fast pointer Add all the nodes after middle node to stack Remove
-   * elements from stack one by one and append in linked list and also remove last element from
+  /*
+   * Find mid node by slow and fast pointer
+   * Add all the nodes after middle node to stack
+   * Remove elements from stack one by one and append in linked list and also remove last element from
    * linked list as its already used from stack
    */
-  private static void foldWithStack(LinkedList<Integer> linkedList) {
+  public static void foldWithStack(LinkedList<Integer> linkedList) {
     var faster = linkedList.getHead();
     var slower = linkedList.getHead();
     var stack = new LinkedList<Integer>();
@@ -66,8 +51,8 @@ public class FoldLinkedList {
     headLastPart = reverse(headLastPart);
     var current1 = head;
     var current2 = headLastPart;
-    // 1 2 3 4
-    // 8 7 6 5
+    // 1 2 3 4 5
+    // 8 7 6
     while (current2 != null) {
       var next1 = current1.getNext();
       var next2 = current2.getNext();

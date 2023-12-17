@@ -13,46 +13,11 @@ import com.github4sanjay.dsalgo.linkedlist.structure.LinkedList;
  */
 public class IntersectionOfTwoLinkedList {
 
-  public static void main(String[] args) {
-
-    // ----------- intersection by value -----------------------------------------
-    LinkedList<Integer> linkedList = new LinkedList<>();
-
-    linkedList.addLast(3);
-    linkedList.addLast(6);
-    linkedList.addLast(9);
-    linkedList.addLast(15);
-    linkedList.addLast(30);
-
-    LinkedList<Integer> anotherLL = new LinkedList<>();
-    anotherLL.addLast(10);
-    anotherLL.addLast(15);
-    anotherLL.addLast(30);
-    System.out.println(IntersectionOfTwoLinkedList.find(linkedList, anotherLL));
-
-    // ----------- intersection by reference -----------------------------------------
-    LinkNode<Integer> head1 = new LinkNode<>(3, null);
-    LinkNode<Integer> node1 = new LinkNode<>(6, null);
-    LinkNode<Integer> node2 = new LinkNode<>(9, null);
-    LinkNode<Integer> node3 = new LinkNode<>(15, null);
-    LinkNode<Integer> node4 = new LinkNode<>(30, null);
-    LinkNode<Integer> head2 = new LinkNode<>(10, null);
-
-    head1.setNext(node1);
-    node1.setNext(node2);
-    node2.setNext(node3);
-    node3.setNext(node4);
-    head2.setNext(node3);
-
-    LinkNode<Integer> intersection = IntersectionOfTwoLinkedList.find(head1, head2);
-    System.out.println(intersection.getData());
-  }
-
   /**
    * Traverse both head till end put its elements in two stacks then start popping from stack and
    * compare if they equal save it in previous if they not equal return previous
    */
-  private static LinkNode<Integer> find(LinkNode<Integer> head1, LinkNode<Integer> head2) {
+  public static LinkNode<Integer> find(LinkNode<Integer> head1, LinkNode<Integer> head2) {
     var stack1 = new LinkedList<LinkNode<Integer>>();
     while (head1 != null) {
       stack1.addFirst(head1);
@@ -79,7 +44,7 @@ public class IntersectionOfTwoLinkedList {
   }
 
   /** does value comparison */
-  private static int find(LinkedList<Integer> list1, LinkedList<Integer> list2) {
+  public static int find(LinkedList<Integer> list1, LinkedList<Integer> list2) {
     int size1 = list1.getSize();
     int size2 = list2.getSize();
     var head1 = list1.getHead();

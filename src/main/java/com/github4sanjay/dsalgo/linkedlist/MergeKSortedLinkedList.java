@@ -53,6 +53,6 @@ public class MergeKSortedLinkedList {
     var mid = (si + ei) / 2;
     var head1 = mergeUsingDivideAndConquer(heads, si, mid);
     var head2 = mergeUsingDivideAndConquer(heads, mid + 1, ei);
-    return MergeTwoSortedLinkedList.merge(head1, head2);
+    return MergeTwoSortedLinkedList.mergeWithoutCreatingNewLinkedList(head1, head2);
   }
 }
