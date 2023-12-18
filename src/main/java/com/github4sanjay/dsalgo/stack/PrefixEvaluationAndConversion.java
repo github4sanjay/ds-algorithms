@@ -2,24 +2,34 @@ package com.github4sanjay.dsalgo.stack;
 
 import java.util.Stack;
 
-/**
- * 1. You are given a prefix expression. 2. You are required to evaluate it and print it's value. 3.
- * You are required to convert it to infix and print it. 4. You are required to convert it to
- * postfix and print it.
+/*
+ * 1. You are given a prefix expression.
+ * 2. You are required to evaluate it and print it's value.
+ * 3. You are required to convert it to infix and print it.
+ * 4. You are required to convert it to postfix and print it.
  *
- * <p>Note -> Use brackets in infix expression for indicating precedence. Check sample input output
- * for more details.
+ * Note -> Use brackets in infix expression for indicating precedence. Check sample input output for more details.
  *
- * <p>Input Format expression
+ * Input Format
+ * expression
  *
- * <p>Output Format value, a number infix prefix
+ * Output Format
+ * value, a number
+ * infix
+ * prefix
  *
- * <p>Constraints 1. Expression is a valid prefix expression 2. The only operators used are +, -, *,
- * / 3. All operands are single digit numbers.
+ * Constraints
+ * 1. Expression is a valid prefix expression
+ * 2. The only operators used are +, -, *, /
+ * 3. All operands are single digit numbers.
  *
- * <p>Sample Input -+2/*6483
+ * Sample Input
+ * -+2/*6483
  *
- * <p>Sample Output 2 ((2+((6*4)/8))-3) 264*8/+3-
+ * Sample Output
+ * 2
+ * ((2+((6*4)/8))-3)
+ * 264*8/+3-
  */
 public class PrefixEvaluationAndConversion {
 
@@ -27,20 +37,38 @@ public class PrefixEvaluationAndConversion {
     System.out.println(PrefixEvaluationAndConversion.execute("-+2/*6483"));
   }
 
-  /**
+  /*
+   *
    * Difference between postfix and prefix evaluation is we traverse here from end of expression
-   * Since we traverse from end so operand that is popped first is considered as first operand for
-   * example 6 --> popped first 5 --> popped second and operator is - then value is 6 - 5 infix is
-   * (6-5) postfix is 65-
+   * Since we traverse from end so operand that is popped first is considered as first operand for example
+   *       6 --> popped first
+   *       5 --> popped second
+   *       and operator is -
+   *       then value is 6 - 5
+   *       infix is (6-5)
+   *       postfix is 65-
    *
-   * <p>For value evaluation : | 6 | | | | 4 | | 24 | | 8 | ---> current character is operator and
-   * equal to '*' ----> | 8 | | 3 | then pop '6' and '4' and push 6*4 = 24 | 3 | |_____| |_____|
+   * For value evaluation :
+   *     | 6   |                                                              |     |
+   *     | 4   |                                                              | 24  |
+   *     | 8   | --->  current character is operator and equal to '*'  ---->  | 8   |
+   *     | 3   |       then pop '6' and '4' and push 6*4 = 24                 | 3   |
+   *     |_____|                                                              |_____|
    *
-   * <p>For infix evaluation : | 6 | | | | 4 | |(6*4)| | 8 | ---> current character is operator and
-   * equal to '*' ----> | 8 | | 3 | then pop '4' and '6' and push (6*4) | 3 | |_____| |_____|
+   * For infix evaluation :
+   *     | 6   |                                                              |     |
+   *     | 4   |                                                              |(6*4)|
+   *     | 8   | --->  current character is operator and equal to '*'  ---->  | 8   |
+   *     | 3   |       then pop '4' and '6' and push (6*4)                    | 3   |
+   *     |_____|                                                              |_____|
    *
-   * <p>For postfix evaluation : | 6 | | | | 4 | | 64* | | 8 | ---> current character is operator
-   * and equal to '*' ----> | 8 | | 3 | then pop '4' and '6' and push *64 | 3 | |_____| |_____|
+   * For postfix evaluation :
+   *     | 6   |                                                              |     |
+   *     | 4   |                                                              | 64* |
+   *     | 8   | --->  current character is operator and equal to '*'  ---->  | 8   |
+   *     | 3   |       then pop '4' and '6' and push *64                      | 3   |
+   *     |_____|                                                              |_____|
+   *
    */
   private static Answer execute(String expression) {
     var valueStack = new Stack<Integer>();

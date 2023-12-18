@@ -23,19 +23,13 @@ import java.util.Stack;
  */
 public class DuplicateBrackets {
 
-  public static void main(String[] args) {
-    System.out.println(DuplicateBrackets.hasExtra("((a+(b))+(c+d))")); //  false
-    System.out.println(DuplicateBrackets.hasExtra("(((a+(b)))+(c+d))")); //  true
-    System.out.println(DuplicateBrackets.hasExtra("((a+b)+((c+d)))")); //  true
-  }
-
   /**
    * Iterate over each character 1. if character is not equal to ')' push in stack 2. if character
    * is ')' if peek character is '(' then return true as nothing was between opening and closing
    * bracket if peek character is other than '(' then pop until opening bracket including opening
    * bracket
    */
-  private static boolean hasExtra(String expression) {
+  public static boolean hasExtra(String expression) {
     Stack<Character> stack = new Stack<>();
     for (char ch : expression.toCharArray()) {
       if (ch != ')') {

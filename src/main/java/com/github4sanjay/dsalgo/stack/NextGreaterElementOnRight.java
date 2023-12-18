@@ -1,6 +1,5 @@
 package com.github4sanjay.dsalgo.stack;
 
-import java.util.Arrays;
 import java.util.Stack;
 
 /**
@@ -19,18 +18,6 @@ import java.util.Stack;
  * <p>Element NGE 13 --> -1 7 --> 12 6 --> 12 12 --> -1
  */
 public class NextGreaterElementOnRight {
-
-  public static void main(String[] args) {
-    System.out.println(
-        Arrays.toString(
-            NextGreaterElementOnRight.find(new int[] {13, 7, 6, 12}))); //   [-1, 12, 12, -1]
-    System.out.println(
-        Arrays.toString(
-            NextGreaterElementOnRight.find(new int[] {4, 5, 2, 25}))); //   [5, 25, 25, -1]
-    System.out.println(
-        Arrays.toString(
-            NextGreaterElementOnRight.find(new int[] {5, 3, 8, -2, 7}))); //   [8, 8, -1, 7, -1]
-  }
 
   /**
    * Pop from stack until stack is not empty or peek element is greater than current array element

@@ -1,6 +1,5 @@
 package com.github4sanjay.dsalgo.stack;
 
-import java.util.Arrays;
 import java.util.Stack;
 
 /**
@@ -30,18 +29,6 @@ import java.util.Stack;
  * <p>Sample Output 3 -2 -2 -1 -1
  */
 public class NextSmallerElementOnLeft {
-
-  public static void main(String[] args) {
-    System.out.println(
-        Arrays.toString(
-            NextSmallerElementOnLeft.find(new int[] {5, 3, 8, -2, 7}))); //   [-1, -1, 3, -1, -2]
-    System.out.println(
-        Arrays.toString(
-            NextSmallerElementOnLeft.find(new int[] {4, 5, 2, 25}))); //   [-1, 4, -1, 2]
-    System.out.println(
-        Arrays.toString(
-            NextSmallerElementOnLeft.find(new int[] {5, 3, 8, -2, 7}))); //   [-1, -1, 3, -1, -2]
-  }
 
   public static int[] find(int[] array) {
     int[] nge = new int[array.length];

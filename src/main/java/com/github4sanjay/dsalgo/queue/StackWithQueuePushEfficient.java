@@ -27,7 +27,7 @@ public class StackWithQueuePushEfficient {
       helperQueue.add(mainQueue.remove());
     }
     int data = mainQueue.remove();
-    while (helperQueue.size() > 0) {
+    while (!helperQueue.isEmpty()) {
       mainQueue.add(helperQueue.remove());
     }
     return data;
@@ -39,7 +39,7 @@ public class StackWithQueuePushEfficient {
     }
     int data = mainQueue.remove();
     helperQueue.add(data);
-    while (helperQueue.size() > 0) {
+    while (!helperQueue.isEmpty()) {
       mainQueue.add(helperQueue.remove());
     }
     return data;

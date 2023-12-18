@@ -32,6 +32,13 @@ public class FixedSizeArrayStack {
     return data;
   }
 
+  public int peek() throws Exception {
+    if (isEmpty()) {
+      throw new Exception("Stack is empty");
+    }
+    return stackRepo[top];
+  }
+
   public void push(int data) throws Exception {
     if (size() == capacity) {
       throw new Exception("Stack is full");

@@ -19,20 +19,13 @@ import java.util.Stack;
  */
 public class BalancedBrackets {
 
-  public static void main(String[] args) {
-    System.out.println(BalancedBrackets.isbalanced("[(a+b)+{(c+d)*(e/f)}]")); //  true
-    System.out.println(BalancedBrackets.isbalanced("[(a+b)+{(c+d)*(e/f)]}")); //  false
-    System.out.println(BalancedBrackets.isbalanced("[(a+b)+{(c+d)*(e/f)}")); //  false
-    System.out.println(BalancedBrackets.isbalanced("([(a+b)+{(c+d)*(e/f)}]")); //  false
-  }
-
   /**
    * Iterate over each character 1. if character is opening push in stack 2. if character is closing
    * if stack is empty it means extra closing brackets return false if peek character is not same
    * opening then return false 3. at end if stack is not empty return false meaning extra opening
    * brackets
    */
-  private static boolean isbalanced(String expression) {
+  public static boolean isBalanced(String expression) {
     var stack = new Stack<Character>();
     for (var ch : expression.toCharArray()) {
       if (isOpeningBracket(ch)) {

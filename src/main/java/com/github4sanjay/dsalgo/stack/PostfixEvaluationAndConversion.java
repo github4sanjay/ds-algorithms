@@ -2,24 +2,34 @@ package com.github4sanjay.dsalgo.stack;
 
 import java.util.Stack;
 
-/**
- * 1. You are given a postfix expression. 2. You are required to evaluate it and print it's value.
- * 3. You are required to convert it to infix and print it. 4. You are required to convert it to
- * prefix and print it.
+/*
+ * 1. You are given a postfix expression.
+ * 2. You are required to evaluate it and print it's value.
+ * 3. You are required to convert it to infix and print it.
+ * 4. You are required to convert it to prefix and print it.
  *
- * <p>Note -> Use brackets in infix expression for indicating precedence. Check sample input output
- * for more details.
+ * Note -> Use brackets in infix expression for indicating precedence. Check sample input output for more details.
  *
- * <p>Input Format expression
+ * Input Format
+ * expression
  *
- * <p>Output Format value, a number infix prefix
+ * Output Format
+ * value, a number
+ * infix
+ * prefix
  *
- * <p>Constraints 1. Expression is a valid postfix expression 2. The only operators used are +, -,
- * *, / 3. All operands are single digit numbers.
+ * Constraints
+ * 1. Expression is a valid postfix expression
+ * 2. The only operators used are +, -, *, /
+ * 3. All operands are single digit numbers.
  *
- * <p>Sample Input 264*8/+3-
+ * Sample Input
+ * 264*8/+3-
  *
- * <p>Sample Output 2 ((2+((6*4)/8))-3) -+2/*6483
+ * Sample Output
+ * 2
+ * ((2+((6*4)/8))-3)
+ * -+2/*6483
  */
 public class PostfixEvaluationAndConversion {
 
@@ -27,15 +37,28 @@ public class PostfixEvaluationAndConversion {
     System.out.println(PostfixEvaluationAndConversion.execute("264*8/+3-"));
   }
 
-  /**
-   * For value evaluation : | | | | | 4 | | | | 6 | ---> current character is operator and equal to
-   * '*' ----> | 24 | | 2 | then pop '4' and '6' and push 6*4 = 24 | 2 | |_____| |_____|
+  /*
+   * For value evaluation :
+   *     |     |                                                              |     |
+   *     | 4   |                                                              |     |
+   *     | 6   | --->  current character is operator and equal to '*'  ---->  | 24  |
+   *     | 2   |       then pop '4' and '6' and push 6*4 = 24                 | 2   |
+   *     |_____|                                                              |_____|
    *
-   * <p>For infix evaluation : | | | | | 4 | | | | 6 | ---> current character is operator and equal
-   * to '*' ----> |(6*4)| | 2 | then pop '4' and '6' and push (6*4) | 2 | |_____| |_____|
+   * For infix evaluation :
+   *     |     |                                                              |     |
+   *     | 4   |                                                              |     |
+   *     | 6   | --->  current character is operator and equal to '*'  ---->  |(6*4)|
+   *     | 2   |       then pop '4' and '6' and push (6*4)                    | 2   |
+   *     |_____|                                                              |_____|
    *
-   * <p>For prefix evaluation : | | | | | 4 | | | | 6 | ---> current character is operator and equal
-   * to '*' ----> | *64 | | 2 | then pop '4' and '6' and push *64 | 2 | |_____| |_____|
+   * For prefix evaluation :
+   *     |     |                                                              |     |
+   *     | 4   |                                                              |     |
+   *     | 6   | --->  current character is operator and equal to '*'  ---->  | *64 |
+   *     | 2   |       then pop '4' and '6' and push *64                      | 2   |
+   *     |_____|                                                              |_____|
+   *
    */
   private static Answer execute(String expression) {
     var valueStack = new Stack<Integer>();

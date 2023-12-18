@@ -24,7 +24,7 @@ public class QueueWithStackAddEfficient {
     var data = mainStack.pop();
     helperStack.push(data);
 
-    while (helperStack.size() > 0) {
+    while (!helperStack.isEmpty()) {
       mainStack.push(helperStack.pop());
     }
     return data;
@@ -36,7 +36,7 @@ public class QueueWithStackAddEfficient {
     }
 
     var data = mainStack.pop();
-    while (helperStack.size() > 0) {
+    while (!helperStack.isEmpty()) {
       mainStack.push(helperStack.pop());
     }
     return data;

@@ -1,6 +1,5 @@
 package com.github4sanjay.dsalgo.stack;
 
-import java.util.Arrays;
 import java.util.Stack;
 
 /**
@@ -12,17 +11,6 @@ import java.util.Stack;
  * 85}, then the span values for corresponding 7 days are {1, 1, 1, 2, 1, 4, 6}
  */
 public class StockSpan {
-
-  public static void main(String[] args) {
-    System.out.println(
-        Arrays.toString(
-            StockSpan.find(new int[] {100, 80, 60, 70, 60, 75, 85}))); // [1, 1, 1, 2, 1, 4, 6]
-    System.out.println(
-        Arrays.toString(StockSpan.find(new int[] {10, 4, 5, 90, 120, 80}))); // [1, 1, 2, 4, 5, 1]
-    System.out.println(
-        Arrays.toString(
-            StockSpan.find(new int[] {2, 5, 9, 3, 1, 12, 6, 8, 7}))); // [1, 2, 3, 1, 1, 6, 1, 2, 1]
-  }
 
   /** Basically need to find next greater element on left from current element */
   public static int[] find(int[] prices) {

@@ -2,23 +2,24 @@ package com.github4sanjay.dsalgo.stack;
 
 import java.util.Stack;
 
-/**
- * Infix to postfix a+b*(c^d-e)^(f+g*h)-i ------> abcd^e-fgh*+^*+i-
+/*
+ * Infix to postfix
+ *  a+b*(c^d-e)^(f+g*h)-i ------> abcd^e-fgh*+^*+i-
  *
- * <p>Infix to prefix (a-b/c)*(a/k-l) ------> *-a/bc-/akl
+ * Infix to prefix
+ *  (a-b/c)*(a/k-l) ------> *-a/bc-/akl
+ *
  */
 public class InfixConversion {
 
-  public static void main(String[] args) {
-    System.out.println(InfixConversion.postfix("a+b*(c^d-e)^(f+g*h)-i"));
-    System.out.println(InfixConversion.prefix("(a-b/c)*(a/k-l)"));
-  }
-
-  /**
-   * | | | | | | | | | b | | | if current character is operator and equal to '/' | a | | * | then
-   * pop 'a' and 'b' and push ab* |_____| |_____|
+  /*
+   *     |     |       |     |
+   *     |     |       |     |
+   *     |  b  |       |     |       if current character is operator and equal to '/'
+   *     | a   |       |  *  |           then pop 'a' and 'b' and push ab*
+   *     |_____|       |_____|
    */
-  private static String postfix(String expression) {
+  public static String postfix(String expression) {
     var postfixStack = new Stack<String>();
     var operatorStack = new Stack<Character>();
     for (char currentChar : expression.toCharArray()) {
@@ -39,7 +40,8 @@ public class InfixConversion {
         postfixStack.push(String.valueOf(currentChar));
       } else if (isOperator(currentChar)) {
         while (!operatorStack.isEmpty()
-            && isHigherOrEqualPrecedence(currentChar, operatorStack.peek())) {
+            && isHigherOrEqualPrecedence(currentChar, operatorStack.peek())
+            && operatorStack.peek() != '(') {
           var pop = operatorStack.pop();
           var firstOperand = postfixStack.pop();
           var secondOperand = postfixStack.pop();
@@ -59,11 +61,14 @@ public class InfixConversion {
     return postfixStack.pop();
   }
 
-  /**
-   * | | | | | | | | | b | | | if current character is operator and equal to '/' | a | | * | then
-   * pop 'a' and 'b' and push *ab |_____| |_____|
+  /*
+   *     |     |       |     |
+   *     |     |       |     |
+   *     |  b  |       |     |       if current character is operator and equal to '/'
+   *     | a   |       |  *  |           then pop 'a' and 'b' and push *ab
+   *     |_____|       |_____|
    */
-  private static String prefix(String expression) {
+  public static String prefix(String expression) {
     var prefixStack = new Stack<String>();
     var operatorStack = new Stack<Character>();
     for (char currentChar : expression.toCharArray()) {

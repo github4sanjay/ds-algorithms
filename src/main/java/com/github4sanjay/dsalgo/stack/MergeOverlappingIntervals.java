@@ -3,15 +3,15 @@ package com.github4sanjay.dsalgo.stack;
 import com.github4sanjay.dsalgo.util.AlgoUtil;
 import java.util.*;
 
-/**
- * Given a set of time intervals in any order, merge all overlapping intervals into one and output
- * the result which should have only mutually exclusive intervals. Let the intervals be represented
- * as pairs of integers for simplicity.
+/*
+ * Given a set of time intervals in any order,
+ * merge all overlapping intervals into one and output the result which should have only mutually exclusive intervals.
+ * Let the intervals be represented as pairs of integers for simplicity.
  *
- * <p>For example, let the given set of intervals be {{1,3}, {2,4}, {5,7}, {6,8}}. The intervals
- * {1,3} and {2,4} overlap with each other, so they should be merged and become {1, 4}.
+ * For example, let the given set of intervals be {{1,3}, {2,4}, {5,7}, {6,8}}.
+ * The intervals {1,3} and {2,4} overlap with each other, so they should be merged and become {1, 4}.
  *
- * <p>Similarly, {5, 7} and {6, 8} should be merged and become {5, 8}
+ * Similarly, {5, 7} and {6, 8} should be merged and become {5, 8}
  */
 public class MergeOverlappingIntervals {
 
@@ -28,12 +28,16 @@ public class MergeOverlappingIntervals {
             }));
   }
 
-  /**
-   * 1. Sort the intervals first on the basis of start time 2. Create two stacks one for start time
-   * and one for end time 3. Push first interval start and end time in the stacks 4. Traverse from
-   * 2nd interval a. check if the current interval start time is greater than peek of end time stack
-   * then push the start in start time and end in end stack b. if smaller then pop the end stack and
-   * push new end time 5. At the end elements left in the stack will be merged intervals
+  /*
+   *
+   * 1. Sort the intervals first on the basis of start time
+   * 2. Create two stacks one for start time and one for end time
+   * 3. Push first interval start and end time in the stacks
+   * 4. Traverse from 2nd interval
+   *    a. check if the current interval start time is greater than peek of end time stack
+   *       then push the start in start time and end in end stack
+   *    b. if smaller then pop the end stack and push new end time
+   * 5. At the end elements left in the stack will be merged intervals
    */
   public static int[][] find(int[][] intervals) {
     var list = new ArrayList<Interval>();
