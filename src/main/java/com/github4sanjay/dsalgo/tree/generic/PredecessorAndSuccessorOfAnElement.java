@@ -1,24 +1,12 @@
 package com.github4sanjay.dsalgo.tree.generic;
 
-import com.github4sanjay.dsalgo.tree.generic.structure.GenericTreeUtil;
 import com.github4sanjay.dsalgo.tree.generic.structure.Node;
 import java.util.Stack;
 
 // this is in preorder
 public class PredecessorAndSuccessorOfAnElement {
 
-  public static void main(String[] args) {
-    int[] arr =
-        new int[] {
-          10, 20, -50, -1, 60, -1, -1, 30, 70, -1, -80, 110, -1, -120, -1, -1, 90, -1, -1, 40, -100,
-          -1, -1, -1
-        };
-    var root = GenericTreeUtil.createTree(arr);
-    System.out.println(PredecessorAndSuccessorOfAnElement.iterative(root, -120));
-    System.out.println(PredecessorAndSuccessorOfAnElement.recursive(root, -120));
-  }
-
-  private static Answer recursive(Node root, int data) {
+  public static Answer recursive(Node root, int data) {
     Answer answer = new Answer();
     state = 0;
     recursive(root, data, answer);
@@ -43,7 +31,7 @@ public class PredecessorAndSuccessorOfAnElement {
     }
   }
 
-  private static Answer iterative(Node root, int data) {
+  public static Answer iterative(Node root, int data) {
     var stack = new Stack<Node>();
     stack.push(root);
     Node pre = null;

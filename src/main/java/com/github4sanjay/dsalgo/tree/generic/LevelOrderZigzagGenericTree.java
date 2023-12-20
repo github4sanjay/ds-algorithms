@@ -1,6 +1,5 @@
 package com.github4sanjay.dsalgo.tree.generic;
 
-import com.github4sanjay.dsalgo.tree.generic.structure.GenericTreeUtil;
 import com.github4sanjay.dsalgo.tree.generic.structure.Node;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -9,20 +8,8 @@ import java.util.List;
 
 public class LevelOrderZigzagGenericTree {
 
-  public static void main(String[] args) {
-    var root =
-        GenericTreeUtil.createTree(
-            new int[] {
-              10, 20, 50, -1, 60, -1, -1, 30, 70, -1, 80, 110, -1, 120, -1, -1, 90, -1, -1, 40, 100,
-              -1, -1, -1
-            });
-    System.out.println(LevelOrderZigzagGenericTree.traverse(root));
-    System.out.println(LevelOrderZigzagGenericTree.traverseAlt(root));
-    System.out.println(LevelOrderZigzagGenericTree.traverseThirdWay(root));
-  }
-
   // use queue and null as differentiator of level
-  private static List<List<Integer>> traverse(Node root) {
+  public static List<List<Integer>> traverse(Node root) {
     var queue = new LinkedList<Node>();
     queue.offer(root);
     queue.offer(null);
@@ -54,7 +41,7 @@ public class LevelOrderZigzagGenericTree {
   }
 
   // with the help of two queue
-  private static List<List<Integer>> traverseAlt(Node root) {
+  public static List<List<Integer>> traverseAlt(Node root) {
     var queue = new LinkedList<Node>();
     var childQueue = new LinkedList<Node>();
     queue.offer(root);
@@ -91,7 +78,7 @@ public class LevelOrderZigzagGenericTree {
     return finalList;
   }
 
-  private static List<List<Integer>> traverseThirdWay(Node root) {
+  public static List<List<Integer>> traverseThirdWay(Node root) {
     var queue = new LinkedList<Node>();
     queue.offer(root);
     var finalList = new ArrayList<List<Integer>>();

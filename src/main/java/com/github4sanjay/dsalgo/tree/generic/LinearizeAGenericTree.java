@@ -1,27 +1,13 @@
 package com.github4sanjay.dsalgo.tree.generic;
 
-import com.github4sanjay.dsalgo.tree.generic.structure.GenericTreeUtil;
 import com.github4sanjay.dsalgo.tree.generic.structure.Node;
 import java.util.Stack;
 
 /** Preorder lenearize */
 public class LinearizeAGenericTree {
 
-  public static void main(String[] args) {
-    var root =
-        GenericTreeUtil.createTree(
-            new int[] {
-              10, 20, 50, -1, 60, -1, -1, 30, 70, -1, 80, 110, -1, 120, -1, -1, 90, -1, -1, 40, 100,
-              -1, -1, -1
-            });
-    GenericTreeUtil.display(root);
-    System.out.println();
-    LinearizeAGenericTree.recursion(root);
-    GenericTreeUtil.display(root);
-  }
-
   /** During pre order save the last node and add current node as children to previous node */
-  private static void lenearize(Node root) {
+  public static void lenearize(Node root) {
     var stack = new Stack<Node>();
     stack.push(root);
     Node prev = null;
@@ -40,7 +26,7 @@ public class LinearizeAGenericTree {
   }
 
   // O(n^2)
-  private static void recursion(Node root) {
+  public static void recursion(Node root) {
     for (var child : root.getChildren()) {
       recursion(child);
     }

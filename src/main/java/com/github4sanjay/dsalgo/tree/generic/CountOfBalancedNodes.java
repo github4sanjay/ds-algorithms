@@ -25,7 +25,7 @@ public class CountOfBalancedNodes {
 
   public static int size(Node root) {
     if (root == null) return 0;
-    if (root.getChildren().size() == 0) {
+    if (root.getChildren().isEmpty()) {
       count++;
       return 1;
     }

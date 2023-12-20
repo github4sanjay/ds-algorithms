@@ -1,6 +1,5 @@
 package com.github4sanjay.dsalgo.tree.generic;
 
-import com.github4sanjay.dsalgo.tree.generic.structure.GenericTreeUtil;
 import com.github4sanjay.dsalgo.tree.generic.structure.Node;
 import java.util.ArrayList;
 import java.util.List;
@@ -8,17 +7,12 @@ import java.util.Stack;
 
 public class PreorderAndPostorderWithState {
 
-  public static void main(String[] args) {
-    var root =
-        GenericTreeUtil.createTree(new int[] {10, 20, -1, 30, 50, -1, 60, -1, -1, 40, -1, -1});
-    System.out.println(PreorderAndPostorderWithState.traverse(root));
-  }
-
-  /**
-   * if state = -1, put in preorder if state == children.size put in postorder and pop else keep on
-   * pushing children from position pair.state
+  /*
+   * if state = -1, put in preorder
+   * if state == children.size put in postorder and pop
+   * else keep on pushing children from position pair.state
    */
-  private static Answer traverse(Node root) {
+  public static Answer traverse(Node root) {
     var answer = new Answer();
     var stack = new Stack<Pair>();
     stack.push(new Pair(root, -1));

@@ -1,6 +1,5 @@
 package com.github4sanjay.dsalgo.tree.generic;
 
-import com.github4sanjay.dsalgo.tree.generic.structure.GenericTreeUtil;
 import com.github4sanjay.dsalgo.tree.generic.structure.Node;
 import java.util.ArrayList;
 import java.util.List;
@@ -8,15 +7,8 @@ import java.util.Stack;
 
 public class PostOrderGenericTree {
 
-  public static void main(String[] args) {
-    var root =
-        GenericTreeUtil.createTree(new int[] {10, 20, -1, 30, 50, -1, 60, -1, -1, 40, -1, -1});
-    System.out.println(PostOrderGenericTree.traverse(root));
-    System.out.println(PostOrderGenericTree.traverseRecursion(root));
-  }
-
   // with help of two stacks
-  private static List<Integer> traverse(Node root) {
+  public static List<Integer> traverse(Node root) {
     var stack1 = new Stack<Node>();
     var stack2 = new Stack<Node>();
     stack1.push(root);
@@ -35,7 +27,7 @@ public class PostOrderGenericTree {
     return list;
   }
 
-  private static List<Integer> traverseRecursion(Node root) {
+  public static List<Integer> traverseRecursion(Node root) {
     var list = new ArrayList<Integer>();
     traverseRecursion(root, list);
     return list;

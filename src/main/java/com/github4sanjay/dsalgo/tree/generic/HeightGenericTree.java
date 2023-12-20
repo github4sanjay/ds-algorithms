@@ -1,17 +1,9 @@
 package com.github4sanjay.dsalgo.tree.generic;
 
-import com.github4sanjay.dsalgo.tree.generic.structure.GenericTreeUtil;
 import com.github4sanjay.dsalgo.tree.generic.structure.Node;
 import java.util.LinkedList;
 
 public class HeightGenericTree {
-
-  public static void main(String[] args) {
-    var root =
-        GenericTreeUtil.createTree(new int[] {10, 20, -1, 30, 50, -1, 60, -1, -1, 40, -1, -1});
-    System.out.println(HeightGenericTree.find(root));
-    System.out.println(HeightGenericTree.findRecursion(root));
-  }
 
   public static int find(Node root) {
     var queue = new LinkedList<Node>();
@@ -34,8 +26,8 @@ public class HeightGenericTree {
     return height;
   }
 
-  private static int findRecursion(Node root) {
-    int height = -1;
+  public static int findRecursion(Node root) {
+    int height = -1; // 0 if nodes height
     for (var child : root.getChildren()) {
       height = Math.max(height, find(child));
     }

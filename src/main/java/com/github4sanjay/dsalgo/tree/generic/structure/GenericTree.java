@@ -2,7 +2,9 @@ package com.github4sanjay.dsalgo.tree.generic.structure;
 
 import java.util.Iterator;
 import java.util.Stack;
+import lombok.Getter;
 
+@Getter
 public class GenericTree implements Iterable<Integer> {
 
   private final Node root;

@@ -1,6 +1,5 @@
 package com.github4sanjay.dsalgo.tree.generic;
 
-import com.github4sanjay.dsalgo.tree.generic.structure.GenericTreeUtil;
 import com.github4sanjay.dsalgo.tree.generic.structure.Node;
 import java.util.Stack;
 
@@ -11,20 +10,6 @@ import java.util.Stack;
  * <p>ceil is bigger and floor is smaller
  */
 public class CeilAndFloor {
-
-  public static void main(String[] args) {
-    int[] arr =
-        new int[] {
-          10, 20, -50, -1, 60, -1, -1, 30, 70, -1, -80, 110, -1, -120, -1, -1, 90, -1, -1, 40, -100,
-          -1, -1, -1
-        };
-    var root = GenericTreeUtil.createTree(arr);
-    System.out.println(CeilAndFloor.iterative(root, 70)); // Answer{ceil=90, floor=60}
-    System.out.println(CeilAndFloor.recursive(root, 70)); // Answer{ceil=90, floor=60}
-
-    System.out.println(CeilAndFloor.iterative(root, -80)); // Answer{ceil=-50, floor=-100}
-    System.out.println(CeilAndFloor.recursive(root, -80)); // Answer{ceil=-50, floor=-100}
-  }
 
   public static Answer iterative(Node root, int data) {
     var stack = new Stack<Node>();
@@ -48,7 +33,7 @@ public class CeilAndFloor {
     return new Answer(ceil, floor);
   }
 
-  private static Answer recursive(Node root, int data) {
+  public static Answer recursive(Node root, int data) {
     Answer answer = new Answer(Integer.MAX_VALUE, Integer.MIN_VALUE);
     recursive(root, data, answer);
     return answer;

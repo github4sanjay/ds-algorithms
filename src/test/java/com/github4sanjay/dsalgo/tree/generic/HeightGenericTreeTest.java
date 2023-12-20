@@ -1,0 +1,18 @@
+package com.github4sanjay.dsalgo.tree.generic;
+
+import static org.junit.jupiter.api.Assertions.*;
+
+import com.github4sanjay.dsalgo.tree.generic.structure.GenericTreeUtil;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
+
+class HeightGenericTreeTest {
+
+  @Test
+  public void testHeightGenericTree() {
+    var root =
+        GenericTreeUtil.createTree(new int[] {10, 20, -1, 30, 50, -1, 60, -1, -1, 40, -1, -1});
+    Assertions.assertEquals(2, HeightGenericTree.find(root));
+    Assertions.assertEquals(2, HeightGenericTree.findRecursion(root));
+  }
+}

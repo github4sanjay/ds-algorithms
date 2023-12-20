@@ -15,7 +15,7 @@ public class PreOrderGenericTree {
     System.out.println(PreOrderGenericTree.traverseRecursion(root));
   }
 
-  private static List<Integer> traverse(Node root) {
+  public static List<Integer> traverse(Node root) {
     var stack = new Stack<Node>();
     stack.push(root);
     var list = new ArrayList<Integer>();
@@ -30,7 +30,7 @@ public class PreOrderGenericTree {
     return list;
   }
 
-  private static List<Integer> traverseRecursion(Node root) {
+  public static List<Integer> traverseRecursion(Node root) {
     var list = new ArrayList<Integer>();
     traverseRecursion(root, list);
     return list;

@@ -49,18 +49,21 @@ public class GenericTreeUtil {
     return map;
   }
 
-  public static HashMap<Integer, List<Integer>> displayRecursion(Node root) {
-    var map = new HashMap<Integer, List<Integer>>();
+  public static List<NodeAndChildren> displayRecursion(Node root) {
+    var map = new ArrayList<NodeAndChildren>();
     displayRecursion(root, map);
+    for (var nodeAndChildren : map) {
+      System.out.println(nodeAndChildren.data + "--->" + nodeAndChildren.children);
+    }
     return map;
   }
 
-  private static void displayRecursion(Node root, HashMap<Integer, List<Integer>> map) {
+  private static void displayRecursion(Node root, List<NodeAndChildren> map) {
     var list = new ArrayList<Integer>();
     for (var child : root.getChildren()) {
       list.add(child.getData());
     }
-    map.put(root.getData(), list);
+    map.add(new NodeAndChildren(root.getData(), list));
 
     for (var child : root.getChildren()) {
       displayRecursion(child, map);

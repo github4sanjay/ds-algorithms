@@ -1,20 +1,10 @@
 package com.github4sanjay.dsalgo.tree.generic;
 
-import com.github4sanjay.dsalgo.tree.generic.structure.GenericTreeUtil;
 import com.github4sanjay.dsalgo.tree.generic.structure.Node;
 
 public class DiameterInGenericTree {
 
-  public static void main(String[] args) {
-    int[] arr =
-        new int[] {
-          10, 20, -50, -1, 60, -1, -1, 30, -70, -1, 80, -1, 90, -1, -1, 40, -100, -1, -1, -1
-        };
-    var root = GenericTreeUtil.createTree(arr);
-    System.out.println(DiameterInGenericTree.find(root));
-  }
-
-  private static Answer find(Node root) {
+  public static Answer find(Node root) {
     var answer = new Answer(Integer.MIN_VALUE);
     find(root, answer);
     return answer;
@@ -59,7 +49,7 @@ public class DiameterInGenericTree {
     answer.maxDiameter = Math.max(answer.maxDiameter, firstMaxHeight + secondMaxHeight + 2);
   }
 
-  private static class Answer {
+  public static class Answer {
     int maxDiameter;
 
     public Answer(int maxDiameter) {
