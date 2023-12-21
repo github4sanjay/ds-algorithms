@@ -6,21 +6,6 @@ import java.util.List;
 
 public class BSTUtil {
 
-  public static BinaryNode create(int[] ints) {
-    return create(ints, 0, ints.length - 1);
-  }
-
-  public static BinaryNode create(int[] arr, int start, int end) {
-    if (start > end) {
-      return null;
-    }
-    int mid = (start + end) / 2;
-    var node = new BinaryNode(arr[mid]);
-    node.setLeft(create(arr, start, mid - 1));
-    node.setRight(create(arr, mid + 1, end));
-    return node;
-  }
-
   public static void inOrder(BinaryNode node) {
     if (node == null) {
       return;

@@ -19,8 +19,8 @@ public class DiameterInGenericTree {
     for (var child : root.getChildren()) {
       height = Math.max(height, find(child, answer));
       if (height > firstMaxHeight) {
-        firstMaxHeight = height;
         secondMaxHeight = firstMaxHeight;
+        firstMaxHeight = height;
       } else if (height > secondMaxHeight) {
         secondMaxHeight = height;
       }

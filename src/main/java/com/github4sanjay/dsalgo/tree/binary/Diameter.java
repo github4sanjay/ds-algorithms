@@ -13,33 +13,31 @@ public class Diameter {
     System.out.println(Diameter.recursive(root));
   }
 
-  private static Answer recursive(BinaryNode root) {
+  public static int recursive(BinaryNode root) {
+    var answer = new Answer();
+    answer.maxDiameter = Integer.MIN_VALUE;
+    recursive(root, answer);
+    return answer.maxDiameter;
+  }
+
+  private static int recursive(BinaryNode root, Answer answer) {
     if (root == null) {
-      var answer = new Answer();
-      answer.maxHeight = -1;
-      answer.maxDiameter = 0;
-      return answer;
+      return -1;
     }
 
-    var leftAnswer = recursive(root.getLeft());
-    var rightAnswer = recursive(root.getRight());
+    var leftHeight = recursive(root.getLeft(), answer);
+    var rightHeight = recursive(root.getRight(), answer);
 
-    var answer = new Answer();
-    answer.maxDiameter =
-        Math.max(
-            Math.max(leftAnswer.maxDiameter, rightAnswer.maxDiameter),
-            leftAnswer.maxHeight + rightAnswer.maxHeight + 2);
-    answer.maxHeight = Math.max(leftAnswer.maxHeight, rightAnswer.maxHeight) + 1;
-    return answer;
+    answer.maxDiameter = Math.max(answer.maxDiameter, leftHeight + rightHeight + 2);
+    return Math.max(leftHeight, rightHeight) + 1;
   }
 
   private static class Answer {
     int maxDiameter;
-    int maxHeight;
 
     @Override
     public String toString() {
-      return "Answer{" + "maxDiameter=" + maxDiameter + ", maxHeight=" + maxHeight + '}';
+      return "Answer{" + "maxDiameter=" + maxDiameter + '}';
     }
   }
 }

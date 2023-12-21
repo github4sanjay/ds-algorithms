@@ -15,7 +15,7 @@ public class SizeBinaryTree {
   }
 
   // preorder
-  private static int iterative(BinaryNode root) {
+  public static int iterative(BinaryNode root) {
     if (root == null) return 0;
     var stack = new Stack<BinaryNode>();
     stack.push(root);

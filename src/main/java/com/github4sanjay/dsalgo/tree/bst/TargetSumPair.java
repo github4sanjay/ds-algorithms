@@ -4,7 +4,6 @@ import com.github4sanjay.dsalgo.array.FindPair;
 import com.github4sanjay.dsalgo.tree.binary.IterativeTraversalBinaryTree;
 import com.github4sanjay.dsalgo.tree.binary.TraversalBinaryTree;
 import com.github4sanjay.dsalgo.tree.binary.structure.BinaryNode;
-import com.github4sanjay.dsalgo.tree.binary.structure.BinaryTreeUtil;
 import com.github4sanjay.dsalgo.util.Pair;
 import java.util.ArrayList;
 import java.util.List;
@@ -12,22 +11,7 @@ import java.util.Stack;
 
 public class TargetSumPair {
 
-  public static void main(String[] args) {
-    int n = -1;
-    var root =
-        BinaryTreeUtil.create(
-            new int[] {50, 25, 12, n, n, 37, 30, n, n, n, 75, 62, 60, n, n, 70, n, n, 87, n, n});
-    System.out.println(
-        TargetSumPair.find(root, 100)); // [Pair{data1=25, data2=75}, Pair{data1=30, data2=70}]
-    System.out.println(
-        TargetSumPair.findEfficient(
-            root, 100)); // [Pair{data1=25, data2=75}, Pair{data1=30, data2=70}]
-    System.out.println(
-        TargetSumPair.mostEfficient(
-            root, 100)); // [Pair{data1=25, data2=75}, Pair{data1=30, data2=70}]
-  }
-
-  private static List<Pair> mostEfficient(BinaryNode root, int targetSum) {
+  public static List<Pair> mostEfficient(BinaryNode root, int targetSum) {
     var list = new ArrayList<Pair>();
     var inOrderStack = new Stack<IterativeTraversalBinaryTree.Pair>();
     var reverseInOrderStack = new Stack<IterativeTraversalBinaryTree.Pair>();
@@ -54,13 +38,13 @@ public class TargetSumPair {
   }
 
   // efficient : first find inorder gives sorted array then find pair
-  private static List<Pair> findEfficient(BinaryNode root, int targetSum) {
+  public static List<Pair> findEfficient(BinaryNode root, int targetSum) {
     var traversal = TraversalBinaryTree.recursive(root);
     return FindPair.find(traversal.getInorder(), targetSum);
   }
 
   // Time complexity O(nlogn)
-  private static List<Pair> find(BinaryNode root, int targetSum) {
+  public static List<Pair> find(BinaryNode root, int targetSum) {
     var list = new ArrayList<Pair>();
     find(root, root, targetSum, list);
     return list;

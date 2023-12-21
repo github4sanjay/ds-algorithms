@@ -2,6 +2,7 @@ package com.github4sanjay.dsalgo.tree.binary;
 
 import com.github4sanjay.dsalgo.tree.binary.structure.BinaryNode;
 import com.github4sanjay.dsalgo.tree.binary.structure.BinaryTreeUtil;
+import lombok.Getter;
 
 /**
  * You are required to check if the tree is a Binary Search Tree (BST) as well. In a BST every node
@@ -22,7 +23,7 @@ public class IsBST {
     System.out.println(IsBST.recursive(root1));
   }
 
-  private static Answer recursive(BinaryNode root) {
+  public static Answer recursive(BinaryNode root) {
     if (root == null) {
       var answer = new Answer();
       answer.isBST = true;
@@ -45,7 +46,8 @@ public class IsBST {
     return answer;
   }
 
-  private static class Answer {
+  @Getter
+  public static class Answer {
     int max;
     int min;
     boolean isBST;
