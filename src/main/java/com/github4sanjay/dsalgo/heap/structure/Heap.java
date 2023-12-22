@@ -40,23 +40,24 @@ public class Heap<T extends Comparable<T>> {
   }
 
   // O(log n)
-  private void percolateDown(int index) {
+  public void percolateDown(int index) {
     int leftChildIndex = getLeftChildIndex(index);
     int rightChildIndex = getRightChildIndex(index);
-    int max = index;
+    int indexWithLowestPriorityData = index;
     if (leftChildIndex != -1 && compare(storage.get(leftChildIndex), storage.get(index))) {
-      max = leftChildIndex;
+      indexWithLowestPriorityData = leftChildIndex;
     }
 
-    if (rightChildIndex != -1 && compare(storage.get(rightChildIndex), storage.get(max))) {
-      max = rightChildIndex;
+    if (rightChildIndex != -1
+        && compare(storage.get(rightChildIndex), storage.get(indexWithLowestPriorityData))) {
+      indexWithLowestPriorityData = rightChildIndex;
     }
 
-    if (max != index) {
-      T temp = storage.get(max);
-      storage.set(max, storage.get(index));
+    if (indexWithLowestPriorityData != index) {
+      T temp = storage.get(indexWithLowestPriorityData);
+      storage.set(indexWithLowestPriorityData, storage.get(index));
       storage.set(index, temp);
-      percolateDown(max);
+      percolateDown(indexWithLowestPriorityData);
     }
   }
 
@@ -96,9 +97,15 @@ public class Heap<T extends Comparable<T>> {
 
   // O(log n)
   private void percolateUp(T data, int index) {
-    while (index > 0 && compare(data, storage.get(getParent(index)))) {
-      storage.set(index, storage.get((index - 1) / 2));
-      index = getParent(index);
+    while (index > 0) {
+      var parentIndex = getParent(index);
+      var parentData = storage.get(parentIndex);
+      if (compare(data, parentData)) {
+        storage.set(index, parentData);
+        index = parentIndex;
+      } else {
+        break;
+      }
     }
     storage.set(index, data);
   }

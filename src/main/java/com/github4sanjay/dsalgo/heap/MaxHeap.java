@@ -1,7 +1,5 @@
 package com.github4sanjay.dsalgo.heap;
 
-import java.util.Arrays;
-
 /**
  * Heap is complete binary tree Follows heap order property either max or min
  *
@@ -107,45 +105,5 @@ public class MaxHeap {
     System.arraycopy(array, 0, newArray, 0, array.length);
     this.capacity = 2 * capacity;
     this.array = newArray;
-  }
-
-  public static void buildHeap(MaxHeap h, int[] A) {
-    while (h.getCapacity() < A.length) {
-      h.resize();
-    }
-    h.count = A.length;
-    System.arraycopy(A, 0, h.array, 0, A.length);
-    int lastLeaf = h.count - 1;
-    // start from parent of last leaf node
-    for (int i = (lastLeaf - 1) / 2; i >= 0; i--) {
-      h.percolateDown(i);
-    }
-  }
-
-  /**
-   * Since time complexity of both insertion and deletion is logn and total elements is n so heap
-   * sort time complexity is nlogn
-   */
-  public static int[] HeapSort(int[] A) {
-    MaxHeap maxHeap = new MaxHeap(A.length);
-    MaxHeap.buildHeap(maxHeap, A);
-    for (int i = 0; i < A.length; i++) {
-      int temp = maxHeap.getMax();
-      maxHeap.array[0] = maxHeap.array[maxHeap.count - 1];
-      maxHeap.array[maxHeap.count - 1] = temp;
-      maxHeap.count--;
-      maxHeap.percolateDown(0);
-    }
-    return maxHeap.array;
-  }
-
-  public static void main(String[] args) {
-
-    MaxHeap maxHeap2 = new MaxHeap(2);
-    MaxHeap.buildHeap(maxHeap2, new int[] {2, 5, 1, 9, 4, 3});
-    System.out.println(maxHeap2.getMax());
-    System.out.println(maxHeap2.deleteMax());
-    System.out.println(maxHeap2.getMax());
-    System.out.println(Arrays.toString(HeapSort(new int[] {2, 5, 1, 9, 4, 3})));
   }
 }

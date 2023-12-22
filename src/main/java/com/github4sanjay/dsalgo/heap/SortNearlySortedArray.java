@@ -13,11 +13,10 @@ public class SortNearlySortedArray {
       queue.add(A[i]);
     }
     for (int i = k + 1; i < A.length; i++) {
-      if (queue.peek() < A[i]) {
-        list.add(queue.remove());
-        queue.add(A[i]);
-      }
+      list.add(queue.remove());
+      queue.add(A[i]);
     }
+
     while (queue.size() > 0) {
       list.add(queue.remove());
     }

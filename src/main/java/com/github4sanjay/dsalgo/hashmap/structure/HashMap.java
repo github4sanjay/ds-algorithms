@@ -1,31 +1,19 @@
 package com.github4sanjay.dsalgo.hashmap.structure;
 
 import java.util.*;
+import lombok.Getter;
+import lombok.Setter;
 
 public class HashMap<K, V> {
 
+  @Setter
+  @Getter
   private static class HashMapNode<K, V> {
     private K key;
     private V value;
 
     public HashMapNode(K key, V value) {
       this.key = key;
-      this.value = value;
-    }
-
-    public K getKey() {
-      return key;
-    }
-
-    public void setKey(K key) {
-      this.key = key;
-    }
-
-    public V getValue() {
-      return value;
-    }
-
-    public void setValue(V value) {
       this.value = value;
     }
   }

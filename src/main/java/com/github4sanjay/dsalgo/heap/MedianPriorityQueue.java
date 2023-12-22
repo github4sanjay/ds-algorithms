@@ -9,14 +9,12 @@ public class MedianPriorityQueue {
 
   public MedianPriorityQueue() {
     this.max = new PriorityQueue<>(Collections.reverseOrder());
-    ;
     this.min = new PriorityQueue<>();
-    ;
   }
 
   public void add(Integer data) {
     if (data == null) return;
-    if (min.size() > 0 && data > min.peek()) {
+    if (!min.isEmpty() && data > min.peek()) {
       min.add(data);
       if (min.size() - max.size() > 1) {
         max.add(min.remove());
@@ -48,23 +46,5 @@ public class MedianPriorityQueue {
       return max.remove();
     }
     return min.remove();
-  }
-
-  public static void main(String[] args) {
-    var queue = new MedianPriorityQueue();
-    queue.add(10);
-    System.out.println(queue.getMedian());
-    queue.add(20);
-    System.out.println(queue.getMedian());
-    queue.add(30);
-    System.out.println(queue.getMedian());
-    queue.add(40);
-    System.out.println(queue.getMedian());
-    queue.add(5);
-    System.out.println(queue.getMedian());
-    queue.add(50);
-    System.out.println(queue.getMedian());
-    queue.remove();
-    System.out.println(queue.getMedian());
   }
 }

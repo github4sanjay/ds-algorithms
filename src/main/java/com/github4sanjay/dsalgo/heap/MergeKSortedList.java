@@ -31,7 +31,7 @@ public class MergeKSortedList {
       holders.add(new Holder(i, 0, lists.get(i).get(0)));
     }
     var list = new ArrayList<Integer>();
-    while (holders.size() > 0) {
+    while (!holders.isEmpty()) {
       var holder = holders.remove();
       var nextDI = holder.di + 1;
       if (nextDI < lists.get(holder.li).size()) {
@@ -40,10 +40,5 @@ public class MergeKSortedList {
       list.add(holder.val);
     }
     return list;
-  }
-
-  public static void main(String[] args) {
-    System.out.println(
-        MergeKSortedList.merge(List.of(List.of(1, 4, 5), List.of(1, 3, 4), List.of(2, 6))));
   }
 }
