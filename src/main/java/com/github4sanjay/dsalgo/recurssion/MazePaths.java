@@ -3,15 +3,9 @@ package com.github4sanjay.dsalgo.recurssion;
 import java.util.ArrayList;
 import java.util.List;
 
-public class GetMazePaths {
+public class MazePaths {
 
-  public static void main(String[] args) {
-    // [hhvv, hvhv, hvvh, vhhv, vhvh, vvhh]
-    System.out.println(get(1, 1, 3, 3));
-    justPrint(1, 1, 3, 3, "");
-  }
-
-  private static List<String> get(int sourceRow, int srcCol, int desRow, int desCol) {
+  public static List<String> get(int sourceRow, int srcCol, int desRow, int desCol) {
     if (sourceRow == desRow && srcCol == desCol) {
       var initialList = new ArrayList<String>();
       initialList.add("");
@@ -35,7 +29,11 @@ public class GetMazePaths {
     return finalList;
   }
 
-  private static void justPrint(int sourceRow, int srcCol, int desRow, int desCol, String answer) {
+  public static void print(int sourceRow, int srcCol, int desRow, int desCol) {
+    print(sourceRow, srcCol, desRow, desCol, "");
+  }
+
+  private static void print(int sourceRow, int srcCol, int desRow, int desCol, String answer) {
     if (sourceRow == desRow && srcCol == desCol) {
       System.out.println(answer);
       return;
@@ -45,7 +43,7 @@ public class GetMazePaths {
       return;
     }
 
-    justPrint(sourceRow + 1, srcCol, desRow, desCol, "h" + answer);
-    justPrint(sourceRow, srcCol + 1, desRow, desCol, "v" + answer);
+    print(sourceRow + 1, srcCol, desRow, desCol, "h" + answer);
+    print(sourceRow, srcCol + 1, desRow, desCol, "v" + answer);
   }
 }

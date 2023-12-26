@@ -4,23 +4,8 @@ import com.github4sanjay.dsalgo.util.AlgoUtil;
 
 public class CrossWordPuzzle {
 
-  public static void main(String[] args) {
-    char[][] crossword = {
-      {'*', '#', '*', '*', '*', '*', '*', '*', '*', '*'},
-      {'*', '#', '*', '*', '*', '*', '*', '*', '*', '*'},
-      {'*', '#', '*', '*', '*', '*', '#', '*', '*', '*'},
-      {'*', '#', '#', '*', '*', '*', '#', '#', '*', '*'},
-      {'*', '#', '*', '*', '*', '*', '#', '*', '*', '*'},
-      {'*', '#', '*', '*', '*', '*', '#', '*', '*', '*'},
-      {'*', '#', '*', '*', '*', '*', '#', '*', '*', '*'},
-      {'*', '#', '*', '#', '#', '#', '#', '#', '#', '*'},
-      {'*', '#', '*', '*', '*', '*', '*', '*', '*', '*'},
-      {'*', '*', '*', '#', '#', '#', '#', '#', '#', '#'}
-    };
-
-    String[] words = new String[] {"PUNJAB", "JHARKHAND", "MIZORAM", "MUMBAI"};
-
-    CrossWordPuzzle.fill(crossword, words, 0);
+  public static void fill(char[][] crossword, String[] words) {
+    fill(crossword, words, 0);
   }
 
   private static void fill(char[][] crossword, String[] words, int wordIndex) {

@@ -5,40 +5,6 @@ import java.util.List;
 
 public class Subsequence {
 
-  public static void main(String[] args) {
-    // [, a, b, ab, c, ac, bc, abc]
-    System.out.println(Subsequence.get("abc"));
-  }
-
-  private static ArrayList<String> create(String s) {
-    ArrayList<String> strings = new ArrayList<>();
-    create(s, s.length(), new int[s.length()], strings);
-    return strings;
-  }
-
-  private static void create(String s, int i, int[] index, ArrayList<String> strings) {
-    if (i < 1) {
-      String string = getString(s, index);
-      strings.add(string);
-    } else {
-      index[i - 1] = 0;
-      create(s, i - 1, index, strings);
-
-      index[i - 1] = 1;
-      create(s, i - 1, index, strings);
-    }
-  }
-
-  private static String getString(String s, int[] index) {
-    String temp = "";
-    for (int j = 0; j < index.length; j++) {
-      if (index[j] == 1) {
-        temp = temp.concat(s.substring(j, j + 1));
-      }
-    }
-    return temp;
-  }
-
   // 2^n time complexity
   public static List<String> get(String str) {
     var list = new ArrayList<String>();
@@ -48,7 +14,7 @@ public class Subsequence {
 
   private static void get(String str, String answer, int index, ArrayList<String> list) {
     if (index == str.length()) {
-      if (!answer.equals("")) {
+      if (!answer.isEmpty()) {
         list.add(answer);
       }
       return;
@@ -59,8 +25,12 @@ public class Subsequence {
     get(str, answer + ch, index + 1, list);
   }
 
-  public void print(String question, String answer) {
-    if (question.length() == 0) {
+  public static void print(String input) {
+    print(input, "");
+  }
+
+  private static void print(String question, String answer) {
+    if (question.isEmpty()) {
       System.out.println(answer);
       return;
     }

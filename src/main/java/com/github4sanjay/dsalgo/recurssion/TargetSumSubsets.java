@@ -4,48 +4,39 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class TargetSumSubsets {
-  public static void main(String[] args) {
 
-    TargetSumSubsets.print(new int[] {10, 20, 30, 40, 50}, 70);
-    var finalList = new ArrayList<List<Integer>>();
-    TargetSumSubsets.find(new int[] {10, 20, 30, 40, 50}, 70, 0, new ArrayList<>(), 0, finalList);
-    System.out.println(finalList);
+  public static void print(int[] array, int targetSum) {
+    print(array, targetSum, 0, "");
   }
 
-  private static void print(int[] arr, int sum) {
-    print(arr, sum, 0, "", 0);
-  }
-
-  private static void print(int[] arr, int targetSum, int sum, String set, int idx) {
-    if (sum < 0 || idx == arr.length) {
-      if (sum == targetSum) {
-        System.out.println(set);
-      }
+  private static void print(int[] array, int targetSum, int index, String set) {
+    if (targetSum < 0) return;
+    if (targetSum == 0) {
+      System.out.println(set);
       return;
     }
+    if (index > array.length - 1) return;
+    print(array, targetSum, index + 1, set);
+    print(array, targetSum - array[index], index + 1, set + array[index] + ",");
+  }
 
-    print(arr, targetSum, sum, set, idx + 1);
-    print(arr, targetSum, sum + arr[idx], set + arr[idx] + ",", idx + 1);
+  public static List<List<Integer>> find(int[] arr, int targetSum) {
+    var list = new ArrayList<List<Integer>>();
+    find(arr, targetSum, new ArrayList<>(), 0, list);
+    return list;
   }
 
   private static void find(
-      int[] arr,
-      int targetSum,
-      int sum,
-      List<Integer> set,
-      int idx,
-      List<List<Integer>> finalList) {
-    if (sum < 0 || idx == arr.length) {
-      if (sum == targetSum) {
-        finalList.add(new ArrayList<>(set));
-        return;
-      }
+      int[] arr, int targetSum, List<Integer> set, int idx, List<List<Integer>> finalList) {
+    if (targetSum < 0) return;
+    if (targetSum == 0) {
+      finalList.add(new ArrayList<>(set));
       return;
     }
-
-    find(arr, targetSum, sum, set, idx + 1, finalList);
+    if (idx > arr.length - 1) return;
+    find(arr, targetSum, set, idx + 1, finalList);
     set.add(arr[idx]);
-    find(arr, targetSum, sum + arr[idx], set, idx + 1, finalList);
-    set.remove(set.size() - 1);
+    find(arr, targetSum - arr[idx], set, idx + 1, finalList);
+    set.removeLast();
   }
 }

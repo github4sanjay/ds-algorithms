@@ -1,10 +1,10 @@
 package com.github4sanjay.dsalgo.recurssion;
 
-public class LogrithmicPower {
+public class LogarithmicPower {
 
   public static void main(String[] args) {
-    System.out.println(LogrithmicPower.printPower(5, 3)); // 125
-    System.out.println(LogrithmicPower.printPower(2, 4)); // 16
+    System.out.println(LogarithmicPower.printPower(5, 3)); // 125
+    System.out.println(LogarithmicPower.printPower(2, 4)); // 16
   }
 
   private static int printPower(int x, int n) {

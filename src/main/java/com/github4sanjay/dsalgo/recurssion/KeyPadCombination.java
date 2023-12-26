@@ -5,19 +5,8 @@ import java.util.List;
 
 public class KeyPadCombination {
 
-  public static void main(String[] args) {
-    String[] keys =
-        new String[] {";;", "abc", "def", "ghi", "jkl", "mno", "pqrs", "tu", "vwx", "yz"};
-
-    // [ptv, ptw, ptx, puv, puw, pux, qtv, qtw, qtx, quv, quw, qux, rtv, rtw, rtx, ruv, ruw, rux,
-    // stv, stw, stx, suv, suw, sux]
-    System.out.println(find(keys, "678"));
-
-    print(keys, "678", "");
-  }
-
   public static List<String> find(String[] keys, String input) {
-    if (input.length() == 0) {
+    if (input.isEmpty()) {
       var initialList = new ArrayList<String>();
       initialList.add("");
       return initialList;
@@ -36,8 +25,12 @@ public class KeyPadCombination {
     return finalList;
   }
 
-  public static void print(String[] keys, String question, String answer) {
-    if (question.length() == 0) {
+  public static void print(String[] keys, String input) {
+    print(keys, input, "");
+  }
+
+  private static void print(String[] keys, String question, String answer) {
+    if (question.isEmpty()) {
       System.out.println(answer);
       return;
     }

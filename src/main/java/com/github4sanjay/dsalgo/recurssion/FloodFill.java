@@ -1,7 +1,5 @@
 package com.github4sanjay.dsalgo.recurssion;
 
-import com.github4sanjay.dsalgo.util.AlgoUtil;
-
 /*
  Flood fill Algorithm – how to implement fill() in paint? In MS-Paint, when we take the brush to a
  pixel and click, the color of the region of that pixel is replaced with a new selected color.
@@ -39,66 +37,30 @@ import com.github4sanjay.dsalgo.util.AlgoUtil;
 */
 public class FloodFill {
 
-  public static void main(String[] args) {
-    var matrix =
-        new int[][] {
-          {1, 1, 1, 1, 1, 1, 1, 2},
-          {1, 1, 1, 1, 1, 1, 0, 0},
-          {1, 0, 0, 1, 1, 0, 1, 1},
-          {1, 2, 2, 2, 2, 0, 1, 0},
-          {1, 1, 1, 2, 2, 0, 1, 0},
-          {1, 1, 1, 2, 2, 2, 2, 0},
-          {1, 1, 1, 1, 1, 2, 1, 1},
-          {1, 1, 2, 1, 1, 2, 2, 1},
-        };
-    FloodFill.fill(matrix, 4, 4, 3);
-    AlgoUtil.print(matrix);
-  }
-
-  private static void fill(int[][] ints, int srcRow, int srcCol, int newColor) {
-    var visited = new boolean[ints.length][ints[0].length];
-    var oldColor = ints[srcRow][srcCol];
-    ints[srcRow][srcCol] = newColor;
-    fill(ints, srcRow, srcCol, oldColor, newColor, visited);
+  public static void fill(int[][] matrix, int srcR, int srcC, int newColor) {
+    fill(
+        matrix,
+        srcR,
+        srcC,
+        matrix[srcR][srcC],
+        newColor,
+        new boolean[matrix.length][matrix[0].length]);
   }
 
   private static void fill(
-      int[][] matrix, int srcRow, int srcCol, int oldColor, int newColor, boolean[][] visited) {
-
-    if (visited[srcRow][srcCol]) {
+      int[][] matrix, int srcR, int srcC, int oldColor, int newColor, boolean[][] visited) {
+    if (srcR < 0 || srcC < 0 || srcR > matrix.length - 1 || srcC > matrix[0].length - 1) {
       return;
     }
-
-    visited[srcRow][srcCol] = true;
-    if (canVisit(matrix, srcRow - 1, srcCol, oldColor, visited)) {
-      matrix[srcRow - 1][srcCol] = newColor;
-      fill(matrix, srcRow - 1, srcCol, oldColor, newColor, visited);
+    if (visited[srcR][srcC]) return;
+    visited[srcR][srcC] = true;
+    if (matrix[srcR][srcC] == oldColor) {
+      matrix[srcR][srcC] = newColor;
+      fill(matrix, srcR + 1, srcC, oldColor, newColor, visited);
+      fill(matrix, srcR, srcC + 1, oldColor, newColor, visited);
+      fill(matrix, srcR - 1, srcC, oldColor, newColor, visited);
+      fill(matrix, srcR, srcC - 1, oldColor, newColor, visited);
     }
-
-    if (canVisit(matrix, srcRow, srcCol - 1, oldColor, visited)) {
-      matrix[srcRow][srcCol - 1] = newColor;
-      fill(matrix, srcRow, srcCol - 1, oldColor, newColor, visited);
-    }
-
-    if (canVisit(matrix, srcRow + 1, srcCol, oldColor, visited)) {
-      matrix[srcRow + 1][srcCol] = newColor;
-      fill(matrix, srcRow + 1, srcCol, oldColor, newColor, visited);
-    }
-
-    if (canVisit(matrix, srcRow, srcCol + 1, oldColor, visited)) {
-      matrix[srcRow][srcCol + 1] = newColor;
-      fill(matrix, srcRow, srcCol + 1, oldColor, newColor, visited);
-    }
-  }
-
-  private static boolean canVisit(
-      int[][] matrix, int row, int col, int oldColor, boolean[][] visited) {
-    return isSafe(row, col, matrix.length - 1, matrix[0].length - 1)
-        && !visited[row][col]
-        && matrix[row][col] == oldColor;
-  }
-
-  private static boolean isSafe(int row, int col, int rowLength, int colLength) {
-    return row >= 0 && col >= 0 && row <= rowLength && col <= colLength;
+    visited[srcR][srcC] = false;
   }
 }

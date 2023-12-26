@@ -2,18 +2,19 @@ package com.github4sanjay.dsalgo.backtracking;
 
 import java.util.HashMap;
 
+/*
+ * Newspapers and magazines often have crypt-arithmetic puzzles of the form:
+ *
+ * SEND
+ *  +
+ * MORE
+ * --------
+ * MONEY
+ * --------
+ */
 public class CryptarithmeticPuzzles {
 
-  public static void main(String[] args) {
-    /**
-     * Newspapers and magazines often have crypt-arithmetic puzzles of the form:
-     *
-     * <p>SEND + MORE -------- MONEY --------
-     */
-    find("send", "more", "money");
-  }
-
-  private static void find(String s1, String s2, String s3) {
+  public static void find(String s1, String s2, String s3) {
     var map = new HashMap<Character, Integer>();
     StringBuilder uniqueString = new StringBuilder();
     for (char ch : s1.toCharArray()) {
@@ -61,7 +62,7 @@ public class CryptarithmeticPuzzles {
             System.out.print(ch + "-" + map.get(ch) + " ");
           }
         }
-        System.out.println("");
+        System.out.println();
       }
       return;
     }
