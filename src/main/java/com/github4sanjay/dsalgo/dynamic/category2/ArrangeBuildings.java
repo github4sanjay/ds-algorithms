@@ -32,6 +32,6 @@ public class ArrangeBuildings {
   }
 
   private static int count(int n) {
-    return (int) Math.pow(CountBinaryStringsWithoutTwoConsecutiveZeroes.count(n), 2);
+    return (int) Math.pow(CountBinaryStringsWithoutTwoConsecutiveZeroes.tabulation(n), 2);
   }
 }

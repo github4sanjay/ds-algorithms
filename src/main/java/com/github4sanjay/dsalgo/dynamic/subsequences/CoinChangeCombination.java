@@ -11,39 +11,11 @@ package com.github4sanjay.dsalgo.dynamic.subsequences;
  */
 public class CoinChangeCombination {
 
-  public static void main(String[] args) {
-
-    System.out.println(tabular1D(new int[] {1, 2, 3}, 4)); // 4
-    System.out.println(tabular1D(new int[] {2, 5, 3, 6}, 10)); // 5
-
-    System.out.println(countRecursive(new int[] {1, 2, 3}, 4)); // 4 1111,112,13,121,22
-    System.out.println(countRecursive(new int[] {2, 5, 3, 6}, 10)); // 5
-
-    System.out.println(countMemoization(new int[] {1, 2, 3}, 4)); // 4 1111,112,13,121,22
-    System.out.println(countMemoization(new int[] {2, 5, 3, 6}, 10)); // 5
-
-    System.out.println(tabular2D(new int[] {1, 2, 3}, 4)); // 4 1111,112,13,121,22
-    System.out.println(tabular2D(new int[] {2, 5, 3, 6}, 10)); // 5
+  public static int recursion(int[] coins, int target) {
+    return recursion(coins, target, coins.length - 1);
   }
 
-  private static int tabular1D(int[] coins, int target) {
-
-    int[] dp = new int[target + 1]; // stores no. of ways to pay target at index
-
-    dp[0] = 1; // ways to pay 0 is always 1
-    for (int i = 0; i < coins.length; i++) {
-      for (int j = coins[i]; j < dp.length; j++) {
-        dp[j] = dp[j] + dp[j - coins[i]];
-      }
-    }
-    return dp[target];
-  }
-
-  public static int countRecursive(int[] coins, int target) {
-    return countRecursive(coins, coins.length - 1, target);
-  }
-
-  private static int countRecursive(int[] coins, int index, int target) {
+  private static int recursion(int[] coins, int target, int index) {
     if (index == 0) {
       if (target % coins[index] == 0) {
         return 1;
@@ -51,19 +23,21 @@ public class CoinChangeCombination {
         return 0;
       }
     }
-    var notTake = countRecursive(coins, index - 1, target);
-    var take = 0;
+    int notTake = recursion(coins, target, index - 1);
+    int take = 0;
     if (coins[index] <= target) {
-      take = countRecursive(coins, index, target - coins[index]);
+      take = recursion(coins, target - coins[index], index);
     }
-    return take + notTake;
+    return notTake + take;
   }
 
-  public static int countMemoization(int[] coins, int target) {
-    return countMemoization(coins, coins.length - 1, target, new Integer[coins.length][target + 1]);
+  public static int memoization(int[] coins, int target) {
+    var dp = new Integer[coins.length][target + 1];
+    dp[coins.length - 1][target] = memoization(coins, target, coins.length - 1, dp);
+    return dp[coins.length - 1][target];
   }
 
-  private static int countMemoization(int[] coins, int index, int target, Integer[][] dp) {
+  private static int memoization(int[] coins, int target, int index, Integer[][] dp) {
     if (index == 0) {
       if (target % coins[index] == 0) {
         return 1;
@@ -71,41 +45,47 @@ public class CoinChangeCombination {
         return 0;
       }
     }
-
-    if (dp[index][target] != null) return dp[index][target];
-
-    var notTake = countMemoization(coins, index - 1, target, dp);
-    var take = 0;
-    if (coins[index] <= target) {
-      take = countMemoization(coins, index, target - coins[index], dp);
+    if (dp[index][target] != null) {
+      return dp[index][target];
     }
-    var result = take + notTake;
+    int notTake = memoization(coins, target, index - 1, dp);
+    int take = 0;
+    if (coins[index] <= target) {
+      take = memoization(coins, target - coins[index], index, dp);
+    }
+    var result = notTake + take;
     dp[index][target] = result;
     return result;
   }
 
-  private static int tabular2D(int[] coins, int target) {
-    var dp = new int[coins.length][target + 1];
-
-    for (int t = 0; t <= target; t++) {
-      if (t % coins[0] == 0) {
-        dp[0][t] = 1;
-      } else {
-        dp[0][t] = 0;
-      }
-    }
-
-    for (int i = 1; i < coins.length; i++) {
-      for (int t = 0; t <= target; t++) {
-        var notTake = dp[i - 1][t];
-        var take = 0;
-        if (coins[i] <= t) {
-          take = dp[i][t - coins[i]];
-        }
-        var result = take + notTake;
-        dp[i][t] = result;
-      }
-    }
+  public static int tabular(int[] coins, int target) {
+    var dp = new Integer[coins.length][target + 1];
+    dp[coins.length - 1][target] = tabular(coins, coins.length - 1, target, dp);
     return dp[coins.length - 1][target];
+  }
+
+  private static int tabular(int[] coins, int INDEX, int TARGET, Integer[][] dp) {
+    for (int index = 0; index <= INDEX; index++) {
+      for (int target = 0; target <= TARGET; target++) {
+        if (index == 0) {
+          if (target % coins[index] == 0) {
+            dp[index][target] = 1;
+            continue;
+          } else {
+            dp[index][target] = 0;
+            continue;
+          }
+        }
+
+        int notTake = dp[index - 1][target];
+        int take = 0;
+        if (coins[index] <= target) {
+          take = dp[index][target - coins[index]];
+        }
+        var result = notTake + take;
+        dp[index][target] = result;
+      }
+    }
+    return dp[INDEX][TARGET];
   }
 }

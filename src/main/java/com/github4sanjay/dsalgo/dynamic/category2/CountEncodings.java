@@ -20,13 +20,93 @@ package com.github4sanjay.dsalgo.dynamic.category2;
  */
 public class CountEncodings {
 
-  public static void main(String[] args) {
-    System.out.println(CountEncodings.count("124"));
-    System.out.println(CountEncodings.count("1234"));
-    System.out.println(CountEncodings.count("655196"));
+  public static int recursion(String word) {
+    return recursion(word, word.length() - 1);
   }
 
-  private static int count(String str) {
+  private static int recursion(String word, int index) {
+    char firstCharacter = word.charAt(0);
+    if (firstCharacter == '0') return 0;
+    if (index < 0) {
+      return 0;
+    }
+    if (index == 0) {
+      return 1;
+    }
+    var lastCharacter = word.charAt(index);
+    var secondLastCharacter = word.charAt(index - 1);
+    if (lastCharacter == '0' && secondLastCharacter == '0') {
+      return 0;
+    } else if (secondLastCharacter == '0') {
+      return recursion(word, index - 1);
+    } else if (lastCharacter == '0') {
+      if (index - 2 < 0) {
+        return 1;
+      } else {
+        return recursion(word, index - 2);
+      }
+    } else {
+      int integer = Integer.parseInt(new String(new char[] {secondLastCharacter, lastCharacter}));
+      if (integer > 26) {
+        return recursion(word, index - 1);
+      } else {
+        if (index - 2 < 0) {
+          return 1 + recursion(word, index - 1);
+        } else {
+          return recursion(word, index - 2) + recursion(word, index - 1);
+        }
+      }
+    }
+  }
+
+  public static int memoization(String word) {
+    var dp = new Integer[word.length()];
+    dp[word.length() - 1] = memoization(word, word.length() - 1, dp);
+    return dp[word.length() - 1];
+  }
+
+  private static int memoization(String word, int index, Integer[] dp) {
+    char firstCharacter = word.charAt(0);
+    if (firstCharacter == '0') return 0;
+    if (index < 0) {
+      return 0;
+    }
+    if (index == 0) {
+      return 1;
+    }
+    if (dp[index] != null) {
+      return dp[index];
+    }
+    var lastCharacter = word.charAt(index);
+    var secondLastCharacter = word.charAt(index - 1);
+    int result = 0;
+    if (lastCharacter == '0' && secondLastCharacter == '0') {
+      result = 0;
+    } else if (secondLastCharacter == '0') {
+      result = memoization(word, index - 1, dp);
+    } else if (lastCharacter == '0') {
+      if (index - 2 < 0) {
+        result = 1;
+      } else {
+        result = memoization(word, index - 2, dp);
+      }
+    } else {
+      int integer = Integer.parseInt(new String(new char[] {secondLastCharacter, lastCharacter}));
+      if (integer > 26) {
+        result = memoization(word, index - 1, dp);
+      } else {
+        if (index - 2 < 0) {
+          result = 1 + memoization(word, index - 1, dp);
+        } else {
+          result = memoization(word, index - 2, dp) + memoization(word, index - 1, dp);
+        }
+      }
+    }
+    dp[index] = result;
+    return result;
+  }
+
+  public static int tabulation(String str) {
 
     char firstCharacter = str.charAt(0);
     if (firstCharacter == '0') return 0;

@@ -2,30 +2,59 @@ package com.github4sanjay.dsalgo.dynamic.fibonacci;
 
 public class Fibonacci {
 
-  public static void main(String[] args) {
-    int n = 0;
-    System.out.println(Fibonacci.findByDP(n, new int[n + 1]));
-  }
-
-  // recursion
-  private static int findByRecursion(int n) {
+  public static int recursion(int n) {
     if (n == 0) return 0;
     if (n == 1) return 1;
-    return findByRecursion(n - 2) + findByRecursion(n - 1);
+    return recursion(n - 2) + recursion(n - 1);
   }
 
-  private static int findByDP(int n, int[] questionBank) {
+  public static int tabulation(int n) {
+    var dp = new int[n + 1];
+    dp[n] = tabulation(n, dp);
+    return dp[n];
+  }
+
+  private static int tabulation(int n, int[] dp) {
+    for (int i = 0; i <= n; i++) {
+      if (i == 0) {
+        dp[i] = 0;
+        continue;
+      }
+      if (i == 1) {
+        dp[i] = 1;
+        continue;
+      }
+
+      if (dp[i] != 0) {
+        return dp[n];
+      }
+
+      int fib1 = dp[i - 1];
+      int fib2 = dp[i - 2];
+      int fib = fib1 + fib2;
+      dp[i] = fib;
+    }
+    return dp[n];
+  }
+
+  public static int memoization(int n) {
+    var dp = new int[n + 1];
+    dp[n] = memoization(n, dp);
+    return dp[n];
+  }
+
+  private static int memoization(int n, int[] dp) {
     if (n == 0) return 0;
     if (n == 1) return 1;
 
-    if (questionBank[n] != 0) {
-      return questionBank[n];
+    if (dp[n] != 0) {
+      return dp[n];
     }
 
-    int fib1 = findByRecursion(n - 1);
-    int fib2 = findByRecursion(n - 2);
+    int fib1 = memoization(n - 1, dp);
+    int fib2 = memoization(n - 2, dp);
     int fib = fib1 + fib2;
-    questionBank[n] = fib;
+    dp[n] = fib;
     return fib;
   }
 }

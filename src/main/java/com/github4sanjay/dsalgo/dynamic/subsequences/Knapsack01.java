@@ -10,114 +10,86 @@ package com.github4sanjay.dsalgo.dynamic.subsequences;
  */
 public class Knapsack01 {
 
-  public static void main(String[] args) {
-    int[] val = new int[] {60, 100, 120};
-    int[] wt = new int[] {10, 20, 30};
-
-    System.out.println(knapsack(50, wt, val)); // 220
-
-    System.out.println(recursive(wt, val, 50)); // 220
-    System.out.println(memoization(wt, val, 50)); // 220
-    System.out.println(tabular(wt, val, 50)); // 220
-
-    val =
-        new int[] {
-          360, 83, 59, 130, 431, 67, 230, 52, 93, 125, 670, 892, 600, 38, 48, 147, 78, 256, 63, 17,
-          120, 164, 432, 35, 92, 110, 22, 42, 50, 323, 514, 28, 87, 73, 78, 15, 26, 78, 210, 36, 85,
-          189, 274, 43, 33, 10, 19, 389, 276, 312
-        };
-
-    wt =
-        new int[] {
-          7, 0, 30, 22, 80, 94, 11, 81, 70, 64, 59, 18, 0, 36, 3, 8, 15, 42, 9, 0, 42, 47, 52, 32,
-          26, 48, 55, 6, 29, 84, 2, 4, 18, 56, 7, 29, 93, 44, 71, 3, 86, 66, 31, 65, 0, 79, 20, 65,
-          52, 13
-        };
-
-    System.out.println(knapsack(850, wt, val)); // 220
-    System.out.println(tabular(wt, val, 850)); // 220
+  public static int recursion(int[] weights, int[] values, int allowedWeight) {
+    return recursion(weights, values, weights.length - 1, allowedWeight);
   }
 
-  private static int knapsack(int w, int[] wt, int[] val) {
-    int[][] dp = new int[wt.length + 1][w + 1];
-
-    for (int i = 0; i < dp.length; i++) {
-      for (int j = 0; j < dp[0].length; j++) {
-        if (i == 0 || j == 0) {
-          dp[i][j] = 0;
-        } else if (j < wt[i - 1]) {
-          dp[i][j] = dp[i - 1][j];
-        } else {
-          dp[i][j] = Math.max(dp[i - 1][j], val[i - 1] + dp[i - 1][j - wt[i - 1]]);
-        }
-      }
-    }
-    return dp[wt.length][w];
-  }
-
-  public static int recursive(int[] wt, int[] val, int w) {
-    return recursive(wt.length - 1, w, wt, val);
-  }
-
-  private static int recursive(int i, int w, int[] wt, int[] val) {
-    if (w == 0) return 0;
-    if (i == 0) {
-      if (w <= wt[0]) return val[0];
+  private static int recursion(int[] weights, int[] values, int weightIndex, int allowedWeight) {
+    if (weightIndex == 0) {
+      if (allowedWeight >= weights[weightIndex]) return values[weightIndex];
       else return 0;
     }
-    var notTake = recursive(i - 1, w, wt, val);
-    var take = Integer.MIN_VALUE;
-    if (wt[i] <= w) {
-      take = val[i] + recursive(i - 1, w - wt[i], wt, val);
+    var notTake = recursion(weights, values, weightIndex - 1, allowedWeight);
+    var take = 0;
+    if (weights[weightIndex] <= allowedWeight) {
+      take =
+          values[weightIndex]
+              + recursion(weights, values, weightIndex - 1, allowedWeight - weights[weightIndex]);
     }
     return Math.max(notTake, take);
   }
 
-  public static int memoization(int[] wt, int[] val, int w) {
-    return recursive(wt.length - 1, w, wt, val, new Integer[wt.length][w + 1]);
+  public static int memoization(int[] weights, int[] values, int allowedWeight) {
+    var dp = new Integer[weights.length][allowedWeight + 1];
+    dp[weights.length - 1][allowedWeight] =
+        memoization(weights, values, weights.length - 1, allowedWeight, dp);
+    return dp[weights.length - 1][allowedWeight];
   }
 
-  private static int recursive(int i, int w, int[] wt, int[] val, Integer[][] dp) {
-    if (w == 0) return 0;
-    if (i == 0) {
-      if (w >= wt[0]) return val[0];
+  private static int memoization(
+      int[] weights, int[] values, int weightIndex, int allowedWeight, Integer[][] dp) {
+    if (weightIndex == 0) {
+      if (allowedWeight >= weights[weightIndex]) return values[weightIndex];
       else return 0;
     }
-
-    if (dp[i][w] != null) {
-      return dp[i][w];
+    if (dp[weightIndex][allowedWeight] != null) {
+      return dp[weightIndex][allowedWeight];
     }
-    var notTake = recursive(i - 1, w, wt, val);
-    var take = Integer.MIN_VALUE;
-    if (wt[i] <= w) {
-      take = val[i] + recursive(i - 1, w - wt[i], wt, val);
+    var notTake = memoization(weights, values, weightIndex - 1, allowedWeight, dp);
+    var take = 0;
+    if (weights[weightIndex] <= allowedWeight) {
+      take =
+          values[weightIndex]
+              + memoization(
+                  weights, values, weightIndex - 1, allowedWeight - weights[weightIndex], dp);
     }
     var result = Math.max(notTake, take);
-    dp[i][w] = result;
+    dp[weightIndex][allowedWeight] = result;
     return result;
   }
 
-  private static int tabular(int[] wt, int[] val, int w) {
-    var dp = new int[wt.length][w + 1];
-    for (int i = 0; i < wt.length; i++) {
-      dp[i][0] = 0;
-    }
-    for (int j = wt[0]; j <= w; j++) {
-      dp[0][j] = val[0];
-    }
+  public static int tabulation(int[] weights, int[] values, int allowedWeight) {
+    var dp = new Integer[weights.length][allowedWeight + 1];
+    dp[weights.length - 1][allowedWeight] =
+        tabulation(weights, values, weights.length - 1, allowedWeight, dp);
+    return dp[weights.length - 1][allowedWeight];
+  }
 
-    for (int i = 1; i < dp.length; i++) {
-      for (int j = 1; j < dp[0].length; j++) {
-        var notTake = dp[i - 1][j];
-        var take = Integer.MIN_VALUE;
-        if (wt[i] <= j) {
-          take = val[i] + dp[i - 1][j - wt[i]];
+  private static int tabulation(
+      int[] weights, int[] values, int WEIGHT_INDEX, int ALLOWED_WEIGHT, Integer[][] dp) {
+    for (int weightIndex = 0; weightIndex <= WEIGHT_INDEX; weightIndex++) {
+      for (int allowedWeight = 0; allowedWeight <= ALLOWED_WEIGHT; allowedWeight++) {
+        if (weightIndex == 0) {
+          if (allowedWeight >= weights[weightIndex]) {
+            dp[weightIndex][allowedWeight] = values[weightIndex];
+            continue;
+          } else {
+            dp[weightIndex][allowedWeight] = 0;
+            continue;
+          }
+        }
+        if (dp[weightIndex][allowedWeight] != null) {
+          return dp[weightIndex][allowedWeight];
+        }
+        var notTake = dp[weightIndex - 1][allowedWeight];
+        var take = 0;
+        if (weights[weightIndex] <= allowedWeight) {
+          take = values[weightIndex] + dp[weightIndex - 1][allowedWeight - weights[weightIndex]];
         }
         var result = Math.max(notTake, take);
-        dp[i][j] = result;
+        dp[weightIndex][allowedWeight] = result;
       }
     }
-
-    return dp[dp.length - 1][w];
+    return dp[WEIGHT_INDEX][ALLOWED_WEIGHT];
   }
 }

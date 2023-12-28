@@ -10,44 +10,81 @@ package com.github4sanjay.dsalgo.dynamic.grid;
  */
 public class MazeTraversalMinCost {
 
-  public static void main(String[] args) {
-    int[][] cost = {
-      {1, 2, 3},
-      {4, 8, 2},
-      {1, 5, 3}
-    };
-
-    System.out.println(minCost(cost));
-    System.out.println(recursive(cost, cost.length - 1, cost[0].length - 1));
+  public static int recursion(int[][] cost) {
+    return recursion(cost, cost.length - 1, cost[0].length - 1);
   }
 
-  private static int minCost(int[][] cost) {
-    int[][] dp = new int[cost.length][cost[0].length];
-    dp[cost.length - 1][cost[0].length - 1] = cost[cost.length - 1][cost[0].length - 1];
+  private static int recursion(int[][] cost, int destRow, int destCol) {
+    if (destRow < 0 || destCol < 0) return Integer.MAX_VALUE;
+    if (destRow == 0 && destCol == 0) return cost[destRow][destCol];
 
-    for (int i = cost.length - 1; i >= 0; i--) {
-      for (int j = cost[i].length - 1; j >= 0; j--) {
-        if (i == cost.length - 1 && j == cost[0].length - 1) continue;
+    var up = recursion(cost, destRow - 1, destCol);
+    var diagonals = recursion(cost, destRow - 1, destCol - 1);
+    var left = recursion(cost, destRow, destCol - 1);
+    return cost[destRow][destCol] + Math.min(up, Math.min(diagonals, left));
+  }
 
-        if (i == cost.length - 1) {
-          dp[i][j] = cost[i][j] + dp[i][j + 1];
-        } else if (j == cost[0].length - 1) {
-          dp[i][j] = cost[i][j] + dp[i + 1][j];
-        } else {
-          dp[i][j] = cost[i][j] + Math.min(dp[i + 1][j], Math.min(dp[i][j + 1], dp[i + 1][j + 1]));
-        }
-      }
+  public static int memoization(int[][] cost) {
+    var dp = new Integer[cost.length][cost[0].length];
+    dp[cost.length - 1][cost[0].length - 1] =
+        memoization(cost, cost.length - 1, cost[0].length - 1, dp);
+    return dp[cost.length - 1][cost[0].length - 1];
+  }
+
+  private static int memoization(int[][] cost, int destRow, int destCol, Integer[][] dp) {
+    if (destRow < 0 || destCol < 0) return Integer.MAX_VALUE;
+    if (destRow == 0 && destCol == 0) return cost[destRow][destCol];
+
+    if (dp[destRow][destCol] != null) {
+      return dp[destRow][destCol];
     }
+
+    var up = recursion(cost, destRow - 1, destCol);
+    var diagonals = recursion(cost, destRow - 1, destCol - 1);
+    var left = recursion(cost, destRow, destCol - 1);
+    var min = cost[destRow][destCol] + Math.min(up, Math.min(diagonals, left));
+    dp[destRow][destCol] = min;
+    return min;
+  }
+
+  public static int tabulation(int[][] cost) {
+    var dp = new Integer[cost.length][cost[0].length];
+    dp[0][0] = tabulation(cost, cost.length - 1, cost[0].length - 1, dp);
     return dp[0][0];
   }
 
-  public static int recursive(int[][] cost, int m, int n) {
-    if (n < 0 || m < 0) return Integer.MAX_VALUE;
-    else if (m == 0 && n == 0) return cost[m][n];
-    else
-      return cost[m][n]
-          + Math.min(
-              recursive(cost, m - 1, n - 1),
-              Math.min(recursive(cost, m - 1, n), recursive(cost, m, n - 1)));
+  private static int tabulation(int[][] cost, int R, int C, Integer[][] dp) {
+
+    for (int destRow = R; destRow >= 0; destRow--) {
+      for (int destCol = C; destCol >= 0; destCol--) {
+        // if (destRow < 0 || destCol < 0) return Integer.MAX_VALUE;
+        if (destRow == R && destCol == C) {
+          dp[destRow][destCol] = cost[destRow][destCol];
+          continue;
+        }
+
+        var up = Integer.MAX_VALUE;
+        if (destRow + 1 <= R) {
+          up = dp[destRow + 1][destCol] == null ? Integer.MAX_VALUE : dp[destRow + 1][destCol];
+        }
+
+        var diagonals = Integer.MAX_VALUE;
+        if (destRow + 1 <= R && destCol + 1 <= C) {
+          diagonals =
+              dp[destRow + 1][destCol + 1] == null
+                  ? Integer.MAX_VALUE
+                  : dp[destRow + 1][destCol + 1];
+        }
+
+        var left = Integer.MAX_VALUE;
+        if (destCol + 1 <= C) {
+          left = dp[destRow][destCol + 1] == null ? Integer.MAX_VALUE : dp[destRow][destCol + 1];
+        }
+
+        var min = cost[destRow][destCol] + Math.min(up, Math.min(diagonals, left));
+        dp[destRow][destCol] = min;
+      }
+    }
+    return dp[0][0];
   }
 }

@@ -2,70 +2,70 @@ package com.github4sanjay.dsalgo.dynamic.stairs;
 
 public class StairsPath {
 
-  public static void main(String[] args) {
-    System.out.println(StairsPath.dpTabular(5, 3));
+  public static int recursion(int n, int k) {
+
+    if (n < 0) {
+      return 0;
+    }
+    if (n == 0) {
+      return 1;
+    }
+
+    int sum = 0;
+    for (int i = 1; i <= k; i++) {
+      sum = sum + recursion(n - i, k);
+    }
+    return sum;
   }
 
-  public static int dpTabular(int n, int k) {
-    int[] dp = new int[n + 1];
-    dp[0] = 1;
-
-    for (int i = 1; i <= n; i++) {
-      int sum = 0;
-      if (i < k) { // if less just plus all previous ways
-        for (int t = 0; t < i; t++) {
-          sum += dp[t];
-        }
-      } else {
-        for (int j = 1; j <= k; j++) {
-          sum += dp[i - j];
-        }
-      }
-
-      dp[i] = sum;
-    }
+  public static int memoization(int n, int k) {
+    var dp = new int[n + 1];
+    dp[n] = memoization(n, k, dp);
     return dp[n];
   }
 
-  private static int dpMemoization(int n, int k) {
-    return dpMemoization(n, k, new int[n + 1]);
-  }
+  private static int memoization(int n, int k, int[] dp) {
 
-  private static int dpMemoization(int n, int k, int[] questionBank) {
-
-    if (n <= 0) {
-      if (n == 0) {
-        return 1;
-      }
+    if (n < 0) {
       return 0;
     }
-
-    if (questionBank[n] != 0) {
-      return questionBank[n];
+    if (n == 0) {
+      return 1;
+    }
+    if (dp[n] != 0) {
+      return dp[n];
     }
 
     int sum = 0;
     for (int i = 1; i <= k; i++) {
       sum = sum + recursion(n - i, k);
     }
-
-    questionBank[n] = sum;
+    dp[n] = sum;
     return sum;
   }
 
-  private static int recursion(int n, int k) {
+  public static int tabulation(int n, int k) {
+    var dp = new int[n + 1];
+    dp[n] = tabulation(n, k, dp);
+    return dp[n];
+  }
 
-    if (n <= 0) {
+  private static int tabulation(int N, int k, int[] dp) {
+
+    for (int n = 0; n <= N; n++) {
       if (n == 0) {
-        return 1;
+        dp[n] = 1;
+        continue;
       }
-      return 0;
-    }
 
-    int sum = 0;
-    for (int i = 1; i <= k; i++) {
-      sum = sum + recursion(n - i, k);
+      int sum = 0;
+      for (int i = 1; i <= k; i++) {
+        if (n - i >= 0) {
+          sum = sum + dp[n - i];
+        }
+      }
+      dp[n] = sum;
     }
-    return sum;
+    return dp[N];
   }
 }
