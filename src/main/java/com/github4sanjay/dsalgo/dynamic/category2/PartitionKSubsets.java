@@ -17,33 +17,65 @@ package com.github4sanjay.dsalgo.dynamic.category2;
  */
 public class PartitionKSubsets {
 
-  public static void main(String[] args) {
-    System.out.println(PartitionKSubsets.find(5, 4));
+  /*
+   *
+   *
+   *      n-1, k  n-1,k-1
+   *          \  /
+   *           \/
+   *           n,k
+   *
+   * f(n,k) = k*f(n-1, k) + f(n-1,k-1)
+   */
+  public static int recursion(int n, int k) {
+    if (n <= 0 || k <= 0) return 0;
+    if (n == k) return 1;
+
+    return k * recursion(n - 1, k) + recursion(n - 1, k - 1);
   }
 
-  private static int find(int n, int k) {
-    int[][] dp = new int[n + 1][k + 1];
-    for (int i = 0; i < dp.length; i++) {
-      for (int j = 0; j < dp[0].length; j++) {
-        if (i == 0 || j == 0) {
-          dp[i][j] = 0;
-        } else if (i == j) {
-          dp[i][j] = 1;
-        } else if (i < j) {
-          dp[i][j] = 0;
-        } else {
-          dp[i][j] = j * dp[i - 1][j] + dp[i - 1][j - 1];
-        }
-      }
-    }
+  public static int memoization(int n, int k) {
+    var dp = new Integer[n + 1][k + 1];
+    dp[n][k] = memoization(n, k, dp);
     return dp[n][k];
   }
 
-  private static int findByRecursion(int n, int k) {
-    if (n < 0 || k < 0) return 0;
-    if (n < k) return 0;
+  private static int memoization(int n, int k, Integer[][] dp) {
+    if (n <= 0 || k <= 0) return 0;
     if (n == k) return 1;
 
-    return k * findByRecursion(n - 1, k) + findByRecursion(n - 1, k - 1);
+    if (dp[n][k] != null) {
+      return dp[n][k];
+    }
+
+    dp[n][k] = k * memoization(n - 1, k, dp) + memoization(n - 1, k - 1, dp);
+    return dp[n][k];
+  }
+
+  public static int tabulation(int n, int k) {
+    var dp = new Integer[n + 1][k + 1];
+    dp[n][k] = tabulation(n, k, dp);
+    return dp[n][k];
+  }
+
+  private static int tabulation(int N, int K, Integer[][] dp) {
+    for (int n = 0; n <= N; n++) {
+      for (int k = 0; k <= K; k++) {
+        if (n == 0 || k == 0) {
+          dp[n][k] = 0;
+          continue;
+        }
+        if (n < k) {
+          dp[n][k] = 0;
+          continue;
+        }
+        if (n == k) {
+          dp[n][k] = 1;
+          continue;
+        }
+        dp[n][k] = k * dp[n - 1][k] + dp[n - 1][k - 1];
+      }
+    }
+    return dp[N][K];
   }
 }

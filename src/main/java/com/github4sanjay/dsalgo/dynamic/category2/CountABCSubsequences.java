@@ -9,11 +9,7 @@ import java.util.*;
  */
 public class CountABCSubsequences {
 
-  public static void main(String[] args) {
-    System.out.println(CountABCSubsequences.count("abcabc")); // 7
-  }
-
-  private static int count(String str) {
+  public static int variableDP(String str) {
     int a = 0;
     int ab = 0;
     int abc = 0;
@@ -33,17 +29,12 @@ public class CountABCSubsequences {
   }
 
   // [abc, abbcc, aabcc, aabbc, aabbcc, abcc, aabc, abbc]
-  private static Set<String> countUniqueStrings(String str) {
-    var list = new HashSet<String>();
+  public static List<String> recursion(String str) {
+    var list = new ArrayList<String>();
 
     var map = new HashMap<Character, Integer>();
     for (char ch : str.toCharArray()) {
-      var frequency = map.get(ch);
-      if (frequency == null) {
-        map.put(ch, 1);
-      } else {
-        map.put(ch, frequency + 1);
-      }
+      map.merge(ch, 1, Integer::sum);
     }
     count("abc", "", map, list);
 
@@ -51,10 +42,10 @@ public class CountABCSubsequences {
   }
 
   private static void count(
-      String question, String answer, Map<Character, Integer> frequencyMap, Set<String> list) {
+      String question, String answer, Map<Character, Integer> frequencyMap, List<String> list) {
 
-    if (question.length() == 0) {
-      if (!answer.equals("") && answer.startsWith("a")) {
+    if (question.isEmpty()) {
+      if (answer.startsWith("a")) {
         boolean correct = true;
         char previousChar = answer.charAt(0);
         var set = new HashSet<Character>();
@@ -87,6 +78,7 @@ public class CountABCSubsequences {
         for (int k = 0; k < j + 1; k++) {
           addition = addition + question.charAt(i);
         }
+        System.out.println(addition);
         count(question.substring(1), answer + addition, frequencyMap, list);
       }
     }

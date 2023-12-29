@@ -41,7 +41,7 @@ public class PartitionKSubsets {
 
     for (int i = 0; i < answer.size(); i++) {
       var set = answer.get(i);
-      if (set.size() > 0) {
+      if (!set.isEmpty()) {
         set.add(index);
         partition(n, k, index + 1, answer, noOfPartition); // no partition created
         set.remove(set.size() - 1);

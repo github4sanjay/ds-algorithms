@@ -18,61 +18,49 @@ package com.github4sanjay.dsalgo.dynamic.category2;
  */
 public class MaxSumNonAdjacentElements {
 
-  public static void main(String[] args) {
-    int arr[] = new int[] {5, 10, 10, 100, 10, 6}; // 116
-    System.out.println(MaxSumNonAdjacentElements.recursive(arr));
-    System.out.println(MaxSumNonAdjacentElements.memoization(arr));
-    System.out.println(MaxSumNonAdjacentElements.tabular(arr));
-    System.out.println(MaxSumNonAdjacentElements.tabularSpaceOptimized(arr));
-    System.out.println(MaxSumNonAdjacentElements.variableDP(arr));
-  }
-
-  public static int recursive(int[] arr) {
-    return recursive(arr, arr.length - 1);
+  public static int recursion(int[] arr) {
+    return recursion(arr, arr.length - 1);
   }
 
   // brute force 2^n time complexity
-  private static int recursive(int[] arr, int index) {
+  private static int recursion(int[] arr, int index) {
 
     if (index == 0) return arr[0];
     if (index < 0) return 0;
 
-    var notTake = recursive(arr, index - 1);
-    var take = arr[index] + recursive(arr, index - 2);
+    var notTake = recursion(arr, index - 1);
+    var take = arr[index] + recursion(arr, index - 2);
     return Math.max(notTake, take);
   }
 
-  private static int memoization(int[] arr) {
-    return recursive(arr, arr.length - 1, new Integer[arr.length]);
+  public static int memoization(int[] arr) {
+    return memoization(arr, arr.length - 1, new Integer[arr.length]);
   }
 
   //  O(n) time complexity, space O(n) + O(n)
-  private static int recursive(int[] arr, int index, Integer[] dp) {
+  private static int memoization(int[] arr, int index, Integer[] dp) {
 
     if (index == 0) return arr[0];
     if (index < 0) return 0;
 
     if (dp[index] != null) return dp[index];
 
-    var notTake = recursive(arr, index - 1);
-    var take = arr[index] + recursive(arr, index - 2);
+    var notTake = recursion(arr, index - 1);
+    var take = arr[index] + recursion(arr, index - 2);
     var result = Math.max(notTake, take);
     dp[index] = result;
     return result;
   }
 
   //  O(n) time complexity, space O(n)
-  public static int tabular(int[] arr) {
+  public static int tabulation(int[] arr) {
     var dp = new int[arr.length];
     dp[0] = arr[0];
-    var neg = 0;
     for (int i = 1; i < arr.length; i++) {
       var notTake = dp[i - 1];
       var take = arr[i];
       if (i - 2 >= 0) {
         take = take + dp[i - 2];
-      } else {
-        take = take + neg;
       }
       var result = Math.max(notTake, take);
       dp[i] = result;
@@ -82,7 +70,7 @@ public class MaxSumNonAdjacentElements {
   }
 
   //  O(n) time complexity, space constant
-  public static int tabularSpaceOptimized(int[] arr) {
+  public static int tabulationSpaceOptimized(int[] arr) {
     var prev1 = arr[0];
     var prev2 = 0;
     for (int i = 1; i < arr.length; i++) {

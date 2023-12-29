@@ -12,28 +12,43 @@ package com.github4sanjay.dsalgo.dynamic.category2;
  */
 public class TilingWithKX1 {
 
-  public static void main(String[] args) {
-    System.out.println(TilingWithKX1.find(39, 16)); // 61
+  // brute force
+  public static int recursion(int n, int m) {
+    if (n < m) return 1;
+    if (n == m) return 2;
+    return recursion(n - 1, m) + recursion(n - m, m);
   }
 
-  private static int find(int n, int m) {
-    int[] dp = new int[n + 1];
-    for (int i = 1; i <= n; i++) {
-      if (i < m) {
-        dp[i] = 1;
-      } else if (i == m) {
-        dp[i] = 2;
-      } else {
-        dp[i] = dp[i - 1] + dp[i - m];
-      }
-    }
+  public static int memoization(int n, int m) {
+    var dp = new int[n + 1];
+    dp[n] = memoization(n, m, dp);
     return dp[n];
   }
 
-  // brute force
-  private static int findWithBruteForce(int n, int m) {
-    if (n < 0) return 0;
-    if (n == 1 || n == 0) return 1;
-    return findWithBruteForce(n - 1, m) + findWithBruteForce(n - m, m);
+  private static int memoization(int n, int m, int[] dp) {
+    if (n < m) return 1;
+    if (n == m) return 2;
+    if (dp[n] != 0) return dp[n];
+    dp[n] = memoization(n - 1, m, dp) + memoization(n - m, m, dp);
+    return dp[n];
+  }
+
+  public static int tabulation(int n, int m) {
+    var dp = new int[n + 1];
+    dp[n] = tabulation(n, m, dp);
+    return dp[n];
+  }
+
+  private static int tabulation(int N, int m, int[] dp) {
+    for (int n = 0; n <= N; n++) {
+      if (n < m) {
+        dp[n] = 1;
+      } else if (n == m) {
+        dp[n] = 2;
+      } else {
+        dp[n] = dp[n - 1] + dp[n - m];
+      }
+    }
+    return dp[N];
   }
 }

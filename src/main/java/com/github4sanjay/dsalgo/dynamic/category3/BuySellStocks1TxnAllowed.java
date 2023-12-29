@@ -19,11 +19,7 @@ package com.github4sanjay.dsalgo.dynamic.category3;
  */
 public class BuySellStocks1TxnAllowed {
 
-  public static void main(String[] args) {
-    System.out.println(BuySellStocks1TxnAllowed.find(new int[] {11, 6, 7, 19, 4, 1, 6, 18, 4}));
-  }
-
-  private static int find(int[] stockPrices) {
+  public static int find(int[] stockPrices) {
     int min = Integer.MAX_VALUE;
     int maxProfit = Integer.MIN_VALUE;
     for (int stockPrice : stockPrices) {

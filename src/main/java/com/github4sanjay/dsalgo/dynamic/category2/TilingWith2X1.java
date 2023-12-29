@@ -25,12 +25,52 @@ package com.github4sanjay.dsalgo.dynamic.category2;
  * 5) Corner 2 vertical, middle 2 horizontal
  */
 public class TilingWith2X1 {
+  public static int recursion(int n) {
+    if (n == 0) return 1;
+    if (n == 1) {
+      return 1;
+    }
 
-  public static void main(String[] args) {
-    System.out.println(TilingWith2X1.find(6)); // 13
+    return recursion(n - 1) + recursion(n - 2);
   }
 
-  private static int find(int n) {
+  public static int memoization(int n) {
+    var dp = new int[n + 1];
+    dp[n] = memoization(n, dp);
+    return dp[n];
+  }
+
+  private static int memoization(int n, int[] dp) {
+    if (n == 0) return 1;
+    if (n == 1) {
+      return 1;
+    }
+    if (dp[n] != 0) {
+      return dp[n];
+    }
+    dp[n] = memoization(n - 1, dp) + memoization(n - 2, dp);
+    return dp[n];
+  }
+
+  public static int tabulation(int n) {
+    var dp = new int[n + 1];
+    dp[n] = tabulation(n, dp);
+    return dp[n];
+  }
+
+  private static int tabulation(int N, int[] dp) {
+    for (var n = 0; n <= N; n++) {
+      if (n == 0 || n == 1) {
+        dp[n] = 1;
+        continue;
+      }
+
+      dp[n] = dp[n - 1] + dp[n - 2];
+    }
+    return dp[N];
+  }
+
+  public static int variableDP(int n) {
     int secondLast = 0;
     int last = 1;
     for (int i = 1; i <= n; i++) {
@@ -39,11 +79,5 @@ public class TilingWith2X1 {
       secondLast = temp;
     }
     return last;
-  }
-
-  // brute force
-  private static int findWithBruteForce(int n) {
-    if (n == 1 || n == 0) return 1;
-    return findWithBruteForce(n - 1) + findWithBruteForce(n - 2);
   }
 }

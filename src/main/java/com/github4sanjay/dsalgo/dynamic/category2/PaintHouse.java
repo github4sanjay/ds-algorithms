@@ -17,60 +17,106 @@ package com.github4sanjay.dsalgo.dynamic.category2;
  */
 public class PaintHouse {
 
-  public static void main(String[] args) {
-    int[][] colorCost = {
-      {1, 5, 7},
-      {5, 8, 4},
-      {3, 2, 9},
-      {1, 2, 4}
-    };
-
-    System.out.println(PaintHouse.findMinCost(colorCost));
+  /*
+   * Base Case:
+   * If i == -1, then return 0. It denotes that we don’t have any house to paint so the cost will be 0.
+   *
+   * Now, if we are choosing to paint the i-th house with j-th colour then we can’t paint the (i - 1)-th house with j-th colour.
+   * Create a variable “ans” which will store the answer to the current sub-problem and initialise it with a very large integer.
+   *
+   * Start traversing through the possible colours using a variable ‘k’.
+   * If (j != k) then we can choose the k-th colour to paint the (i - 1)-th house.
+   * Therefore, ans = min(ans, cost[i][j] + getMinCost(i - 1, k))
+   * Return the “ans”.
+   */
+  public static int recursion(int[][] colorCost) {
+    var min = Integer.MAX_VALUE;
+    for (int i = 0; i < colorCost[0].length; i++) {
+      var cost = recursion(colorCost, colorCost.length - 1, i);
+      min = Math.min(min, cost);
+    }
+    return min;
   }
 
-  private static int findMinCost(int[][] colorCost) {
-    return findMinCostDP(colorCost);
-    // return findMinCostBruteForce(colorCost, 0, -1, 0);
+  private static int recursion(int[][] colorCost, int houseIndex, int chosenColor) {
+
+    if (houseIndex == 0) {
+      return colorCost[houseIndex][chosenColor];
+    }
+
+    var min = Integer.MAX_VALUE;
+    for (int k = 0; k < colorCost[0].length; k++) {
+      if (k != chosenColor) {
+        var currentCost =
+            colorCost[houseIndex][chosenColor] + recursion(colorCost, houseIndex - 1, k);
+        min = Math.min(min, currentCost);
+      }
+    }
+    return min;
   }
 
-  private static int findMinCostDP(int[][] colorCost) {
-    int[][] dp = new int[colorCost.length][colorCost[0].length];
+  public static int memoization(int[][] colorCost) {
+    var min = Integer.MAX_VALUE;
+    var dp = new Integer[colorCost.length][colorCost[0].length];
+    for (int i = 0; i < colorCost[0].length; i++) {
+      var cost = memoization(colorCost, colorCost.length - 1, i, dp);
+      min = Math.min(min, cost);
+    }
+    return min;
+  }
+
+  private static int memoization(
+      int[][] colorCost, int houseIndex, int chosenColor, Integer[][] dp) {
+
+    if (houseIndex == 0) {
+      return colorCost[houseIndex][chosenColor];
+    }
+
+    if (dp[houseIndex][chosenColor] != null) {
+      return dp[houseIndex][chosenColor];
+    }
+
+    var min = Integer.MAX_VALUE;
+    for (int k = 0; k < colorCost[0].length; k++) {
+      if (k != chosenColor) {
+        var currentCost =
+            colorCost[houseIndex][chosenColor] + memoization(colorCost, houseIndex - 1, k, dp);
+        min = Math.min(min, currentCost);
+      }
+    }
+    dp[houseIndex][chosenColor] = min;
+    return min;
+  }
+
+  public static int tabulation(int[][] colorCost) {
+    var min = Integer.MAX_VALUE;
+    var dp = new Integer[colorCost.length][colorCost[0].length];
     for (int i = 0; i < colorCost.length; i++) {
       for (int j = 0; j < colorCost[0].length; j++) {
         if (i == 0) {
           dp[i][j] = colorCost[i][j];
-        } else {
-          int minOfAllOtherColors = Integer.MAX_VALUE;
-          for (int k = 0; k < colorCost[0].length; k++) { // find minimum of all other colors
-            if (k == j) continue;
-            minOfAllOtherColors = Math.min(minOfAllOtherColors, dp[i - 1][k]);
-          }
-          dp[i][j] = colorCost[i][j] + minOfAllOtherColors;
+          continue;
+        }
+        var cost = tabulation(colorCost, i, j, dp);
+        if (i == colorCost.length - 1) { // answer is always stored in the last row(house)
+          min = Math.min(min, cost);
         }
       }
-    }
-    int min = Integer.MAX_VALUE;
-    for (int j = 0; j < colorCost[0].length; j++) {
-      min = Math.min(min, dp[colorCost.length - 1][j]);
     }
     return min;
   }
 
-  private static int findMinCostBruteForce(
-      int[][] colorCost, int houseIndex, int previousColorChosen, int cost) {
-    if (houseIndex == colorCost.length) {
-      return cost;
-    }
-    int min = Integer.MAX_VALUE;
-    for (int i = 0; i < colorCost[0].length; i++) {
-      if (i != previousColorChosen || previousColorChosen == -1) {
-        int currentCost =
-            findMinCostBruteForce(colorCost, houseIndex + 1, i, cost + colorCost[houseIndex][i]);
-        if (currentCost < min) {
-          min = currentCost;
-        }
+  private static int tabulation(
+      int[][] colorCost, int houseIndex, int chosenColor, Integer[][] dp) {
+
+    var min = Integer.MAX_VALUE;
+    for (int k = 0; k < colorCost[0].length; k++) {
+      if (k != chosenColor) {
+        var currentCost = colorCost[houseIndex][chosenColor] + dp[houseIndex - 1][k];
+        min = Math.min(min, currentCost);
       }
     }
-    return min;
+    dp[houseIndex][chosenColor] = min;
+    return dp[houseIndex][chosenColor];
   }
 }
