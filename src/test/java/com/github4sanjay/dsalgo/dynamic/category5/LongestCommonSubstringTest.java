@@ -11,4 +11,11 @@ class LongestCommonSubstringTest {
     Assertions.assertEquals(3, LongestCommonSubstring.find("pqabcxy", "xyzabcp"));
     Assertions.assertEquals(4, LongestCommonSubstring.find("abcdgh", "acdghr"));
   }
+
+  @Test
+  public void testRecursion() {
+    Assertions.assertEquals(3, LongestCommonSubstring.recursion("pqabcxy", "xyzabcp"));
+    Assertions.assertEquals(4, LongestCommonSubstring.recursion("abcdgh", "acdghr"));
+    Assertions.assertEquals(6, LongestCommonSubstring.recursion("abcdgh", "abcdgh"));
+  }
 }

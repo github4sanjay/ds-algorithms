@@ -19,20 +19,6 @@ package com.github4sanjay.dsalgo.dynamic.subsequences;
  */
 public class RodCutting {
 
-  public static void main(String[] args) {
-    System.out.println(RodCutting.find(new int[] {1, 5, 8, 9, 10, 17, 17, 20}));
-    System.out.println(RodCutting.find(new int[] {3, 5, 8, 9, 10, 17, 17, 20}));
-
-    System.out.println(RodCutting.recursive(new int[] {1, 5, 8, 9, 10, 17, 17, 20}));
-    System.out.println(RodCutting.recursive(new int[] {3, 5, 8, 9, 10, 17, 17, 20}));
-
-    System.out.println(RodCutting.memoization(new int[] {1, 5, 8, 9, 10, 17, 17, 20}));
-    System.out.println(RodCutting.memoization(new int[] {3, 5, 8, 9, 10, 17, 17, 20}));
-
-    System.out.println(RodCutting.tabular(new int[] {1, 5, 8, 9, 10, 17, 17, 20}));
-    System.out.println(RodCutting.tabular(new int[] {3, 5, 8, 9, 10, 17, 17, 20}));
-  }
-
   /*
    * length  0  |  1   |    2   |    3   |    4   |   5    |   6   |   7    |    8  |
    * price   0  |  1   |    5   |    8   |    9   |  10    |  17   |  17    |   20  |
@@ -91,61 +77,70 @@ public class RodCutting {
     return dp[dp.length - 1];
   }
 
-  public static int recursive(int[] prices) {
-    return recursive(prices.length - 1, prices.length, prices);
+  public static int recursion(int[] arr) {
+    return recursion(arr, arr.length - 1, arr.length);
   }
 
-  private static int recursive(int i, int j, int[] prices) {
-    if (j == 0) return 0;
-    if (i == 0) return prices[0] * j;
-    var notTake = recursive(i - 1, j, prices);
-    var take = Integer.MIN_VALUE;
-    int rodLength = i + 1;
-    if (rodLength <= j) {
-      take = prices[i] + recursive(i, j - rodLength, prices);
+  private static int recursion(int[] arr, int index, int size) {
+
+    if (index == 0) {
+      return arr[index] * size;
     }
-    return Math.max(notTake, take);
-  }
-
-  public static int memoization(int[] prices) {
-    return memoization(
-        prices.length - 1, prices.length, prices, new Integer[prices.length][prices.length + 1]);
-  }
-
-  private static int memoization(int i, int j, int[] prices, Integer[][] dp) {
-    if (j == 0) return 0;
-    if (i == 0) return prices[0] * j;
-
-    if (dp[i][j] != null) return dp[i][j];
-    var notTake = recursive(i - 1, j, prices);
-    var take = Integer.MIN_VALUE;
-    int rodLength = i + 1;
-    if (rodLength <= j) {
-      take = prices[i] + recursive(i, j - rodLength, prices);
+    var notCut = recursion(arr, index - 1, size);
+    var rodLength = index + 1;
+    var cut = Integer.MIN_VALUE;
+    if (rodLength <= size) {
+      cut = arr[index] + recursion(arr, index, size - rodLength);
     }
-    var result = Math.max(notTake, take);
-    dp[i][j] = result;
-    return result;
+    return Math.max(notCut, cut);
   }
 
-  public static int tabular(int[] prices) {
-    var dp = new int[prices.length][prices.length + 1];
-    for (int i = 0; i < dp.length; i++) dp[i][0] = 0;
-    for (int j = 0; j < dp[0].length; j++) dp[0][j] = prices[0] * j;
+  public static int memoization(int[] arr) {
+    var dp = new Integer[arr.length][arr.length + 1];
+    dp[arr.length - 1][arr.length] = memoization(arr, arr.length - 1, arr.length, dp);
+    return dp[arr.length - 1][arr.length];
+  }
 
-    for (int i = 1; i < dp.length; i++) {
-      for (int j = 1; j < dp[0].length; j++) {
-        var notTake = dp[i - 1][j];
-        var take = Integer.MIN_VALUE;
-        int rodLength = i + 1;
-        if (rodLength <= j) {
-          take = prices[i] + dp[i][j - rodLength];
+  private static int memoization(int[] arr, int index, int size, Integer[][] dp) {
+    if (index == 0) {
+      return arr[index] * size;
+    }
+
+    if (dp[index][size] != null) {
+      return dp[index][size];
+    }
+    var notCut = memoization(arr, index - 1, size, dp);
+    var rodLength = index + 1;
+    var cut = Integer.MIN_VALUE;
+    if (rodLength <= size) {
+      cut = arr[index] + memoization(arr, index, size - rodLength, dp);
+    }
+    dp[index][size] = Math.max(notCut, cut);
+    return dp[index][size];
+  }
+
+  public static int tabulation(int[] arr) {
+    var dp = new Integer[arr.length][arr.length + 1];
+    dp[arr.length - 1][arr.length] = tabulation(arr, arr.length - 1, arr.length, dp);
+    return dp[arr.length - 1][arr.length];
+  }
+
+  private static int tabulation(int[] arr, int INDEX, int SIZE, Integer[][] dp) {
+    for (int index = 0; index <= INDEX; index++) {
+      for (int size = 0; size <= SIZE; size++) {
+        if (index == 0) {
+          dp[index][size] = arr[index] * size;
+          continue;
         }
-        var result = Math.max(notTake, take);
-        dp[i][j] = result;
+        var notCut = dp[index - 1][size];
+        var rodLength = index + 1;
+        var cut = Integer.MIN_VALUE;
+        if (rodLength <= size) {
+          cut = arr[index] + dp[index][size - rodLength];
+        }
+        dp[index][size] = Math.max(notCut, cut);
       }
     }
-
-    return dp[prices.length - 1][prices.length];
+    return dp[INDEX][SIZE];
   }
 }

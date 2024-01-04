@@ -42,7 +42,9 @@ public class StairsPathMinMoves {
     if (n > jumps.length) return null;
     if (n == jumps.length) return 0;
 
-    if (dp[n] != null) return dp[n];
+    if (dp[n] != null) {
+      return dp[n];
+    }
     Integer min = null;
     for (int i = 1; i <= jumps[n]; i++) {
       var moves = memoization(n + i, jumps, dp);

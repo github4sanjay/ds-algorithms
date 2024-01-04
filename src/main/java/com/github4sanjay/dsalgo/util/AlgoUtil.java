@@ -31,8 +31,20 @@ public class AlgoUtil {
     }
   }
 
+  public static void print(Integer[][] placed) {
+    for (Integer[] ints : placed) {
+      System.out.println(Arrays.toString(ints));
+    }
+  }
+
   public static void print(boolean[][] placed) {
     for (boolean[] ints : placed) {
+      System.out.println(Arrays.toString(ints));
+    }
+  }
+
+  public static void print(Boolean[][] placed) {
+    for (Boolean[] ints : placed) {
       System.out.println(Arrays.toString(ints));
     }
   }
