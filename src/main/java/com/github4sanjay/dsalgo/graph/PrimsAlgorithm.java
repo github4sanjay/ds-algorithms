@@ -5,9 +5,12 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.PriorityQueue;
 
-/**
+/*
  * Prim’s Minimum Spanning Tree (MST) Prim’s algorithm is also a Greedy algorithm. It starts with an
- * empty spanning tree. MST is 1. subgraph 2. connected and acyclic 3. all vertices included
+ * empty spanning tree. MST is
+ * 1. subgraph
+ * 2. connected and acyclic
+ * 3. all vertices included
  */
 public class PrimsAlgorithm {
 
@@ -27,14 +30,26 @@ public class PrimsAlgorithm {
             7));
   }
 
-  /**
+  /*
+   *
    * Vertices, edges and weights are given, start with 0 vertex with -1 as previous vertex
    *
-   * <p>40 2 Represent vertex/from vertex/weight 0--------------3-------4 0/-1/0 | | | \ / \ 10 |
-   * |10 3| \8 1/0/10 3/0/40 |______________| |___\ | 1 10 2 5 3 6 2/1/10 | 3/2/10 | 4/3/2 after 4
-   * this / \ one chosen -------------------->5/4/3 6/4/8 as | weight is lesser 6/5/3
+   *             40          2                 Represent vertex/from vertex/weight
+   *      0--------------3-------4                       0/-1/0
+   *      |              |       | \                     /    \
+   *  10  |              |10    3|  \8              1/0/10  3/0/40
+   *      |______________|       |___\                |
+   *      1     10      2       5  3  6            2/1/10
+   *                                                  |
+   *                                               3/2/10
+   *                                                  |
+   *                                               4/3/2
+   *            after 4 this                       /    \
+   *             one chosen -------------------->5/4/3  6/4/8
+   *               as                             |
+   *           weight is lesser                 6/5/3
    *
-   * <p>Conclusion : Prims is same as dijkstra but priority will be based on weight
+   *  Conclusion : Prims is same as dijkstra but priority will be based on weight
    */
   public static List<Pair> find(int[][] ints, int vertices) {
     var list = new ArrayList<Pair>();

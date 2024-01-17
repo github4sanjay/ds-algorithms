@@ -4,14 +4,32 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Stack;
 
-/**
- * Topological sort -> A permutation of vertices for a directed acyclic graph is called topological
- * sort if for all directed edges uv, u appears before v in the graph ___________________ |
- * Topological sort | -----------> <----- | 4 | 0--------------3-------4 | 5 | | | | ^ | | \ | | 6 |
- * | | | | | | \ | | 0 | V |______________| | V |___\ V | 1 | 1 2 5 6 | 2 | ---------> ---> | 3 |
- * |___________________| Stack |'''''''| | 4 | 0 4 | 5 | / \ / \ | 6 | 1 3 <--- this will not be
- * visited 5 6 | 0 | | as already visited | | 1 | 2 6 | 2 | | | 3 | 3 <--- once arrive here start
- * putting in stack |_______|
+/*
+ * Topological sort -> A permutation of vertices for a directed acyclic graph is called topological sort if
+ *                     for all directed edges uv, u appears before v in the graph
+ *                                               ___________________
+ *                                              |  Topological sort |
+ *            ----------->   <-----             |         4         |
+ *           0--------------3-------4           |         5         |
+ *       |   |              |  ^  | | \     |   |         6         |
+ *       |   |              |  |  | |  \    |   |         0         |
+ *       V   |______________|  |  V |___\   V   |         1         |
+ *           1             2       5     6      |         2         |
+ *             --------->            --->       |         3         |
+ *                                              |___________________|
+ *                                                                              Stack
+ *                                                                           |'''''''|
+ *                                                                           |   4   |
+ *             0                                                4            |   5   |
+ *           /  \                                              / \           |   6   |
+ *          1    3 <--- this will not be visited              5   6          |   0   |
+ *          |               as already visited                |              |   1   |
+ *          2                                                 6              |   2   |
+ *          |                                                                |   3   |
+ *          3 <--- once arrive here start putting in stack                   |_______|
+ *
+ *
+ *
  */
 public class TopologicalSort {
 

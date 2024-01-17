@@ -32,11 +32,24 @@ public class HamiltonPathAndCycle {
     // 5, 6, 4, 3], [0, 3, 4, 6, 5, 2, 1]]}
   }
 
-  /**
-   * 0_____________1 | | | | | | 3------------ 2 | _____| | | 4______5______6 |_____________|
-   *
-   * <p>Visit all paths starting from source until all vertices are visited if all nodes are visited
-   * 1. if original source has edge to last vertex then hamilton cycle 2. else hamilton path
+  /*
+   *           0_____________1
+   *           |             |
+   *           |             |
+   *           3------------ 2
+   *           |             |
+   *           4_____________5
+   *           |            /
+   *           |          /
+   *           |        /
+   *           |      /
+   *           |   /
+   *           | /
+   *            6
+   * Visit all paths starting from source until all vertices are visited
+   * if all nodes are visited
+   *  1. if original source has edge to last vertex then hamilton cycle
+   *  2. else hamilton path
    */
   private static Hamilton find(int[][] array, int vertices, int sourceVertex) {
     var hamilton = new Hamilton();

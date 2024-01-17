@@ -63,7 +63,10 @@ public class HasPathGraph {
     var vertex1Edges = edges[src];
     for (var edge : vertex1Edges) {
       if (!visited[edge.getNbr()]) {
-        return hasPath(graph, edge.getNbr(), dest, visited);
+        var hasNbrPath = hasPath(graph, edge.getNbr(), dest, visited);
+        if (hasNbrPath) {
+          return true;
+        }
       }
     }
 

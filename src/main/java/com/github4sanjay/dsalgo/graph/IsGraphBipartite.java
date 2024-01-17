@@ -2,19 +2,27 @@ package com.github4sanjay.dsalgo.graph;
 
 import java.util.*;
 
-/**
- * A Bipartite Graph is a graph whose vertices can be divided into two independent sets, U and V
- * such that every edge (u, v) either connects a vertex from U to V or a vertex from V to U. In
- * other words, for every edge (u, v), either u belongs to U and v to V, or u belongs to V and v to
- * U. We can also say that there is no edge that connects vertices of same set.
+/*
+ * A Bipartite Graph is a graph whose vertices can be divided into two independent sets,
+ * U and V such that every edge (u, v) either connects a vertex from U to V or a vertex from V to U.
+ * In other words, for every edge (u, v), either u belongs to U and v to V, or u belongs to V and v to U.
+ * We can also say that there is no edge that connects vertices of same set.
  *
- * <p>Set 1 Set2 0--------------3 0 1 | | | | 2 3 |______________| 1 2
  *
- * <p>here edge 0---1, 0---3, 2----3 and 1----2 are across set1 and set2 there is no edge between 0
- * & 2 and 1 & 3
+ *                             Set 1          Set2
+ *    0--------------3           0             1
+ *    |              |
+ *    |              |           2             3
+ *    |______________|
+ *    1             2
  *
- * <p>If it is possible to divide vertices into two subsets such that both are mutually exclusive
- * and exhaustive such that all edges are across sets.
+ *    here edge   0---1, 0---3, 2----3 and 1----2 are across set1 and set2
+ *   there is no edge between 0 & 2 and 1 & 3
+ *
+ *
+ *    If it is possible to divide vertices into two subsets such that both are
+ *    mutually exclusive and exhaustive such that all edges are across sets.
+ *
  */
 public class IsGraphBipartite {
 
@@ -44,24 +52,35 @@ public class IsGraphBipartite {
             4)); // true
   }
 
-  /**
-   * If graph is : acyclic - Bipartite cyclic with even size - Bipartite cyclic with odd size - Non
-   * Bipartite _____________________________________________________ | So not bipartite as 2 is not
-   * exclusive | Example 1 BFS |____________________________________________________| 0 0--0--0 |
-   * set1 | set2 | | \ / \ |________________________|___________________________| | \ 1--01--1
-   * 2--02--1 | 0 (first level) | 1, 2 (second level) | | \ /
-   * |________________________|___________________________| |____\ 2-012--2 | 2 (third level) | | 1
-   * 2 |________________________|___________________________|
+  /*
+   * If graph is :
+   *  acyclic - Bipartite
+   *  cyclic with even size - Bipartite
+   *  cyclic with odd size - Non Bipartite
+   *                                         _____________________________________________________
+   *                                        |       So not bipartite as 2 is not exclusive       |
+   *  Example 1           BFS               |____________________________________________________|
+   *    0               0--0--0             |         set1           |           set2            |
+   *    | \             /    \              |________________________|___________________________|
+   *    |  \      1--01--1  2--02--1        |   0 (first level)      |     1, 2 (second level)   |
+   *    |   \        /                      |________________________|___________________________|
+   *    |____\    2-012--2                  |   2 (third level)      |                           |
+   *   1     2                              |________________________|___________________________|
    *
-   * <p>Example 2 BFS 0--------------3 0--0--0 _____________________________________________________
-   * | | / \ | So not bipartite as 2 is not exclusive | | | 1--01--1 3--03--1
-   * |____________________________________________________| |______________| / | | set1 | set2 | 1 2
-   * 2-012--2 2-032--2 |________________________|___________________________| | 0 (first level) | 1,
-   * 3 (second level) | |________________________|___________________________| both 2 at same level
-   * so no ------>| 2, 2 (third level) | | issue take one
-   * |________________________|___________________________|
    *
-   * <p>Conclusion : If some vertex try to belong to both the sets than its non bipartite
+   *  Example 2                      BFS
+   *    0--------------3           0--0--0               _____________________________________________________
+   *    |              |           /    \               |       So not bipartite as 2 is not exclusive       |
+   *    |              |     1--01--1  3--03--1         |____________________________________________________|
+   *    |______________|        /         |             |         set1           |           set2            |
+   *    1             2      2-012--2   2-032--2        |________________________|___________________________|
+   *                                                    |   0 (first level)      |     1, 3 (second level)   |
+   *                                                    |________________________|___________________________|
+   *                  both 2 at same level so no ------>|   2, 2 (third level)   |                           |
+   *                         issue take one             |________________________|___________________________|
+   *
+   * Conclusion : If some vertex try to belong to both the sets than its non bipartite
+   *
    */
   private static boolean find(int[][] array, int vertices) {
     var graph = new Graph(array, vertices);
